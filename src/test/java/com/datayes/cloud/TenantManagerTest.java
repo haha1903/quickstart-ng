@@ -2,6 +2,8 @@ package com.datayes.cloud;
 
 import com.datayes.cloud.access.*;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -13,9 +15,23 @@ import static org.junit.Assert.assertEquals;
  * Time: 下午4:14
  */
 public class TenantManagerTest {
+
+    private static final Logger log = LoggerFactory.getLogger(TenantManagerTest.class);
+    private String identityServiceUrl = "http://10.20.112.226:5000/v2.0/tokens";
+
+    @Test
+    public void testListTenant() throws Exception {
+        OpenstackContext openstackContext = new OpenstackContext(identityServiceUrl, "admin", "aaaaaa", "admin");
+        TenantManager tenantManager = new TenantManager(openstackContext);
+        List<Tenant> tenants = tenantManager.listTenants();
+        for (Tenant tenant : tenants) {
+            log.debug("tenant = {}", tenant);
+        }
+    }
+
     @Test
     public void testCreateTenant() throws Exception {
-        OpenstackContext openstackContext = new OpenstackContext("http://10.20.112.226:5000/v2.0", "http://10.20.112.226:35357/v2.0", "admin", "aaaaaa", "demo");
+        OpenstackContext openstackContext = new OpenstackContext(identityServiceUrl, "admin", "aaaaaa", "demo");
         TenantManager tenantManager = new TenantManager(openstackContext);
         tenantManager.deleteTenant("tenant1");
         List<Tenant> tenants = tenantManager.listTenants();
@@ -28,14 +44,12 @@ public class TenantManagerTest {
 
     @Test
     public void testCreateNetwork() throws Exception {
-        String identityServiceUrl = "http://10.20.112.226:5000/v2.0";
-        String identityAdminUrl = "http://10.20.112.226:35357/v2.0";
-        OpenstackContext openstackContext = new OpenstackContext(identityServiceUrl, identityAdminUrl, "admin", "aaaaaa", "demo");
+        OpenstackContext openstackContext = new OpenstackContext(identityServiceUrl, "admin", "aaaaaa", "demo");
         TenantManager tenantManager = new TenantManager(openstackContext);
         tenantManager.deleteTenant("tenant1");
         Tenant tenant = tenantManager.createTenant("tenant1", "tenant1 desc", true);
         System.out.println(tenant.getId());
-        OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, identityAdminUrl, "admin", "aaaaaa", "tenant1");
+        OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, "admin", "aaaaaa", "tenant1");
         NetworkManager networkManager = new NetworkManager(tenant1Context);
         Network network = networkManager.createNetwork("network1", false);
         System.out.println(network);
@@ -49,10 +63,5 @@ public class TenantManagerTest {
         Server result = computeManager.createServer(server, volume.getId());
         System.out.println(volume);
         System.out.println(result);
-    }
-
-    @Test
-    public void testCreateVolume() throws Exception {
-
     }
 }

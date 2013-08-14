@@ -38,5 +38,10 @@
             <artifactId>ognl</artifactId>
             <version>3.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.11</version>
+        </dependency>
     </dependencies>
 </project>

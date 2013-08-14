@@ -10,18 +10,28 @@ import java.util.Map;
  * DataYes
  */
 public class Auth {
-    private Map<String, Object> auth;
+    private String tenantName;
+    private Map<String, String> passwordCredentials = new HashMap<String, String>();
 
     public Auth(String username, String password, String tenantName) {
-        if (auth == null) auth = new HashMap<String, Object>();
-        Map<String, String> passwordCredentials = new HashMap<String, String>();
         passwordCredentials.put("username", username);
         passwordCredentials.put("password", password);
-        auth.put("passwordCredentials", passwordCredentials);
-        auth.put("tenantName", tenantName);
+        this.tenantName = tenantName;
     }
 
-    public Map getAuth() {
-        return auth;
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
+
+    public Map<String, String> getPasswordCredentials() {
+        return passwordCredentials;
+    }
+
+    public void setPasswordCredentials(Map<String, String> passwordCredentials) {
+        this.passwordCredentials = passwordCredentials;
     }
 }
