@@ -10,11 +10,11 @@ import java.util.Map;
  * DataYes
  */
 public class Auth {
-    private Map auth;
+    private Map<String, Object> auth;
 
     public Auth(String username, String password, String tenantName) {
-        if (auth == null) auth = new HashMap();
-        Map passwordCredentials = new HashMap();
+        if (auth == null) auth = new HashMap<String, Object>();
+        Map<String, String> passwordCredentials = new HashMap<String, String>();
         passwordCredentials.put("username", username);
         passwordCredentials.put("password", password);
         auth.put("passwordCredentials", passwordCredentials);

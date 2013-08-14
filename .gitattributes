@@ -1,8 +1,15 @@
 * text=auto !eol
 /pom.xml -text
+src/main/java/com/datayes/cloud/Network.java -text
+src/main/java/com/datayes/cloud/NetworkManager.java -text
 src/main/java/com/datayes/cloud/OpenstackContext.java -text
+src/main/java/com/datayes/cloud/Role.java -text
+src/main/java/com/datayes/cloud/Server.java -text
+src/main/java/com/datayes/cloud/ServerManager.java -text
+src/main/java/com/datayes/cloud/Subnet.java -text
 src/main/java/com/datayes/cloud/Tenant.java -text
 src/main/java/com/datayes/cloud/TenantManager.java -text
+src/main/java/com/datayes/cloud/User.java -text
 src/main/java/com/datayes/cloud/access/Auth.java -text
 src/main/java/com/datayes/cloud/util/JsonUtil.java -text
 src/test/java/com/datayes/cloud/TenantManagerTest.java -text

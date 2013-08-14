@@ -1,6 +1,8 @@
 package com.datayes.cloud.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -16,6 +18,10 @@ import java.util.Map;
 public class JsonUtil {
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    static {
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
     public static String toJson(Object obj) throws IOException {
         return mapper.writeValueAsString(obj);
     }
@@ -28,7 +34,15 @@ public class JsonUtil {
         return mapper.readValue(is, typeReference);
     }
 
-    public static <T> T toObject(String content, TypeReference<T> typeReference) throws IOException {
-        return mapper.readValue(content, typeReference);
+    public static <T> T toObject(InputStream is, JavaType javaType) throws IOException {
+        return mapper.readValue(is, javaType);
+    }
+
+    public static <T> T toObject(String json, TypeReference<T> typeReference) throws IOException {
+        return mapper.readValue(json, typeReference);
+    }
+
+    public static <T> T toObject(String json, JavaType type) throws IOException {
+        return mapper.readValue(json, type);
     }
 }
