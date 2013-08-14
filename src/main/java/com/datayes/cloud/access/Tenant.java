@@ -1,4 +1,4 @@
-package com.datayes.cloud;
+package com.datayes.cloud.access;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

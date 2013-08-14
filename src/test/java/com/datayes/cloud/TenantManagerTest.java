@@ -1,5 +1,6 @@
 package com.datayes.cloud;
 
+import com.datayes.cloud.access.*;
 import org.junit.Test;
 
 import java.util.List;
@@ -36,9 +37,15 @@ public class TenantManagerTest {
         System.out.println(tenant.getId());
         OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, identityAdminUrl, "admin", "aaaaaa", "tenant1");
         NetworkManager networkManager = new NetworkManager(tenant1Context);
-        networkManager.createNetwork("network1", false);
-        networkManager.createNetwork("network2", false);
-        ServerManager serverManager = new ServerManager(tenant1Context);
-        serverManager.createServer("tenant1", new Server());
+        Network network = networkManager.createNetwork("network1", false);
+        Subnet subnet = networkManager.createSubnet(network);
+        System.out.println(subnet);
+//        networkManager.createNetwork("network2", false);
+        ComputeManager computeManager = new ComputeManager(tenant1Context);
+        Server server = computeManager.createServer(new Server("server1"));
+        StorageManager storageManager = new StorageManager(tenant1Context);
+        Volume volume = storageManager.createVolume(new Volume("v1", 1));
+        computeManager.attach(server.getId(), volume.getId());
+        System.out.println(volume);
     }
 }

@@ -1,4 +1,4 @@
-package com.datayes.cloud;
+package com.datayes.cloud.access;
 
 /**
  * User: changhai
@@ -15,11 +15,8 @@ public class Server {
     public Server() {
     }
 
-    public Server(String id, String name, String imageRef, String flavorRef) {
-        this.id = id;
+    public Server(String name) {
         this.name = name;
-        this.imageRef = imageRef;
-        this.flavorRef = flavorRef;
     }
 
     public String getId() {
@@ -52,5 +49,14 @@ public class Server {
 
     public void setFlavorRef(String flavorRef) {
         this.flavorRef = flavorRef;
+    }
+
+    @Override
+    public String toString() {
+        return "Server{" + "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", imageRef='" + imageRef + '\'' +
+                ", flavorRef='" + flavorRef + '\'' +
+                '}';
     }
 }

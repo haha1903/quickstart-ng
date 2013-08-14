@@ -1,5 +1,9 @@
 package com.datayes.cloud;
 
+import com.datayes.cloud.access.Role;
+import com.datayes.cloud.access.Tenant;
+import com.datayes.cloud.access.User;
+
 import java.io.IOException;
 import java.util.List;
 

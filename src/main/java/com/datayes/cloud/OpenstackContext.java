@@ -1,6 +1,9 @@
 package com.datayes.cloud;
 
 import com.datayes.cloud.access.Auth;
+import com.datayes.cloud.access.Role;
+import com.datayes.cloud.access.Tenant;
+import com.datayes.cloud.access.User;
 import com.datayes.cloud.util.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -59,13 +62,15 @@ public class OpenstackContext {
         post.setEntity(new StringEntity(JsonUtil.toJson(auth)));
         HttpResponse response = client.execute(post);
         InputStream is = response.getEntity().getContent();
-        token = (String) getValue("access.token.id", is);
+        String json = IOUtils.toString(is);
+        System.out.println(json);
+        token = (String) getValue("access.token.id", json);
         IOUtils.closeQuietly(is);
         System.out.println(token);
     }
 
-    private Object getValue(String expression, InputStream is) throws IOException, OgnlException {
-        Map result = objectMapper.readValue(is, Map.class);
+    private Object getValue(String expression, String json) throws IOException, OgnlException {
+        Map result = objectMapper.readValue(json, Map.class);
         return Ognl.getValue(expression, result);
     }
 
@@ -119,7 +124,9 @@ public class OpenstackContext {
         HttpPost post = new HttpPost(url);
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(requestName, requestObject);
-        post.setEntity(new StringEntity(JsonUtil.toJson(model)));
+        String json = JsonUtil.toJson(model);
+        System.out.println("request json,url = \n" + url + "\njson = \n" + json + "\nX-Auth-Token = \n" + token);
+        post.setEntity(new StringEntity(json));
         return getResult(execute(post), responseName, responseType);
     }
 
@@ -151,13 +158,13 @@ public class OpenstackContext {
         throw new RuntimeException("role not found, name = " + roleName);
     }
 
-    private <T> T get(String url, String responseName, Class<T> responseType) throws IOException {
+    public <T> T get(String url, String responseName, Class<T> responseType) throws IOException {
         HttpGet get = new HttpGet(url);
         HttpResponse resp = execute(get);
         return getResult(resp, responseName, responseType);
     }
 
-    private <T> T get(String url, String responseName, JavaType javaType) throws IOException {
+    public <T> T get(String url, String responseName, JavaType javaType) throws IOException {
         HttpGet get = new HttpGet(url);
         HttpResponse resp = execute(get);
         return getResult(resp, responseName, javaType);
@@ -168,14 +175,18 @@ public class OpenstackContext {
         return get(identityAdminUrl + "/tenants", "tenants", CollectionType.construct(List.class, SimpleType.construct(Tenant.class)));
     }
 
-    public Tenant getTenant(String name) throws IOException {
-        return get(identityAdminUrl + "/tenants?name=" + name, "tenant", Tenant.class);
+    public Tenant getTenant() throws IOException {
+        return getTenant(tenant);
     }
 
     public void deleteTenant(String name) throws IOException {
         Tenant tenant = getTenant(name);
         if (tenant != null)
             delete(identityAdminUrl + "/tenants/" + tenant.getId());
+    }
+
+    private Tenant getTenant(String name) throws IOException {
+        return get(identityAdminUrl + "/tenants?name=" + name, "tenant", Tenant.class);
     }
 
     private void delete(String url) throws IOException {

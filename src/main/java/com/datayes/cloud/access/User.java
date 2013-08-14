@@ -1,4 +1,4 @@
-package com.datayes.cloud;
+package com.datayes.cloud.access;
 
 /**
  * User: changhai

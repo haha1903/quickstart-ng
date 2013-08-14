@@ -1,14 +1,21 @@
-package com.datayes.cloud;
+package com.datayes.cloud.access;
 
 /**
  * User: changhai
  * Date: 13-8-13
- * Time: 上午9:24
+ * Time: 下午1:36
  * DataYes
  */
-public class Role {
+public class Image {
     private String id;
     private String name;
+
+    public Image() {
+    }
+
+    public Image(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -24,5 +31,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
