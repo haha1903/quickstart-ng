@@ -38,6 +38,7 @@ public class TenantManagerTest {
         OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, identityAdminUrl, "admin", "aaaaaa", "tenant1");
         NetworkManager networkManager = new NetworkManager(tenant1Context);
         Network network = networkManager.createNetwork("network1", false);
+        System.out.println(network);
         Subnet subnet = networkManager.createSubnet(network);
         System.out.println(subnet);
 //        networkManager.createNetwork("network2", false);
