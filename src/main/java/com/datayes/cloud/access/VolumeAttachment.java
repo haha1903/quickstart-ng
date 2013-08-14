@@ -1,4 +1,4 @@
-package com.datayes.cloud;
+package com.datayes.cloud.access;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -54,5 +54,15 @@ public class VolumeAttachment {
 
     public void setVolumeId(String volumeId) {
         this.volumeId = volumeId;
+    }
+
+    @Override
+    public String toString() {
+        return "VolumeAttachment{" +
+                "id='" + id + '\'' +
+                ", device='" + device + '\'' +
+                ", serverId='" + serverId + '\'' +
+                ", volumeId='" + volumeId + '\'' +
+                '}';
     }
 }

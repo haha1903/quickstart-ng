@@ -1,5 +1,10 @@
 package com.datayes.cloud.access;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: changhai
  * Date: 13-8-13
@@ -11,6 +16,8 @@ public class Server {
     private String name;
     private String imageRef;
     private String flavorRef;
+    @JsonProperty("block_device_mapping")
+    private List<BlockDeviceMapping> blockDeviceMappings = new ArrayList<BlockDeviceMapping>();
 
     public Server() {
     }
@@ -51,12 +58,26 @@ public class Server {
         this.flavorRef = flavorRef;
     }
 
+    public List<BlockDeviceMapping> getBlockDeviceMappings() {
+        return blockDeviceMappings;
+    }
+
+    public void setBlockDeviceMappings(List<BlockDeviceMapping> blockDeviceMappings) {
+        this.blockDeviceMappings = blockDeviceMappings;
+    }
+
+    public void addBlockDeviceMapping(String volumeId, String deviceName) {
+        blockDeviceMappings.add(new BlockDeviceMapping(volumeId, deviceName));
+    }
+
     @Override
     public String toString() {
-        return "Server{" + "id='" + id + '\'' +
+        return "Server{" +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", imageRef='" + imageRef + '\'' +
                 ", flavorRef='" + flavorRef + '\'' +
+                ", blockDeviceMappings=" + blockDeviceMappings +
                 '}';
     }
 }

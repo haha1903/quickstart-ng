@@ -42,10 +42,16 @@ public class TenantManagerTest {
         System.out.println(subnet);
 //        networkManager.createNetwork("network2", false);
         ComputeManager computeManager = new ComputeManager(tenant1Context);
-        Server server = computeManager.createServer(new Server("server1"));
         StorageManager storageManager = new StorageManager(tenant1Context);
         Volume volume = storageManager.createVolume(new Volume("v1", 1));
-        computeManager.attach(server.getId(), volume.getId());
+        Server server = new Server("server1");
+        Server result = computeManager.createServer(server, volume.getId());
         System.out.println(volume);
+        System.out.println(result);
+    }
+
+    @Test
+    public void testCreateVolume() throws Exception {
+
     }
 }

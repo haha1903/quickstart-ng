@@ -22,12 +22,13 @@ public class ComputeManager {
         this.openstackContext = openstackContext;
     }
 
-    public Server createServer(Server server) throws IOException {
+    public Server createServer(Server server, String volumeId) throws IOException {
         Tenant tenant = openstackContext.getTenant();
         String ref = getFlavorRef(tenant);
         server.setFlavorRef(ref);
         List<Image> images = openstackContext.get("http://10.20.112.226:9292/v2/images?name=cirros-0.3.1-x86_64-uec", "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
         server.setImageRef(images.get(0).getId());
+        server.addBlockDeviceMapping(volumeId, "/dev/vdb");
         return openstackContext.post("http://10.20.112.226:8774/v2/" + tenant.getId() + "/servers", "server", server, "server", Server.class);
     }
 
@@ -48,5 +49,9 @@ public class ComputeManager {
 
     public VolumeAttachment attach(String serverId, String volumeId) throws IOException {
         return openstackContext.post("http://10.20.112.226:8774/v2/" + openstackContext.getTenant().getId() + "/servers/" + serverId + "/os-volume_attachments", "volumeAttachment", new VolumeAttachment(volumeId, "/dev/vdd"), "volumeAttachment", VolumeAttachment.class);
+    }
+
+    public List<Action> getActions(String serverId) throws IOException {
+        return openstackContext.get("http://10.20.112.226:8774/v2/" + openstackContext.getTenant().getId() + "/servers/" + serverId + "/os-instance-actions", "instanceActions", CollectionType.construct(List.class, SimpleType.construct(Action.class)));
     }
 }

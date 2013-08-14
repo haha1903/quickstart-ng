@@ -9,10 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Time: 下午3:15
  * DataYes
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Volume {
     private String id;
     @JsonProperty("display_name")
     private String displayName;
+    private String status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
     private int size;
@@ -44,6 +46,14 @@ public class Volume {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDescription() {
@@ -83,6 +93,7 @@ public class Volume {
         return "Volume{" +
                 "id='" + id + '\'' +
                 ", displayName='" + displayName + '\'' +
+                ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 ", size=" + size +
                 ", volumeType='" + volumeType + '\'' +

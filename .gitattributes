@@ -5,8 +5,9 @@ src/main/java/com/datayes/cloud/NetworkManager.java -text
 src/main/java/com/datayes/cloud/OpenstackContext.java -text
 src/main/java/com/datayes/cloud/StorageManager.java -text
 src/main/java/com/datayes/cloud/TenantManager.java -text
-src/main/java/com/datayes/cloud/VolumeAttachment.java -text
+src/main/java/com/datayes/cloud/access/Action.java -text
 src/main/java/com/datayes/cloud/access/Auth.java -text
+src/main/java/com/datayes/cloud/access/BlockDeviceMapping.java -text
 src/main/java/com/datayes/cloud/access/Flavor.java -text
 src/main/java/com/datayes/cloud/access/Image.java -text
 src/main/java/com/datayes/cloud/access/Link.java -text
@@ -17,5 +18,6 @@ src/main/java/com/datayes/cloud/access/Subnet.java -text
 src/main/java/com/datayes/cloud/access/Tenant.java -text
 src/main/java/com/datayes/cloud/access/User.java -text
 src/main/java/com/datayes/cloud/access/Volume.java -text
+src/main/java/com/datayes/cloud/access/VolumeAttachment.java -text
 src/main/java/com/datayes/cloud/util/JsonUtil.java -text
 src/test/java/com/datayes/cloud/TenantManagerTest.java -text
