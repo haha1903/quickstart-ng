@@ -1,5 +1,7 @@
 package com.datayes.cloud;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * User: changhai
  * Date: 13-8-9
@@ -7,6 +9,7 @@ package com.datayes.cloud;
  * DataYes
  */
 public class Tenant {
+    @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
     private String id;
     private String name;
     private String description;

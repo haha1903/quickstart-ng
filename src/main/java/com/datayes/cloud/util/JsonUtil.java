@@ -1,6 +1,5 @@
 package com.datayes.cloud.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,10 +15,6 @@ import java.util.Map;
  */
 public class JsonUtil {
     private static final ObjectMapper mapper = new ObjectMapper();
-
-    static {
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
 
     public static String toJson(Object obj) throws IOException {
         return mapper.writeValueAsString(obj);
