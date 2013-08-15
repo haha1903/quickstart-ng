@@ -14,6 +14,7 @@ import java.util.List;
 public class Server {
     private String id;
     private String name;
+    private String status;
     private String imageRef;
     private String flavorRef;
     @JsonProperty("block_device_mapping")
@@ -50,6 +51,14 @@ public class Server {
         this.name = name;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getFlavorRef() {
         return flavorRef;
     }
@@ -75,6 +84,7 @@ public class Server {
         return "Server{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
                 ", imageRef='" + imageRef + '\'' +
                 ", flavorRef='" + flavorRef + '\'' +
                 ", blockDeviceMappings=" + blockDeviceMappings +

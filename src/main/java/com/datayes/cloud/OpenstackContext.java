@@ -4,12 +4,9 @@ import com.datayes.cloud.access.*;
 import com.datayes.cloud.util.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.SimpleType;
-import ognl.Ognl;
-import ognl.OgnlException;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,39 +36,42 @@ public class OpenstackContext {
     public static final String NETWORK = "network";
     public static final String IMAGE = "image";
     public static final String VOLUME = "volume";
-    private ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient client = new DefaultHttpClient();
     private String identityServiceUrl;
-    private String identityAdminUrl;
     private String username;
     private String password;
-    private String tenant;
+    private String tenantName;
+    private Tenant tenant;
     private String token;
+    private String identityAdminUrl;
     private String computeUrl;
     private String networkUrl;
     private String imageUrl;
     private String volumeUrl;
 
-    public OpenstackContext(String identityServiceUrl, String username, String password, String tenant) throws OgnlException, IOException, URISyntaxException {
+    public OpenstackContext(String identityServiceUrl, String username, String password, String tenantName) throws IOException {
         this.identityServiceUrl = identityServiceUrl;
         this.username = username;
         this.password = password;
-        this.tenant = tenant;
+        this.tenantName = tenantName;
         init();
     }
 
-    private void init() throws IOException, URISyntaxException, OgnlException {
-        Access access = post(identityServiceUrl, "auth", new Auth(username, password, tenant), "access", Access.class);
-        token = access.getToken().getId();
-        List<ServiceCatalog> serviceCatalogs = access.getServiceCatalogs();
-        for (ServiceCatalog serviceCatalog : serviceCatalogs) {
-            if(typeIs(serviceCatalog, IDENTITY)) identityAdminUrl = getAdminURL(serviceCatalog);
-            if(typeIs(serviceCatalog, COMPUTE)) computeUrl = getInternalURL(serviceCatalog);
-            if(typeIs(serviceCatalog, NETWORK)) networkUrl = getInternalURL(serviceCatalog);
-            if(typeIs(serviceCatalog, IMAGE)) imageUrl = getInternalURL(serviceCatalog);
-            if(typeIs(serviceCatalog, VOLUME)) volumeUrl = getInternalURL(serviceCatalog);
+    private void init() throws IOException {
+        Access access = post(identityServiceUrl, "auth", new Auth(username, password, tenantName), "access", Access.class);
+        if (access != null) {
+            tenant = access.getToken().getTenant();
+            token = access.getToken().getId();
+            List<ServiceCatalog> serviceCatalogs = access.getServiceCatalogs();
+            for (ServiceCatalog serviceCatalog : serviceCatalogs) {
+                if (typeIs(serviceCatalog, IDENTITY)) identityAdminUrl = getAdminURL(serviceCatalog);
+                if (typeIs(serviceCatalog, COMPUTE)) computeUrl = getInternalURL(serviceCatalog);
+                if (typeIs(serviceCatalog, NETWORK)) networkUrl = getInternalURL(serviceCatalog);
+                if (typeIs(serviceCatalog, IMAGE)) imageUrl = getInternalURL(serviceCatalog);
+                if (typeIs(serviceCatalog, VOLUME)) volumeUrl = getInternalURL(serviceCatalog);
+            }
+            log.debug("token = {}", token);
         }
-        log.debug("token = {}", token );
     }
 
     private String getInternalURL(ServiceCatalog serviceCatalog) {
@@ -85,11 +84,6 @@ public class OpenstackContext {
 
     private boolean typeIs(ServiceCatalog serviceCatalog, String type) {
         return type.equals(serviceCatalog.getType());
-    }
-
-    private Object getValue(String expression, String json) throws IOException, OgnlException {
-        Map result = objectMapper.readValue(json, Map.class);
-        return Ognl.getValue(expression, result);
     }
 
     public HttpResponse execute(HttpUriRequest request) throws IOException {
@@ -143,7 +137,7 @@ public class OpenstackContext {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(requestName, requestObject);
         String json = JsonUtil.toJson(model);
-        System.out.println("request json,url = \n" + url + "\njson = \n" + json + "\nX-Auth-Token = \n" + token);
+        log.debug("request json post,url = \n{}\njson = \n{}\nX-Auth-Token = \n{}", url, json, token);
         post.setEntity(new StringEntity(json));
         return getResult(execute(post), responseName, responseType);
     }
@@ -177,12 +171,14 @@ public class OpenstackContext {
     }
 
     public <T> T get(String url, String responseName, Class<T> responseType) throws IOException {
+        log.debug("request json get,url = \n{}\nX-Auth-Token = \n{}", url, token);
         HttpGet get = new HttpGet(url);
         HttpResponse resp = execute(get);
         return getResult(resp, responseName, responseType);
     }
 
     public <T> T get(String url, String responseName, JavaType javaType) throws IOException {
+        log.debug("request json get,url = \n{}\nX-Auth-Token = \n{}", url, token);
         HttpGet get = new HttpGet(url);
         HttpResponse resp = execute(get);
         return getResult(resp, responseName, javaType);
@@ -193,25 +189,56 @@ public class OpenstackContext {
         return get(identityAdminUrl + "/tenants", "tenants", CollectionType.construct(List.class, SimpleType.construct(Tenant.class)));
     }
 
-    public Tenant getTenant() throws IOException {
-        return getTenant(tenant);
-    }
-
-    public void deleteTenant(String name) throws IOException {
-        Tenant tenant = getTenant(name);
-        if (tenant != null)
-            delete(identityAdminUrl + "/tenants/" + tenant.getId());
-    }
-
-    private Tenant getTenant(String name) throws IOException {
+    public Tenant getTenant(String name) throws IOException {
         return get(identityAdminUrl + "/tenants?name=" + name, "tenant", Tenant.class);
     }
 
-    private void delete(String url) throws IOException {
+    void delete(String url) throws IOException {
+        log.debug("request json delete,url = \n{}\nX-Auth-Token = \n{}", url, token);
         HttpDelete delete = new HttpDelete(url);
         HttpResponse resp = execute(delete);
         HttpEntity entity = resp.getEntity();
         if (entity != null)
             IOUtils.closeQuietly(entity.getContent());
+    }
+
+    public String getComputeUrl() {
+        return computeUrl;
+    }
+
+    public String getNetworkUrl() {
+        return networkUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getVolumeUrl() {
+        return volumeUrl;
+    }
+
+    public String getIdentityServiceUrl() {
+        return identityServiceUrl;
+    }
+
+    public String getIdentityAdminUrl() {
+        return identityAdminUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
     }
 }

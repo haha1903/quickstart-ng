@@ -1,6 +1,7 @@
 package com.datayes.cloud;
 
 import com.datayes.cloud.access.*;
+import com.datayes.cloud.util.DeleteUtil;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
 
@@ -16,24 +17,31 @@ import java.util.List;
 public class ComputeManager {
     public static final String FLAVOR_NAME = "m1.tiny";
     public static final String SELF = "self";
-    private OpenstackContext openstackContext;
+    private OpenstackContext ctx;
 
     public ComputeManager(OpenstackContext openstackContext) {
-        this.openstackContext = openstackContext;
+        this.ctx = openstackContext;
     }
 
     public Server createServer(Server server, String volumeId) throws IOException {
-        Tenant tenant = openstackContext.getTenant();
-        String ref = getFlavorRef(tenant);
+        String ref = getFlavorRef();
         server.setFlavorRef(ref);
-        List<Image> images = openstackContext.get("http://10.20.112.226:9292/v2/images?name=cirros-0.3.1-x86_64-uec", "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
+        List<Image> images = ctx.get(ctx.getImageUrl() + "/v2/images?name=cirros-0.3.1-x86_64-uec", "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
         server.setImageRef(images.get(0).getId());
         server.addBlockDeviceMapping(volumeId, "/dev/vdb");
-        return openstackContext.post("http://10.20.112.226:8774/v2/" + tenant.getId() + "/servers", "server", server, "server", Server.class);
+        return ctx.post(ctx.getComputeUrl() + "/servers", "server", server, "server", Server.class);
     }
 
-    private String getFlavorRef(Tenant tenant) throws IOException {
-        List<Flavor> flavors = openstackContext.get("http://10.20.112.226:8774/v2/" + tenant.getId() + "/flavors", "flavors", CollectionType.construct(List.class
+    public List<Server> listServers() throws IOException {
+        List<Server> servers = ctx.get(ctx.getComputeUrl() + "/servers", "servers", CollectionType.construct(List.class, SimpleType.construct(Server.class)));
+        for (Server server : servers) {
+            System.out.println(server);
+        }
+        return servers;
+    }
+
+    private String getFlavorRef() throws IOException {
+        List<Flavor> flavors = ctx.get(ctx.getComputeUrl() + "/flavors", "flavors", CollectionType.construct(List.class
                 , SimpleType.construct(Flavor.class)));
         for (Flavor flavor : flavors) {
             if (FLAVOR_NAME.equals(flavor.getName())) {
@@ -48,10 +56,26 @@ public class ComputeManager {
     }
 
     public VolumeAttachment attach(String serverId, String volumeId) throws IOException {
-        return openstackContext.post("http://10.20.112.226:8774/v2/" + openstackContext.getTenant().getId() + "/servers/" + serverId + "/os-volume_attachments", "volumeAttachment", new VolumeAttachment(volumeId, "/dev/vdd"), "volumeAttachment", VolumeAttachment.class);
+        return ctx.post(ctx.getComputeUrl() + "/servers/" + serverId + "/os-volume_attachments", "volumeAttachment", new VolumeAttachment(volumeId, "/dev/vdd"), "volumeAttachment", VolumeAttachment.class);
     }
 
     public List<Action> getActions(String serverId) throws IOException {
-        return openstackContext.get("http://10.20.112.226:8774/v2/" + openstackContext.getTenant().getId() + "/servers/" + serverId + "/os-instance-actions", "instanceActions", CollectionType.construct(List.class, SimpleType.construct(Action.class)));
+        return ctx.get(ctx.getComputeUrl() + "/servers/" + serverId + "/os-instance-actions", "instanceActions", CollectionType.construct(List.class, SimpleType.construct(Action.class)));
+    }
+
+    public void deleteServer(final String serverId) throws IOException {
+        ctx.delete(ctx.getComputeUrl() + "/servers/" + serverId);
+        DeleteUtil.waitStatus(new DeleteUtil.StatusHandler<Server>() {
+                                  @Override
+                                  public Server getStatus() throws IOException {
+                                      return ctx.get(ctx.getComputeUrl() + "/servers/" + serverId, "server", Server.class);
+                                  }
+                              }, new DeleteUtil.StatusChecker<Server>() {
+                                  @Override
+                                  public boolean checkStatus(Server status) throws IOException {
+                                      return status == null;
+                                  }
+                              }
+        );
     }
 }

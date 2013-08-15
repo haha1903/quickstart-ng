@@ -24,6 +24,8 @@ src/main/java/com/datayes/cloud/access/Token.java -text
 src/main/java/com/datayes/cloud/access/User.java -text
 src/main/java/com/datayes/cloud/access/Volume.java -text
 src/main/java/com/datayes/cloud/access/VolumeAttachment.java -text
+src/main/java/com/datayes/cloud/util/DeleteUtil.java -text
 src/main/java/com/datayes/cloud/util/JsonUtil.java -text
+src/main/resources/logback.xml -text
 src/test/java/com/datayes/cloud/TenantManagerTest.java -text
-src/test/resources/logback.xml -text
+src/test/resources/logback-test.xml -text

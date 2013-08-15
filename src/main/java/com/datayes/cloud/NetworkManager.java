@@ -2,8 +2,12 @@ package com.datayes.cloud;
 
 import com.datayes.cloud.access.Network;
 import com.datayes.cloud.access.Subnet;
+import com.datayes.cloud.util.DeleteUtil;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.SimpleType;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * User: changhai
@@ -12,19 +16,39 @@ import java.io.IOException;
  * DataYes
  */
 public class NetworkManager {
-    private final OpenstackContext openstackContext;
+    private final OpenstackContext ctx;
 
     public NetworkManager(OpenstackContext openstackContext) {
-        this.openstackContext = openstackContext;
+        this.ctx = openstackContext;
     }
 
     public Network createNetwork(String name, boolean adminStateUp) throws IOException {
         Network newNetwork = new Network(name, adminStateUp);
-        return openstackContext.post("http://10.20.112.226:9696/v2.0/networks", "network", newNetwork, "network", Network.class);
+        return ctx.post(ctx.getNetworkUrl() + "v2.0/networks", "network", newNetwork, "network", Network.class);
     }
 
     public Subnet createSubnet(Network network) throws IOException {
         Subnet netSubnet = new Subnet(network.getId(), "10.0.0.0/24", "10.0.0.2", "10.0.0.254");
-        return openstackContext.post("http://10.20.112.226:9696/v2.0/subnets", "subnet", netSubnet, "subnet", Subnet.class);
+        return ctx.post(ctx.getNetworkUrl() + "v2.0/subnets", "subnet", netSubnet, "subnet", Subnet.class);
+    }
+
+    public List<Network> listNetworks() throws IOException {
+        return ctx.get(ctx.getNetworkUrl() + "v2.0/networks", "networks", CollectionType.construct(List.class, SimpleType.construct(Network.class)));
+    }
+
+    public void deleteNetwork(final String networkId) throws IOException {
+        ctx.delete(ctx.getNetworkUrl() + "v2.0/networks/" + networkId);
+        DeleteUtil.waitStatus(new DeleteUtil.StatusHandler<Network>() {
+                                  @Override
+                                  public Network getStatus() throws IOException {
+                                      return ctx.get(ctx.getNetworkUrl() + "/v2.0/networks/" + networkId, "network", Network.class);
+                                  }
+                              }, new DeleteUtil.StatusChecker<Network>() {
+                                  @Override
+                                  public boolean checkStatus(Network network) throws IOException {
+                                      return network == null;
+                                  }
+                              }
+        );
     }
 }

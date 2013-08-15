@@ -14,6 +14,7 @@ import java.util.Map;
  * DataYes
  */
 public class Subnet {
+    private String id;
     @JsonProperty("network_id")
     private String networkId;
     @JsonProperty("ip_version")
@@ -23,6 +24,10 @@ public class Subnet {
     private List<Map<String, String>> allocationPools = new ArrayList<Map<String, String>>();
 
     public Subnet() {
+    }
+
+    public Subnet(String id) {
+        this.id = id;
     }
 
     public Subnet(String networkId, String cidr, String start, String end) {
