@@ -15,7 +15,7 @@ import java.util.List;
 public class TenantManager {
     private static final Logger log = LoggerFactory.getLogger(TenantManager.class);
     public static final String PUBLIC_NETWORK = "public";
-    private final OpenstackContext ctx;
+    private OpenstackContext ctx;
 
     public TenantManager(OpenstackContext openstackContext) {
         this.ctx = openstackContext;
@@ -27,6 +27,8 @@ public class TenantManager {
         User user = ctx.getUser();
         Role role = ctx.getRole("admin");
         ctx.put(ctx.getIdentityAdminUrl() + "/tenants/" + result.getId() + "/users/" + user.getId() + "/roles/OS-KSADM/" + role.getId());
+        //refresh the context to get the new token.
+        ctx.refresh();
         return result;
     }
 
@@ -44,17 +46,7 @@ public class TenantManager {
             StorageManager storageManager = new StorageManager(tenantContext);
             List<Volume> volumes = storageManager.listVolumes();
             for (Volume volume : volumes) storageManager.deleteVolume(volume.getId());
-            NetworkManager networkManager = new NetworkManager(tenantContext);
-            List<Network> networks = networkManager.listNetworks();
-            for (Network network : networks) {
-                if (!PUBLIC_NETWORK.equals(network.getName())) {
-                    try {
-                        networkManager.deleteNetwork(network.getId());
-                    } catch (IOException e) {
-                        log.error("can't delete network, network = {}", network, e);
-                    }
-                }
-            }
+
             ctx.delete(ctx.getIdentityAdminUrl() + "/tenants/" + tenant.getId());
         }
     }

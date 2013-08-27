@@ -19,14 +19,19 @@ public class ComputeManager {
     public static final String SELF = "self";
     private OpenstackContext ctx;
 
+    private String getImageFileUrl(String img){
+        if (img==null || img.isEmpty()) return "";
+        return ctx.getImageUrl()+"/v2/images?name="+img;
+    }
+
     public ComputeManager(OpenstackContext openstackContext) {
         this.ctx = openstackContext;
     }
 
-    public Server createServer(Server server, String volumeId) throws IOException {
+    public Server createServer(Server server, String volumeId, String image) throws IOException {
         String ref = getFlavorRef();
         server.setFlavorRef(ref);
-        List<Image> images = ctx.get(ctx.getImageUrl() + "/v2/images?name=cirros-0.3.1-x86_64-uec", "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
+        List<Image> images = ctx.get(getImageFileUrl(image), "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
         server.setImageRef(images.get(0).getId());
         server.addBlockDeviceMapping(volumeId, "/dev/vdb");
         return ctx.post(ctx.getComputeUrl() + "/servers", "server", server, "server", Server.class);

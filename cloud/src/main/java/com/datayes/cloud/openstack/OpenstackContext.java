@@ -60,6 +60,12 @@ public class OpenstackContext {
         init();
     }
 
+    protected void refresh() throws IOException{
+        Access access = post(identityServiceUrl, "auth", new Auth(username, password, tenantName), "access", Access.class);
+        if (access != null) token = access.getToken().getId();
+        log.debug("token refreshed, new token = {}", token);
+    }
+
     private void init() throws IOException {
         Access access = post(identityServiceUrl, "auth", new Auth(username, password, tenantName), "access", Access.class);
         if (access != null) {
