@@ -1,424 +1,424 @@
 * text=auto !eol
 cloud/pom.xml -text
-cloud/src/main/java/com/datayes/cloud/controller/CloudController.java -text
-cloud/src/main/java/com/datayes/cloud/dao/BaseDao.java -text
-cloud/src/main/java/com/datayes/cloud/dao/CloudDao.java -text
-cloud/src/main/java/com/datayes/cloud/model/Tenant.java -text
-cloud/src/main/java/com/datayes/cloud/model/Test.java -text
-cloud/src/main/java/com/datayes/cloud/model/User.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/ComputeManager.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/NetworkManager.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/OpenstackContext.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/StorageManager.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/TenantManager.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Access.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Action.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Auth.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/BlockDeviceMapping.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Endpoint.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Flavor.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Image.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Link.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Metadata.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Network.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Role.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Server.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/ServiceCatalog.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Subnet.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Tenant.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Token.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/User.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/Volume.java -text
-cloud/src/main/java/com/datayes/cloud/openstack/access/VolumeAttachment.java -text
-cloud/src/main/java/com/datayes/cloud/service/TenantService.java -text
-cloud/src/main/java/com/datayes/cloud/util/DeleteUtil.java -text
-cloud/src/main/java/com/datayes/cloud/util/JsonUtil.java -text
-cloud/src/main/java/com/datayes/cloud/util/JsonpMappingJackson2JsonView.java -text
-cloud/src/main/resources/context/cloud-beans.xml -text
-cloud/src/main/resources/context/cloud-openstack.properties -text
-cloud/src/main/resources/context/cloud-web.xml -text
-cloud/src/main/resources/logback.xml -text
-cloud/src/main/resources/resources/css/main.css -text
-cloud/src/main/resources/resources/js/cloud.js -text
-cloud/src/main/resources/resources/js/reg.js -text
-cloud/src/main/resources/resources/lib/bootstrap/css/bootstrap-responsive.css -text
-cloud/src/main/resources/resources/lib/bootstrap/css/bootstrap-responsive.min.css -text
-cloud/src/main/resources/resources/lib/bootstrap/css/bootstrap-select.css -text
-cloud/src/main/resources/resources/lib/bootstrap/css/bootstrap-select.min.css -text
-cloud/src/main/resources/resources/lib/bootstrap/css/bootstrap.css -text
-cloud/src/main/resources/resources/lib/bootstrap/css/bootstrap.min.css -text
-cloud/src/main/resources/resources/lib/bootstrap/img/glyphicons-halflings-white.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/bootstrap/img/glyphicons-halflings.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/bootstrap/js/bootstrap-select.js -text
-cloud/src/main/resources/resources/lib/bootstrap/js/bootstrap-select.min.js -text
-cloud/src/main/resources/resources/lib/bootstrap/js/bootstrap.js -text
-cloud/src/main/resources/resources/lib/bootstrap/js/bootstrap.min.js -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/checkbox-checked.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/checkbox-overlayer.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/checkbox-unchecked.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/list-bulleted.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/list-columned.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/list-large-thumbnails.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/list-numbered.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/list-small-thumbnails.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/list-thumbnailed.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/pinterest.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/radio-checked.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/radio-overlayer.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/radio-unchecked.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-down-small.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-down.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-left-large.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-right-large.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-up-small.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-up.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/alert-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/arrow-left-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/arrow-right-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/bookmark-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/bubble-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/calendar-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/calendar-solid-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/chat-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/check-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/check-round-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/clip-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/cmd-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/credit-card-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/cross-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/cross-circle-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/document-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/exit-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/export-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/eye-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/folder-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/gear-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/heart-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/home-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/image-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/info-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/link-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/list-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/location-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/lock-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/loop-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/mail-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/mic-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/new-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/pause-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/photo-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/play-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/plus-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/plus-circle-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/power-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/question-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/search-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/star-15.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/tag-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/time-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/trash-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/unknow-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/upload-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/user-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/video-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/volume-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/window-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/windows-16.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/alert-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/arror-left-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/arror-right-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/bookmark-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/bubble-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/calendar-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/calendar-solid-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/chat-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/check-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/check-circle-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/clip-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/cmd-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/credit-card-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/cross-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/cross-circle-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/document-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/exit-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/export-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/eye-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/folder-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/gear-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/heart-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/home-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/image-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/info-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/link-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/list-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/location-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/lock-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/loop-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/mail-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/mic-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/new-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/pause-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/photo-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/play-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/plus-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/plus-circle-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/power-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/question-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/search-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/star-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/tag-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/time-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/trash-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/unknow-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/upload-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/user-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/video-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/volume-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/window-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/windows-24.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/behance.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/blogger.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/dribbble.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/facebook.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/googleplus.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/linkedin.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/myspace.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/path.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/pinterest.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/skype.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/spotify.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/stumbleupon.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/twitter.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/vimeo.svg -text
-cloud/src/main/resources/resources/lib/flatui/Glyphs/Social/youtube.svg -text
-cloud/src/main/resources/resources/lib/flatui/Icons/Arrow.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Arrow@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Banner.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Banner@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Book.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Book@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Box.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Box@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Bulb.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Bulb@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Calendar.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Calendar@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Camera.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Camera@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Card.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Card@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Chat.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Chat@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Clipboard.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Clipboard@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Compas.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Compas@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Dude.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Dude@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Earth.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Earth@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Egg.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Egg@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/File.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/File@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Games.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Games@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Gift-Box.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Gift-Box@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Girl.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Girl@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Goal.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Goal@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Graph.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Graph@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Infinity-Loop.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Infinity-Loop@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Key.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Key@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Letter-Symbol.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Letter-Symbol@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/MacBook-Pro.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/MacBook-Pro@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Magic-Mouse.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Magic-Mouse@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Magic.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Magic@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Mail.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Mail@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Map.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Map@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Money.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Money@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Mortarboard.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Mortarboard@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Mountain.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Mountain@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Pencil.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Pencil@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Pensils.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Pensils@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Pocket.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Pocket@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Responsive.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Responsive@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Retina-Ready.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Retina-Ready@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Search.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Search@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Settings.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Settings@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Shield.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Shield@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Spaceship.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Spaceship@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Toilet-Paper.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Toilet-Paper@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Touch.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Touch@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Trip-Bag.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Trip-Bag@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Ubmrellaa.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Ubmrellaa@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Watches.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Watches@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Wine.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Wine@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Yin-and-Yang.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/Yin-and-Yang@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/iMac.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/iMac@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/iPad.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/iPad@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/iPhone.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/Icons/iPhone@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/Makefile -text
-cloud/src/main/resources/resources/lib/flatui/UI/README.md -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/css/bootstrap-docs.css -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/css/bootstrap-responsive.css -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/css/bootstrap.css -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/css/prettify.css -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/img/glyphicons-halflings-white.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/img/glyphicons-halflings.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/js/application.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/js/google-code-prettify/prettify.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/bootstrap/js/holder.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/css/flat-ui.css -text
-cloud/src/main/resources/resources/lib/flatui/UI/documentation.html -text
-cloud/src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.dev.svg -text
-cloud/src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.eot -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.svg -text
-cloud/src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.ttf -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.woff -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/fonts/icomoon-session.json -text
-cloud/src/main/resources/resources/lib/flatui/UI/images/exaple-image.jpg -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/favicon.ico -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Arrow@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Banner@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Book@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Box@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Bulb@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Calendar@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Camera@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Card@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Chat@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Clipboard@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Compas@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Dude@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Earth@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Egg@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/File@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Games@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Gift-Box@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Girl@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Goal@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Graph@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Infinity-Loop@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Key@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Letter-Symbol@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/MacBook-Pro@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Magic-Mouse@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Magic@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Mail@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Map@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Money@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Mortarboard@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Mountain@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Pencil@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Pensils@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Pocket@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Responsive@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Retina-Ready@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Search@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Settings@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Shield@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Spaceship@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Toilet-Paper@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Touch@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Trip-Bag@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Ubmrella@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Watches@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Wine@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/Yin-and-Yang@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/iMac@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/iPad@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/icons/iPhone@2x.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/switch/mask-square.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/images/switch/mask.png -text svneol=unset#unset
-cloud/src/main/resources/resources/lib/flatui/UI/index.html -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/application.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/bootstrap-select.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/bootstrap-switch.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/bootstrap.min.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/flatui-checkbox.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/flatui-radio.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/html5shiv.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/icon-font-ie7.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/jquery-1.8.3.min.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/jquery-ui-1.10.3.custom.min.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/jquery.placeholder.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/jquery.stacktable.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/jquery.tagsinput.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/js/jquery.ui.touch-punch.min.js -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/config.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/flat-ui.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/icon-font.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/mixins.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/alerts.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/bottom.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/breadcrumbs.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/buttons.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/caret.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/checkbox-and-radio.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/demo.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/dialog.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/dropdown.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/iconbar.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/input.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/label-badges.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/nav.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/navbar.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/pager.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/pagination.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/popover.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/progress.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/select.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/switch.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/tables.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/tagsinput.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/tooltip.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/type.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/ui-datepicker.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/ui-slider.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/modules/ui-spinner.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/less/spaces.less -text
-cloud/src/main/resources/resources/lib/flatui/UI/template.html -text
-cloud/src/main/resources/resources/lib/jquery/jquery-2.0.3.js -text
-cloud/src/main/webapp/WEB-INF/pages/foot.jsp -text
-cloud/src/main/webapp/WEB-INF/pages/head.jsp -text
-cloud/src/main/webapp/WEB-INF/pages/index.jsp -text
-cloud/src/main/webapp/WEB-INF/pages/nav.jsp -text
-cloud/src/main/webapp/WEB-INF/web.xml -text
-cloud/src/main/webapp/flatui.jsp -text
-cloud/src/test/java/com/datayes/cloud/ContextTest.java -text
-cloud/src/test/java/com/datayes/cloud/openstack/TenantManagerTest.java -text
-cloud/src/test/resources/logback-test.xml -text
+src/main/java/com/datayes/cloud/controller/CloudController.java -text
+src/main/java/com/datayes/cloud/dao/BaseDao.java -text
+src/main/java/com/datayes/cloud/dao/CloudDao.java -text
+src/main/java/com/datayes/cloud/model/Tenant.java -text
+src/main/java/com/datayes/cloud/model/Test.java -text
+src/main/java/com/datayes/cloud/model/User.java -text
+src/main/java/com/datayes/cloud/openstack/ComputeManager.java -text
+src/main/java/com/datayes/cloud/openstack/NetworkManager.java -text
+src/main/java/com/datayes/cloud/openstack/OpenstackContext.java -text
+src/main/java/com/datayes/cloud/openstack/StorageManager.java -text
+src/main/java/com/datayes/cloud/openstack/TenantManager.java -text
+src/main/java/com/datayes/cloud/openstack/access/Access.java -text
+src/main/java/com/datayes/cloud/openstack/access/Action.java -text
+src/main/java/com/datayes/cloud/openstack/access/Auth.java -text
+src/main/java/com/datayes/cloud/openstack/access/BlockDeviceMapping.java -text
+src/main/java/com/datayes/cloud/openstack/access/Endpoint.java -text
+src/main/java/com/datayes/cloud/openstack/access/Flavor.java -text
+src/main/java/com/datayes/cloud/openstack/access/Image.java -text
+src/main/java/com/datayes/cloud/openstack/access/Link.java -text
+src/main/java/com/datayes/cloud/openstack/access/Metadata.java -text
+src/main/java/com/datayes/cloud/openstack/access/Network.java -text
+src/main/java/com/datayes/cloud/openstack/access/Role.java -text
+src/main/java/com/datayes/cloud/openstack/access/Server.java -text
+src/main/java/com/datayes/cloud/openstack/access/ServiceCatalog.java -text
+src/main/java/com/datayes/cloud/openstack/access/Subnet.java -text
+src/main/java/com/datayes/cloud/openstack/access/Tenant.java -text
+src/main/java/com/datayes/cloud/openstack/access/Token.java -text
+src/main/java/com/datayes/cloud/openstack/access/User.java -text
+src/main/java/com/datayes/cloud/openstack/access/Volume.java -text
+src/main/java/com/datayes/cloud/openstack/access/VolumeAttachment.java -text
+src/main/java/com/datayes/cloud/service/TenantService.java -text
+src/main/java/com/datayes/cloud/util/DeleteUtil.java -text
+src/main/java/com/datayes/cloud/util/JsonUtil.java -text
+src/main/java/com/datayes/cloud/util/JsonpMappingJackson2JsonView.java -text
+src/main/resources/context/cloud-beans.xml -text
+src/main/resources/context/cloud-openstack.properties -text
+src/main/resources/context/cloud-web.xml -text
+src/main/resources/logback.xml -text
+src/main/resources/resources/css/main.css -text
+src/main/resources/resources/js/cloud.js -text
+src/main/resources/resources/js/reg.js -text
+src/main/resources/resources/lib/bootstrap/css/bootstrap-responsive.css -text
+src/main/resources/resources/lib/bootstrap/css/bootstrap-responsive.min.css -text
+src/main/resources/resources/lib/bootstrap/css/bootstrap-select.css -text
+src/main/resources/resources/lib/bootstrap/css/bootstrap-select.min.css -text
+src/main/resources/resources/lib/bootstrap/css/bootstrap.css -text
+src/main/resources/resources/lib/bootstrap/css/bootstrap.min.css -text
+src/main/resources/resources/lib/bootstrap/img/glyphicons-halflings-white.png -text svneol=unset#unset
+src/main/resources/resources/lib/bootstrap/img/glyphicons-halflings.png -text svneol=unset#unset
+src/main/resources/resources/lib/bootstrap/js/bootstrap-select.js -text
+src/main/resources/resources/lib/bootstrap/js/bootstrap-select.min.js -text
+src/main/resources/resources/lib/bootstrap/js/bootstrap.js -text
+src/main/resources/resources/lib/bootstrap/js/bootstrap.min.js -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/checkbox-checked.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/checkbox-overlayer.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/checkbox-unchecked.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/list-bulleted.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/list-columned.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/list-large-thumbnails.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/list-numbered.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/list-small-thumbnails.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/list-thumbnailed.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/pinterest.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/radio-checked.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/radio-overlayer.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/radio-unchecked.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-down-small.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-down.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-left-large.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-right-large.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-up-small.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Additional/triangle-up.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/alert-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/arrow-left-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/arrow-right-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/bookmark-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/bubble-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/calendar-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/calendar-solid-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/chat-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/check-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/check-round-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/clip-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/cmd-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/credit-card-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/cross-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/cross-circle-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/document-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/exit-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/export-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/eye-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/folder-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/gear-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/heart-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/home-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/image-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/info-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/link-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/list-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/location-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/lock-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/loop-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/mail-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/mic-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/new-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/pause-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/photo-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/play-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/plus-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/plus-circle-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/power-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/question-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/search-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/star-15.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/tag-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/time-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/trash-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/unknow-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/upload-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/user-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/video-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/volume-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/window-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/16/windows-16.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/alert-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/arror-left-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/arror-right-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/bookmark-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/bubble-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/calendar-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/calendar-solid-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/chat-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/check-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/check-circle-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/clip-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/cmd-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/credit-card-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/cross-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/cross-circle-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/document-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/exit-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/export-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/eye-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/folder-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/gear-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/heart-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/home-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/image-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/info-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/link-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/list-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/location-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/lock-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/loop-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/mail-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/mic-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/new-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/pause-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/photo-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/play-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/plus-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/plus-circle-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/power-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/question-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/search-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/star-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/tag-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/time-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/trash-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/unknow-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/upload-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/user-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/video-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/volume-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/window-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Glyphs/24/windows-24.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/behance.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/blogger.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/dribbble.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/facebook.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/googleplus.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/linkedin.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/myspace.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/path.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/pinterest.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/skype.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/spotify.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/stumbleupon.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/twitter.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/vimeo.svg -text
+src/main/resources/resources/lib/flatui/Glyphs/Social/youtube.svg -text
+src/main/resources/resources/lib/flatui/Icons/Arrow.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Arrow@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Banner.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Banner@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Book.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Book@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Box.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Box@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Bulb.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Bulb@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Calendar.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Calendar@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Camera.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Camera@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Card.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Card@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Chat.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Chat@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Clipboard.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Clipboard@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Compas.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Compas@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Dude.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Dude@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Earth.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Earth@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Egg.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Egg@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/File.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/File@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Games.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Games@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Gift-Box.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Gift-Box@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Girl.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Girl@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Goal.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Goal@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Graph.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Graph@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Infinity-Loop.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Infinity-Loop@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Key.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Key@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Letter-Symbol.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Letter-Symbol@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/MacBook-Pro.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/MacBook-Pro@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Magic-Mouse.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Magic-Mouse@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Magic.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Magic@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Mail.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Mail@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Map.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Map@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Money.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Money@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Mortarboard.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Mortarboard@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Mountain.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Mountain@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Pencil.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Pencil@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Pensils.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Pensils@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Pocket.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Pocket@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Responsive.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Responsive@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Retina-Ready.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Retina-Ready@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Search.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Search@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Settings.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Settings@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Shield.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Shield@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Spaceship.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Spaceship@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Toilet-Paper.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Toilet-Paper@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Touch.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Touch@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Trip-Bag.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Trip-Bag@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Ubmrellaa.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Ubmrellaa@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Watches.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Watches@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Wine.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Wine@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Yin-and-Yang.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/Yin-and-Yang@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/iMac.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/iMac@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/iPad.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/iPad@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/iPhone.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/Icons/iPhone@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/Makefile -text
+src/main/resources/resources/lib/flatui/UI/README.md -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/css/bootstrap-docs.css -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/css/bootstrap-responsive.css -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/css/bootstrap.css -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/css/prettify.css -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/img/glyphicons-halflings-white.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/bootstrap/img/glyphicons-halflings.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/bootstrap/js/application.js -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/js/google-code-prettify/prettify.js -text
+src/main/resources/resources/lib/flatui/UI/bootstrap/js/holder.js -text
+src/main/resources/resources/lib/flatui/UI/css/flat-ui.css -text
+src/main/resources/resources/lib/flatui/UI/documentation.html -text
+src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.dev.svg -text
+src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.eot -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.svg -text
+src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.ttf -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/fonts/Flat-UI-Icons.woff -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/fonts/icomoon-session.json -text
+src/main/resources/resources/lib/flatui/UI/images/exaple-image.jpg -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/favicon.ico -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Arrow@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Banner@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Book@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Box@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Bulb@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Calendar@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Camera@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Card@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Chat@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Clipboard@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Compas@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Dude@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Earth@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Egg@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/File@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Games@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Gift-Box@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Girl@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Goal@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Graph@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Infinity-Loop@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Key@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Letter-Symbol@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/MacBook-Pro@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Magic-Mouse@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Magic@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Mail@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Map@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Money@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Mortarboard@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Mountain@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Pencil@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Pensils@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Pocket@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Responsive@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Retina-Ready@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Search@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Settings@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Shield@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Spaceship@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Toilet-Paper@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Touch@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Trip-Bag@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Ubmrella@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Watches@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Wine@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/Yin-and-Yang@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/iMac@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/iPad@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/icons/iPhone@2x.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/switch/mask-square.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/images/switch/mask.png -text svneol=unset#unset
+src/main/resources/resources/lib/flatui/UI/index.html -text
+src/main/resources/resources/lib/flatui/UI/js/application.js -text
+src/main/resources/resources/lib/flatui/UI/js/bootstrap-select.js -text
+src/main/resources/resources/lib/flatui/UI/js/bootstrap-switch.js -text
+src/main/resources/resources/lib/flatui/UI/js/bootstrap.min.js -text
+src/main/resources/resources/lib/flatui/UI/js/flatui-checkbox.js -text
+src/main/resources/resources/lib/flatui/UI/js/flatui-radio.js -text
+src/main/resources/resources/lib/flatui/UI/js/html5shiv.js -text
+src/main/resources/resources/lib/flatui/UI/js/icon-font-ie7.js -text
+src/main/resources/resources/lib/flatui/UI/js/jquery-1.8.3.min.js -text
+src/main/resources/resources/lib/flatui/UI/js/jquery-ui-1.10.3.custom.min.js -text
+src/main/resources/resources/lib/flatui/UI/js/jquery.placeholder.js -text
+src/main/resources/resources/lib/flatui/UI/js/jquery.stacktable.js -text
+src/main/resources/resources/lib/flatui/UI/js/jquery.tagsinput.js -text
+src/main/resources/resources/lib/flatui/UI/js/jquery.ui.touch-punch.min.js -text
+src/main/resources/resources/lib/flatui/UI/less/config.less -text
+src/main/resources/resources/lib/flatui/UI/less/flat-ui.less -text
+src/main/resources/resources/lib/flatui/UI/less/icon-font.less -text
+src/main/resources/resources/lib/flatui/UI/less/mixins.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/alerts.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/bottom.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/breadcrumbs.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/buttons.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/caret.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/checkbox-and-radio.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/demo.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/dialog.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/dropdown.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/iconbar.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/input.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/label-badges.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/nav.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/navbar.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/pager.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/pagination.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/popover.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/progress.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/select.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/switch.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/tables.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/tagsinput.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/tooltip.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/type.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/ui-datepicker.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/ui-slider.less -text
+src/main/resources/resources/lib/flatui/UI/less/modules/ui-spinner.less -text
+src/main/resources/resources/lib/flatui/UI/less/spaces.less -text
+src/main/resources/resources/lib/flatui/UI/template.html -text
+src/main/resources/resources/lib/jquery/jquery-2.0.3.js -text
+src/main/webapp/WEB-INF/pages/foot.jsp -text
+src/main/webapp/WEB-INF/pages/head.jsp -text
+src/main/webapp/WEB-INF/pages/index.jsp -text
+src/main/webapp/WEB-INF/pages/nav.jsp -text
+src/main/webapp/WEB-INF/web.xml -text
+src/main/webapp/flatui.jsp -text
+src/test/java/com/datayes/cloud/ContextTest.java -text
+src/test/java/com/datayes/cloud/openstack/TenantManagerTest.java -text
+src/test/resources/logback-test.xml -text
