@@ -422,3 +422,13 @@ src/main/webapp/flatui.jsp -text
 src/test/java/com/datayes/cloud/ContextTest.java -text
 src/test/java/com/datayes/cloud/openstack/TenantManagerTest.java -text
 src/test/resources/logback-test.xml -text
+sso/datayes-sso/pom.xml -text
+sso/datayes-sso/src/main/java/com/datayes/paas/sso/AuthFilter.java -text
+sso/datayes-sso/src/main/java/com/datayes/paas/sso/Consumer.java -text
+sso/datayes-sso/src/main/java/com/datayes/paas/sso/SsoContext.java -text
+sso/datayes-sso/src/main/java/com/datayes/paas/sso/User.java -text
+sso/datayes-sso/src/main/java/com/datayes/paas/sso/Util.java -text
+sso/pom.xml -text
+sso/sso-sample/pom.xml -text
+sso/sso-sample/src/main/webapp/WEB-INF/web.xml -text
+sso/sso-sample/src/main/webapp/index.jsp -text
