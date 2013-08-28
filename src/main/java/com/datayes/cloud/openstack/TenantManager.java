@@ -46,7 +46,6 @@ public class TenantManager {
             StorageManager storageManager = new StorageManager(tenantContext);
             List<Volume> volumes = storageManager.listVolumes();
             for (Volume volume : volumes) storageManager.deleteVolume(volume.getId());
-
             ctx.delete(ctx.getIdentityAdminUrl() + "/tenants/" + tenant.getId());
         }
     }

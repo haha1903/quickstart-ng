@@ -24,8 +24,6 @@ public class TenantManagerTest {
     @Before
     public void setUp() throws Exception {
         openstackContext = new OpenstackContext(identityServiceUrl, "admin", "admin", "admin");
-
-
     }
 
     @Test
@@ -40,7 +38,6 @@ public class TenantManagerTest {
     @Test
     public void testCreateTenant() throws Exception {
         TenantManager tenantManager = new TenantManager(openstackContext);
-
         List<Tenant> tenants = tenantManager.listTenants();
         boolean exists = false;
         for (Tenant t : tenants){
@@ -53,7 +50,6 @@ public class TenantManagerTest {
         int oldSize = tenants.size()-(exists?1:0);
         Tenant tenant = tenantManager.createTenant("tenant1", "tenant1 desc", true);
         assertEquals("tenant1", tenant.getName());
-
         tenants = tenantManager.listTenants();
         assertEquals(oldSize + 1, tenants.size());
     }
@@ -65,8 +61,6 @@ public class TenantManagerTest {
         Tenant tenant = tenantManager.createTenant("tenant1", "tenant1 desc", true);
         System.out.println(tenant.getId());
         OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, "admin", "admin", "tenant1");
-
-//        networkManager.createNetwork("network2", false);
         ComputeManager computeManager = new ComputeManager(tenant1Context);
         StorageManager storageManager = new StorageManager(tenant1Context);
         Volume volume = storageManager.createVolume(new Volume("v1", 1));
