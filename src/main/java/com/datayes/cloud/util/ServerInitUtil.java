@@ -56,7 +56,7 @@ public class ServerInitUtil {
         scripts = new HashMap<String, String>();
         images = new HashMap<String, String>();
         scripts.put(ServerType.ZIMBRA_SERVER.getStrValue(),"/home/user/workspace/cloud-automation/trunk/src/zimbra/ubuntu12.04/installzimbra-ubuntu12.04-passwd");
-        images.put(ServerType.ZIMBRA_SERVER.getStrValue(),"ubuntu");
+        images.put(ServerType.ZIMBRA_SERVER.getStrValue(),"ubuntu2");
     }
 
     public static String getImageUrl(ServerType type){
@@ -92,7 +92,7 @@ public class ServerInitUtil {
         String tempString;
 
         while ((tempString = reader.readLine()) != null) {
-            tempString = processScript(tempString, scriptKey);
+            tempString = processScript(tempString, scriptKey, domainName);
             sb.append(tempString).append("\n");
         }
         reader.close();
@@ -102,10 +102,10 @@ public class ServerInitUtil {
         return scriptStr;
     }
 
-    private static String processScript(String line, String scriptKey){
+    private static String processScript(String line, String scriptKey, String domainName){
         if (scriptKey.equalsIgnoreCase(ServerType.ZIMBRA_SERVER.getStrValue())){
             if (line.startsWith("fullhost")){
-                line="fullhost=$host'."+line+"'";
+                line="fullhost=$host'."+domainName+"'";
             }
         }
         return line;
