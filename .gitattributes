@@ -6,6 +6,7 @@ src/main/java/com/datayes/cloud/dao/CloudDao.java -text
 src/main/java/com/datayes/cloud/model/Tenant.java -text
 src/main/java/com/datayes/cloud/model/Test.java -text
 src/main/java/com/datayes/cloud/model/User.java -text
+src/main/java/com/datayes/cloud/openstack/CloudManager.java -text
 src/main/java/com/datayes/cloud/openstack/ComputeManager.java -text
 src/main/java/com/datayes/cloud/openstack/NetworkManager.java -text
 src/main/java/com/datayes/cloud/openstack/OpenstackContext.java -text
@@ -34,7 +35,7 @@ src/main/java/com/datayes/cloud/service/TenantService.java -text
 src/main/java/com/datayes/cloud/util/DeleteUtil.java -text
 src/main/java/com/datayes/cloud/util/JsonUtil.java -text
 src/main/java/com/datayes/cloud/util/JsonpMappingJackson2JsonView.java -text
-src/main/java/com/datayes/cloud/util/ScriptUtil.java -text
+src/main/java/com/datayes/cloud/util/ServerInitUtil.java -text
 src/main/resources/context/cloud-beans.xml -text
 src/main/resources/context/cloud-openstack.properties -text
 src/main/resources/context/cloud-web.xml -text

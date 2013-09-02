@@ -67,6 +67,7 @@ public class OpenstackContext {
     }
 
     private void init() throws IOException {
+        log.info("Initiating context...");
         Access access = post(identityServiceUrl, "auth", new Auth(username, password, tenantName), "access", Access.class);
         if (access != null) {
             tenant = access.getToken().getTenant();
@@ -106,7 +107,7 @@ public class OpenstackContext {
         try {
             is = resp.getEntity().getContent();
             String json = IOUtils.toString(is);
-            System.out.println("json convert, json = " + json);
+            log.debug("json convert, json = {}", json);
             return JsonUtil.toObject(json, t);
         } finally {
             IOUtils.closeQuietly(is);
@@ -118,13 +119,27 @@ public class OpenstackContext {
         try {
             MapType type = MapType.construct(Map.class, SimpleType.construct(String.class), SimpleType.construct(c));
             is = resp.getEntity().getContent();
+
             String json = IOUtils.toString(is);
-            System.out.println("json convert, json = " + json);
+            log.debug("json convert, json = {}", json);
             Map<String, T> map = JsonUtil.toObject(json, type);
+
+            logResult(map,name);
+
             return map.get(name);
         } finally {
             IOUtils.closeQuietly(is);
         }
+    }
+
+    private <T> void logResult(Map<String,T> map, String name) {
+        if (!map.containsKey(name)) {
+            log.error("Error when retrieving " + name);
+            for (String err: map.keySet()) {
+                log.error(err + ": " + map.get(err).toString());
+            }
+        }
+        else log.info("Retrieved "+name);
     }
 
     private <T> T getResult(HttpResponse resp, String name, JavaType javaType) throws IOException {
@@ -133,7 +148,7 @@ public class OpenstackContext {
             MapType type = MapType.construct(Map.class, SimpleType.construct(String.class), javaType);
             is = resp.getEntity().getContent();
             String json = IOUtils.toString(is);
-            System.out.println("json convert, json = " + json);
+            log.debug("json convert, json = {}", json);
             Map<String, T> map = JsonUtil.toObject(json, type);
             return map.get(name);
         } finally {

@@ -2,7 +2,7 @@ package com.datayes.cloud.openstack;
 
 import com.datayes.cloud.openstack.access.*;
 import com.datayes.cloud.util.DeleteUtil;
-import com.datayes.cloud.util.ScriptUtil;
+import com.datayes.cloud.util.ServerInitUtil;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import org.apache.commons.codec.binary.Base64;
@@ -21,42 +21,34 @@ import java.util.List;
  */
 public class ComputeManager {
     private static final Logger log = LoggerFactory.getLogger(ComputeManager.class);
-    public static final String FLAVOR_NAME = "m1.tiny";
+    //public static final String FLAVOR_NAME = "m1.tiny";
     public static final String SELF = "self";
     private OpenstackContext ctx;
-
-    @Autowired
-    private ScriptUtil scriptUtil;
-
-    private String getImageFileUrl(String img){
-        if (img==null || img.isEmpty()) return "";
-        return ctx.getImageUrl()+"/v2/images?name="+img;
-    }
 
     public ComputeManager(OpenstackContext openstackContext) {
         this.ctx = openstackContext;
     }
 
-    public Server createServer(Server server, String volumeId, String image, String key, String script) throws IOException {
-        String ref = getFlavorRef();
-        server.setFlavorRef(ref);
-        List<Image> images = ctx.get(getImageFileUrl(image), "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
-        server.setUser_data(getEncodedScript(script));
-        server.setKey_name(key);
+    public Server createServer(Server server, String volumnId, ServerInitUtil.ServerFlavor flavor, String domainName, ServerInitUtil.ServerType serverType) throws Exception{
+        try{
+            String imageUrl = ctx.getImageUrl()+"/v2/images?name="+ServerInitUtil.getImageUrl(serverType);
+            String encodedScript = ServerInitUtil.getScript(serverType,domainName,true);
+            String flavorRef= getFlavorRef(flavor);
+            return createServer(server, volumnId, flavorRef,domainName, imageUrl, encodedScript);
+        }
+        catch(Exception ex){
+            log.error("Error creating server.", ex);
+            throw ex;
+        }
+    }
+
+    public Server createServer(Server server, String volumeId, String flavorRef, String domainName, String image, String script) throws IOException {
+        server.setFlavorRef(flavorRef);
+        List<Image> images = ctx.get(image, "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
+        server.setUser_data(script);
         server.setImageRef(images.get(0).getId());
         server.addBlockDeviceMapping(volumeId, "/dev/vdb");
         return ctx.post(ctx.getComputeUrl() + "/servers", "server", server, "server", Server.class);
-    }
-
-    public String getEncodedScript(String script) {
-        //TODO: change to private
-        try{
-            return Base64.encodeBase64URLSafeString(scriptUtil.getScript(script).getBytes());
-        }
-        catch(Exception ex){
-            log.error("Error when get script file.",ex);
-            return "";
-        }
     }
 
     public List<Server> listServers() throws IOException {
@@ -67,11 +59,11 @@ public class ComputeManager {
         return servers;
     }
 
-    private String getFlavorRef() throws IOException {
+    private String getFlavorRef(ServerInitUtil.ServerFlavor serverFlavor) throws IOException {
         List<Flavor> flavors = ctx.get(ctx.getComputeUrl() + "/flavors", "flavors", CollectionType.construct(List.class
                 , SimpleType.construct(Flavor.class)));
         for (Flavor flavor : flavors) {
-            if (FLAVOR_NAME.equals(flavor.getName())) {
+            if (serverFlavor.getStrValue().equalsIgnoreCase(flavor.getName())) {
                 for (Link link : flavor.getLinks()) {
                     if (SELF.equals(link.getRel())) {
                         return link.getHref();
