@@ -2,10 +2,15 @@ package com.datayes.cloud.openstack;
 
 import com.datayes.cloud.openstack.access.*;
 import com.datayes.cloud.util.DeleteUtil;
+import com.datayes.cloud.util.ScriptUtil;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -15,9 +20,13 @@ import java.util.List;
  * DataYes
  */
 public class ComputeManager {
+    private static final Logger log = LoggerFactory.getLogger(ComputeManager.class);
     public static final String FLAVOR_NAME = "m1.tiny";
     public static final String SELF = "self";
     private OpenstackContext ctx;
+
+    @Autowired
+    private ScriptUtil scriptUtil;
 
     private String getImageFileUrl(String img){
         if (img==null || img.isEmpty()) return "";
@@ -28,13 +37,26 @@ public class ComputeManager {
         this.ctx = openstackContext;
     }
 
-    public Server createServer(Server server, String volumeId, String image) throws IOException {
+    public Server createServer(Server server, String volumeId, String image, String key, String script) throws IOException {
         String ref = getFlavorRef();
         server.setFlavorRef(ref);
         List<Image> images = ctx.get(getImageFileUrl(image), "images", CollectionType.construct(List.class, SimpleType.construct(Image.class)));
+        server.setUser_data(getEncodedScript(script));
+        server.setKey_name(key);
         server.setImageRef(images.get(0).getId());
         server.addBlockDeviceMapping(volumeId, "/dev/vdb");
         return ctx.post(ctx.getComputeUrl() + "/servers", "server", server, "server", Server.class);
+    }
+
+    public String getEncodedScript(String script) {
+        //TODO: change to private
+        try{
+            return Base64.encodeBase64URLSafeString(scriptUtil.getScript(script).getBytes());
+        }
+        catch(Exception ex){
+            log.error("Error when get script file.",ex);
+            return "";
+        }
     }
 
     public List<Server> listServers() throws IOException {

@@ -17,6 +17,8 @@ public class Server {
     private String status;
     private String imageRef;
     private String flavorRef;
+    private String key_name;
+    private String user_data;
     @JsonProperty("block_device_mapping")
     private List<BlockDeviceMapping> blockDeviceMappings = new ArrayList<BlockDeviceMapping>();
 
@@ -73,6 +75,22 @@ public class Server {
 
     public void setBlockDeviceMappings(List<BlockDeviceMapping> blockDeviceMappings) {
         this.blockDeviceMappings = blockDeviceMappings;
+    }
+
+    public String getKey_name() {
+        return key_name;
+    }
+
+    public void setKey_name(String key_name) {
+        this.key_name = key_name;
+    }
+
+    public String getUser_data() {
+        return user_data;
+    }
+
+    public void setUser_data(String user_data) {
+        this.user_data = user_data;
     }
 
     public void addBlockDeviceMapping(String volumeId, String deviceName) {

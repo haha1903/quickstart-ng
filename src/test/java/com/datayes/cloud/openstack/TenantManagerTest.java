@@ -1,6 +1,7 @@
 package com.datayes.cloud.openstack;
 
 import com.datayes.cloud.openstack.access.*;
+import com.datayes.cloud.util.ScriptUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -65,7 +66,7 @@ public class TenantManagerTest {
         StorageManager storageManager = new StorageManager(tenant1Context);
         Volume volume = storageManager.createVolume(new Volume("v1", 1));
         Server server = new Server("server1");
-        Server result = computeManager.createServer(server, volume.getId(),"TestVM");
+        Server result = computeManager.createServer(server, volume.getId(),"TestVM","","");
         System.out.println(volume);
         System.out.println(result);
     }
@@ -99,11 +100,18 @@ public class TenantManagerTest {
 
     @Test
     public void testListNetworks() throws Exception {
-        OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, "admin", "aaaaaa", "tenant1");
+        OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, "admin", "admin", "tenant1");
         NetworkManager networkManager = new NetworkManager(tenant1Context);
         List<Network> networks = networkManager.listNetworks();
         for (Network network : networks) {
             System.out.println(network);
         }
+    }
+
+    @Test
+    public void testReadScript() throws Exception{
+        ComputeManager computeManager = new ComputeManager(openstackContext);
+        String script = (computeManager.getEncodedScript(ScriptUtil.Script.ZIMBRA_SERVER.getStrValue()));
+        System.out.println(script);
     }
 }

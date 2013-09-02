@@ -34,6 +34,7 @@ src/main/java/com/datayes/cloud/service/TenantService.java -text
 src/main/java/com/datayes/cloud/util/DeleteUtil.java -text
 src/main/java/com/datayes/cloud/util/JsonUtil.java -text
 src/main/java/com/datayes/cloud/util/JsonpMappingJackson2JsonView.java -text
+src/main/java/com/datayes/cloud/util/ScriptUtil.java -text
 src/main/resources/context/cloud-beans.xml -text
 src/main/resources/context/cloud-openstack.properties -text
 src/main/resources/context/cloud-web.xml -text
@@ -421,4 +422,7 @@ src/main/webapp/WEB-INF/web.xml -text
 src/main/webapp/flatui.jsp -text
 src/test/java/com/datayes/cloud/ContextTest.java -text
 src/test/java/com/datayes/cloud/openstack/TenantManagerTest.java -text
+src/test/resources/context/cloud-beans.xml -text
+src/test/resources/context/cloud-openstack.properties -text
+src/test/resources/context/cloud-web.xml -text
 src/test/resources/logback-test.xml -text

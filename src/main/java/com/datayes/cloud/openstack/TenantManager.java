@@ -28,7 +28,7 @@ public class TenantManager {
         Role role = ctx.getRole("admin");
         ctx.put(ctx.getIdentityAdminUrl() + "/tenants/" + result.getId() + "/users/" + user.getId() + "/roles/OS-KSADM/" + role.getId());
         //refresh the context to get the new token.
-        ctx.refresh();
+        //ctx.refresh();
         return result;
     }
 
