@@ -16,8 +16,8 @@ import java.util.HashMap;
 
 public class ServerInitUtil {
     public enum ServerType{
-        ZIMBRA_SERVER("ZIMBRA_SERVER"),
-        REMOTE_SERVER("REMOTE_SERVER");
+        ZIMBRA_SERVER("zimbra"),
+        REMOTE_SERVER("remote");
 
         ServerType(String scriptKey){
             key=scriptKey;

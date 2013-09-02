@@ -69,8 +69,8 @@ public class CloudManager {
         ComputeManager computeManager = new ComputeManager(tenant1Context);
         StorageManager storageManager = new StorageManager(tenant1Context);
 
-        String serverName=type.getStrValue()+"."+tenantName;
-        Volume volume = storageManager.createVolume(new Volume(serverName, volumnSize));
+        String serverName=type.getStrValue();
+        Volume volume = storageManager.createVolume(new Volume(serverName+"vol", volumnSize));
 
         Server server = new Server(serverName);
         return computeManager.createServer(server,volume.getId(),flavor,tenantName,type);
