@@ -1,6 +1,8 @@
 package com.datayes.cloud.util;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ContextResource;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -55,7 +57,7 @@ public class ServerInitUtil {
     static{
         scripts = new HashMap<String, String>();
         images = new HashMap<String, String>();
-        scripts.put(ServerType.ZIMBRA_SERVER.getStrValue(),"/home/user/workspace/cloud-automation/trunk/src/zimbra/ubuntu12.04/installzimbra-ubuntu12.04-passwd");
+        scripts.put(ServerType.ZIMBRA_SERVER.getStrValue(),"serverscript/zimbra/ubuntu12.04/installzimbra-ubuntu12.04-passwd");
         images.put(ServerType.ZIMBRA_SERVER.getStrValue(),"ubuntu2");
     }
 
@@ -86,8 +88,8 @@ public class ServerInitUtil {
      */
     public static String getScript(String scriptKey, String domainName, boolean encoded) throws Exception{
         if (scriptKey==null || scriptKey.isEmpty() || !scripts.containsKey(scriptKey)) return "";
-
-        BufferedReader reader = new BufferedReader(new FileReader(scripts.get(scriptKey)));
+        ClassPathResource resource = new ClassPathResource(scripts.get(scriptKey));
+        BufferedReader reader = new BufferedReader(new FileReader(resource.getFile()));
         StringBuilder sb = new StringBuilder("");
         String tempString;
 

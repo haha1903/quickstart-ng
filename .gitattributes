@@ -421,6 +421,13 @@ src/main/resources/resources/lib/flatui/UI/less/modules/ui-spinner.less -text
 src/main/resources/resources/lib/flatui/UI/less/spaces.less -text
 src/main/resources/resources/lib/flatui/UI/template.html -text
 src/main/resources/resources/lib/jquery/jquery-2.0.3.js -text
+src/main/resources/serverscript/ad/win2008/addeploy-2008.ps1 -text
+src/main/resources/serverscript/ad/win2008/joinad-2008.ps1 -text
+src/main/resources/serverscript/ad/win2012/addeploy-2012.ps1 -text
+src/main/resources/serverscript/zabbix/ubuntu12.04/install_zabbix_agent_ubuntu12.04 -text
+src/main/resources/serverscript/zimbra/ubuntu12.04/installzimbra-ubuntu12.04 -text
+src/main/resources/serverscript/zimbra/ubuntu12.04/installzimbra-ubuntu12.04-passwd -text
+src/main/resources/serverscript/zimbra/ubuntu12.04/passwd.sh -text
 src/main/webapp/WEB-INF/pages/common/foot.jsp -text
 src/main/webapp/WEB-INF/pages/common/head.jsp -text
 src/main/webapp/WEB-INF/pages/common/nav.jsp -text
