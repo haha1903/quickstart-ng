@@ -1,8 +1,6 @@
 package com.datayes.cloud.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * User: changhai
@@ -10,15 +8,18 @@ import javax.persistence.Id;
  * Time: 下午3:43
  * DataYes
  */
-@Entity(name = "cloud_tenant")
+@Entity
+@Table(name = "cloud_tenant")
 public class Tenant {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
+    @Column(unique = true, updatable = false, nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
     private String admin;
-    private String password;
+
+    private transient String password;
 
     public long getId() {
         return id;

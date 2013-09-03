@@ -3,7 +3,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <head>
     <meta charset="utf-8">
-    <title>Flat UI</title>
+    <title>DataYes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Loading Bootstrap -->
     <link href="${contextPath}/resources/lib/flatui/UI/bootstrap/css/bootstrap.css" rel="stylesheet">
