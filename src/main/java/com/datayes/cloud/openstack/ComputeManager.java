@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class ComputeManager {
     private static final Logger log = LoggerFactory.getLogger(ComputeManager.class);
     //public static final String FLAVOR_NAME = "m1.tiny";
     public static final String SELF = "self";
+    public static final String DEFAULT = "default";
     private OpenstackContext ctx;
 
     public ComputeManager(OpenstackContext openstackContext) {
@@ -49,6 +51,7 @@ public class ComputeManager {
         server.setImageRef(images.get(0).getId());
         server.addBlockDeviceMapping(volumeId, "/dev/vdb");
         return ctx.post(ctx.getComputeUrl() + "/servers", "server", server, "server", Server.class);
+
     }
 
     public List<Server> listServers() throws IOException {
@@ -96,5 +99,68 @@ public class ComputeManager {
                                   }
                               }
         );
+    }
+
+    public Floating_ip getFloatIp() throws Exception{
+        return ctx.post(ctx.getComputeUrl()+"/os-floating-ips", "", new Floating_ip(), "floating_ip",Floating_ip.class);
+    }
+
+    public Server getServerDetail(String serverId) throws Exception {
+        if (serverId==null || serverId.isEmpty()) return null;
+
+        List<Server> servers = ctx.get(ctx.getComputeUrl()+"/servers/detail","servers", CollectionType.construct(List.class, SimpleType.construct(Server.class)));
+        for (Server server: servers)
+            if (server.getId().equals(serverId))
+                return server;
+        return null;
+    }
+
+    public Server bindFloatingIp(Server serverToBind) throws Exception {
+        Floating_ip ip = getFloatIp();
+        Server serverDetail =  getServerDetail(serverToBind.getId());
+
+        if (serverDetail==null) return null;
+
+        String selfLink=null;
+        for (Link link : serverDetail.getLinks()){
+             if (SELF.equals(link.getRel())) {
+                selfLink = link.getHref();
+                break;
+            }
+        }
+
+        if (selfLink==null) return null;
+
+        //http://10.20.112.65:8774/v2/e4c4e0ffe2934e9d84707da62e14155b/servers/88bb0fc2-bcc0-4d3a-834c-38f425559d14/action -X POST -H "X-Auth-Project-Id: admin" -H "User-Agent: python-novaclient" -H "Content-Type: application/json" -H "Accept: application/json" -H "X-Auth-Token: 4f231d77ece749b596ecb1855f8007bf" -d '{"addFloatingIp": {"address": "10.20.112.84"}}'
+        HashMap<String, String> addrParam= new HashMap<String, String>();
+        addrParam.put("address", ip.getIp());
+        ctx.post(selfLink+"/action", "addFloatingIp", addrParam);
+
+        return serverDetail;
+    }
+
+    public SecurityGroupRule addSecurityGroupRule(String groupName, int fromPort, int toPort, String protocol, String cidr) throws Exception{
+        List<SecurityGroup> securityGroups =  ctx.get(ctx.getComputeUrl()+"/os-security-groups","security_groups", CollectionType.construct(List.class, SimpleType.construct(SecurityGroup.class)));
+        int groupId = -1;
+        for (SecurityGroup sg: securityGroups){
+            if (sg.getName().equals(groupName)) {
+                groupId = sg.getId();
+                break;
+            }
+        }
+
+        if (groupId<0) {
+            log.error("Specified group not exist, failed to add rule.");
+            return null;
+        }
+
+        SecurityGroupRule rule = new SecurityGroupRule();
+        rule.setParentGroupId(groupId);
+        rule.setFromPort(String.valueOf(fromPort));
+        rule.setToPort(String.valueOf(toPort));
+        rule.setIpProtocol(protocol);
+        rule.setCidr(cidr);
+
+        return ctx.post(ctx.getComputeUrl()+"/os-security-group-rules", "security_group_rule", rule, "security_group_rule",SecurityGroupRule.class);
     }
 }

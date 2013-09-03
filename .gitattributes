@@ -21,12 +21,16 @@ src/main/java/com/datayes/cloud/openstack/access/Auth.java -text
 src/main/java/com/datayes/cloud/openstack/access/BlockDeviceMapping.java -text
 src/main/java/com/datayes/cloud/openstack/access/Endpoint.java -text
 src/main/java/com/datayes/cloud/openstack/access/Flavor.java -text
+src/main/java/com/datayes/cloud/openstack/access/Floating_ip.java -text
 src/main/java/com/datayes/cloud/openstack/access/Image.java -text
 src/main/java/com/datayes/cloud/openstack/access/Link.java -text
 src/main/java/com/datayes/cloud/openstack/access/Metadata.java -text
 src/main/java/com/datayes/cloud/openstack/access/Network.java -text
 src/main/java/com/datayes/cloud/openstack/access/Role.java -text
+src/main/java/com/datayes/cloud/openstack/access/SecurityGroup.java -text
+src/main/java/com/datayes/cloud/openstack/access/SecurityGroupRule.java -text
 src/main/java/com/datayes/cloud/openstack/access/Server.java -text
+src/main/java/com/datayes/cloud/openstack/access/ServerAddress.java -text
 src/main/java/com/datayes/cloud/openstack/access/ServiceCatalog.java -text
 src/main/java/com/datayes/cloud/openstack/access/Subnet.java -text
 src/main/java/com/datayes/cloud/openstack/access/Tenant.java -text

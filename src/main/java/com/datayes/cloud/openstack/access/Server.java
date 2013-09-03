@@ -20,6 +20,8 @@ public class Server {
     private String user_data;
     @JsonProperty("block_device_mapping")
     private List<BlockDeviceMapping> blockDeviceMappings = new ArrayList<BlockDeviceMapping>();
+    private List<ServerAddress> novanetwork = new ArrayList<ServerAddress>();
+    private List<Link> links  = new ArrayList<Link>();
 
     public Server() {
     }
@@ -86,6 +88,22 @@ public class Server {
 
     public void addBlockDeviceMapping(String volumeId, String deviceName) {
         blockDeviceMappings.add(new BlockDeviceMapping(volumeId, deviceName));
+    }
+
+    public List<ServerAddress> getNovanetwork() {
+        return novanetwork;
+    }
+
+    public void setNovanetwork(List<ServerAddress> novanetwork) {
+        this.novanetwork = novanetwork;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
     }
 
     @Override

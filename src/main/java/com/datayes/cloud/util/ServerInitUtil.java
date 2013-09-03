@@ -58,7 +58,7 @@ public class ServerInitUtil {
         scripts = new HashMap<String, String>();
         images = new HashMap<String, String>();
         scripts.put(ServerType.ZIMBRA_SERVER.getStrValue(),"serverscript/zimbra/ubuntu12.04/installzimbra-ubuntu12.04-passwd");
-        images.put(ServerType.ZIMBRA_SERVER.getStrValue(),"ubuntu2");
+        images.put(ServerType.ZIMBRA_SERVER.getStrValue(),"ubuntu");
     }
 
     public static String getImageUrl(ServerType type){

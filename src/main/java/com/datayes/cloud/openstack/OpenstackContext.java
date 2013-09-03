@@ -17,8 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,6 +163,18 @@ public class OpenstackContext {
         log.debug("request json post,url = \n{}\njson = \n{}\nX-Auth-Token = \n{}", url, json, token);
         post.setEntity(new StringEntity(json));
         return getResult(execute(post), responseName, responseType);
+    }
+
+    public void post(String url, String requestName, Object requestObject) throws IOException {
+        HttpPost post = new HttpPost(url);
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put(requestName, requestObject);
+        String json = JsonUtil.toJson(model);
+        log.debug("request json post,url = \n{}\njson = \n{}\nX-Auth-Token = \n{}", url, json, token);
+        post.setEntity(new StringEntity(json));
+        HttpEntity entity = execute(post).getEntity();
+        if (entity != null)
+            IOUtils.closeQuietly(entity.getContent());
     }
 
     public <T> T get(String url, TypeReference<T> t) throws IOException {

@@ -47,7 +47,7 @@ public class CloudManager {
         return tenants;
     }
 
-    public void createTenant(String tenantName, String desc) throws Exception {
+    public Tenant createTenant(String tenantName, String desc) throws Exception {
         TenantManager tenantManager = new TenantManager(getAdminContext());
         List<Tenant> tenants = tenantManager.listTenants();
         boolean exists = false;
@@ -57,6 +57,12 @@ public class CloudManager {
             }
         }
         Tenant tenant = tenantManager.createTenant(tenantName, desc, true);
+
+        OpenstackContext tenant1Context = new OpenstackContext(identityServiceUrl, userName, password, tenantName);
+        ComputeManager computeManager = new ComputeManager(tenant1Context);
+        computeManager.addSecurityGroupRule(ComputeManager.DEFAULT, 1,65535,"tcp","0.0.0.0/0");
+
+        return tenant;
     }
 
     public void deleteTenant(String tenantName) throws Exception {
@@ -73,8 +79,8 @@ public class CloudManager {
         Volume volume = storageManager.createVolume(new Volume(serverName+"vol", volumnSize));
 
         Server server = new Server(serverName);
-        return computeManager.createServer(server,volume.getId(),flavor,tenantName,type);
-
+        server = computeManager.createServer(server,volume.getId(),flavor,tenantName,type);
+        return computeManager.bindFloatingIp(server);
     }
 
 }
