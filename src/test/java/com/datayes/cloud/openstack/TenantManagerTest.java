@@ -1,12 +1,13 @@
 package com.datayes.cloud.openstack;
 
 import com.datayes.cloud.openstack.access.*;
-import com.datayes.cloud.util.ScriptUtil;
+import com.datayes.cloud.util.ServerInitUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -66,7 +67,7 @@ public class TenantManagerTest {
         StorageManager storageManager = new StorageManager(tenant1Context);
         Volume volume = storageManager.createVolume(new Volume("v1", 1));
         Server server = new Server("server1");
-        Server result = computeManager.createServer(server, volume.getId(),"TestVM","","");
+        Server result = computeManager.createServer(server, volume.getId(), ServerInitUtil.ServerFlavor.tiny,"TestVM",ServerInitUtil.ServerType.ZIMBRA_SERVER);
         System.out.println(volume);
         System.out.println(result);
     }
@@ -111,7 +112,20 @@ public class TenantManagerTest {
     @Test
     public void testReadScript() throws Exception{
         ComputeManager computeManager = new ComputeManager(openstackContext);
-        String script = (computeManager.getEncodedScript(ScriptUtil.Script.ZIMBRA_SERVER.getStrValue()));
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("ZIMBRA_SERVER", "/home/user/workspace/cloud-automation/trunk/src/zimbra/ubuntu12.04/installzimbra-ubuntu12.04");
+        String script = (ServerInitUtil.getScript(ServerInitUtil.ServerType.ZIMBRA_SERVER, "datayestest.com", false));
         System.out.println(script);
+    }
+
+    @Test
+    public void createZimbraServer() throws Exception{
+        CloudManager cloudManager = new CloudManager();
+        cloudManager.setIdentityServiceUrl(identityServiceUrl);
+        cloudManager.setUserName("admin");
+        cloudManager.setPassword("admin");
+        cloudManager.createTenant("datayestest.com","");
+        cloudManager.createServer("datayestest.com",20, ServerInitUtil.ServerFlavor.medium,ServerInitUtil.ServerType.ZIMBRA_SERVER);
+
     }
 }
