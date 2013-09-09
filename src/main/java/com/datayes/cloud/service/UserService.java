@@ -93,4 +93,12 @@ public class UserService {
     public List<CloudService> getServices() {
         return cloudDao.findAll(CloudService.class);
     }
+
+    public void update(User user) {
+        cloudDao.update(user);
+    }
+
+    public List<CloudService> getService(CloudService service) {
+        return cloudDao.get(service);
+    }
 }

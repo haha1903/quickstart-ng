@@ -32,4 +32,8 @@ public class CloudDao extends BaseDao {
     public <T> List<T> get(T example) {
         return getSession().createCriteria(example.getClass()).add(Example.create(example)).list();
     }
+
+    public <T> void update(T user) {
+        getSession().update(user);
+    }
 }

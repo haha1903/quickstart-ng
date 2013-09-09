@@ -1,5 +1,6 @@
 package com.datayes.cloud.dao;
 
+import com.datayes.cloud.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

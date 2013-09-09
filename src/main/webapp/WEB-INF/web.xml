@@ -20,6 +20,10 @@
             <param-value>https://10.20.102.136:8444/cloud/consumer</param-value>
         </init-param>
         <init-param>
+            <param-name>index</param-name>
+            <param-value>1086313079</param-value>
+        </init-param>
+        <init-param>
             <param-name>ignore</param-name>
             <param-value>/resources/.*,/signup,/login</param-value>
         </init-param>

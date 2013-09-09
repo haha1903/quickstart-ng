@@ -1,7 +1,5 @@
 package com.datayes.cloud.model;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -77,7 +75,13 @@ public class User {
     public void setServices(List<CloudService> services) {
         this.services = services;
     }
+    public void addService(CloudService service) {
+        services.add(service);
+    }
 
+    public void removeService(CloudService service) {
+        services.remove(service);
+    }
     @Override
     public String toString() {
         return "User{" +
@@ -89,4 +93,5 @@ public class User {
                 ", services=" + services +
                 '}';
     }
+
 }

@@ -66,8 +66,26 @@ public class CloudController {
         user.setTenant(currentUser.getTenant());
         userService.createUser(user);
     }
-    @RequestMapping(value="/userinfo", method =  RequestMethod.GET)
-    public String userinfo(long id,Map model) {
+
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public void addUserService(long id, @RequestBody CloudService service) throws CloudException {
+        User exampl = new User();
+        exampl.setId(id);
+        User user = userService.getUser(exampl);
+        List<CloudService> cloudServices = userService.getService(service);
+        if (cloudServices.isEmpty())
+            throw new CloudException("service not found: " + service);
+        CloudService newService = cloudServices.get(0);
+        if (newService.isEnabled()) {
+            user.addService(newService);
+        } else {
+            user.removeService(newService);
+        }
+        userService.update(user);
+    }
+
+    @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
+    public String userinfo(long id, Map model) {
         User example = new User();
         example.setId(id);
         User user = userService.getUser(example);
@@ -75,7 +93,7 @@ public class CloudController {
         List<CloudService> enabledServices = user.getServices();
         List<CloudService> services = userService.getServices();
         for (CloudService service : services) {
-            if(enabledServices.contains(service))
+            if (enabledServices.contains(service))
                 service.setEnabled(true);
         }
         model.put("services", services);

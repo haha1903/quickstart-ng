@@ -18,7 +18,7 @@
                 <c:forEach var="service" items="${services}">
                     <tr>
                         <td>${service.name}</td>
-                        <td><input class="service_status" name="${service.name}" type="checkbox" value="${service.enabled}"></td>
+                        <td><input class="service_status" name="${service.name}" user="${user.id}" type="checkbox" ${service.enabled ? 'checked' : ''}></td>
                     </tr>
                 </c:forEach>
             </table>
