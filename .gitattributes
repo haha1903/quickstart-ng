@@ -5,8 +5,6 @@ src/main/java/com/datayes/cloud/dao/BaseDao.java -text
 src/main/java/com/datayes/cloud/dao/CloudDao.java -text
 src/main/java/com/datayes/cloud/exception/CloudException.java -text
 src/main/java/com/datayes/cloud/exception/LoginException.java -text
-src/main/java/com/datayes/cloud/ldap/ADOperator.java -text
-src/main/java/com/datayes/cloud/ldap/ADUserInfo.java -text
 src/main/java/com/datayes/cloud/model/Tenant.java -text
 src/main/java/com/datayes/cloud/model/User.java -text
 src/main/java/com/datayes/cloud/openstack/CloudManager.java -text
@@ -438,6 +436,7 @@ src/main/webapp/WEB-INF/pages/common/nav.jsp -text
 src/main/webapp/WEB-INF/pages/index.jsp -text
 src/main/webapp/WEB-INF/pages/login.jsp -text
 src/main/webapp/WEB-INF/pages/service.jsp -text
+src/main/webapp/WEB-INF/pages/signup.jsp -text
 src/main/webapp/WEB-INF/web.xml -text
 src/main/webapp/flatui.jsp -text
 src/test/java/com/datayes/cloud/ContextTest.java -text

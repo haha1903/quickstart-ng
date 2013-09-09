@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+
 /**
  * User: changhai
  * Date: 13-8-20
@@ -17,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TenantService {
     @Autowired
     private CloudDao cloudDao;
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public void create(Tenant tenant) {
@@ -25,6 +29,6 @@ public class TenantService {
         admin.setName(tenant.getAdmin());
         admin.setPassword(tenant.getPassword());
         admin.setTenant(tenant);
-        cloudDao.save(admin);
+        userService.createUser(admin);
     }
 }

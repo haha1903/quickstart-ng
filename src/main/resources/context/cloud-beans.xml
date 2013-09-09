@@ -3,17 +3,17 @@
        xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-   <!-- <context:property-placeholder file-encoding="UTF-8" ignore-resource-not-found="true" location="classpath*:context/cloud-*.properties"/>
+    <context:property-placeholder file-encoding="UTF-8" ignore-resource-not-found="true" location="classpath*:context/cloud-*.properties"/>
     <context:component-scan base-package="com.datayes.cloud">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <tx:annotation-driven/>
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" autowire="byType"/>
-    <bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="packagesToScan" value="com.datayes.cloud.model"/>
         <property name="dataSource">
-            <bean class="org.apache.commons.dbcp.BasicDataSource" p:username="root" p:password="" p:driverClassName="com.mysql.jdbc.Driver"
-                  p:url="${cloud.url}"/>
+            <bean class="org.apache.commons.dbcp.BasicDataSource" p:username="${cloud.database.username}" p:password="${cloud.database.password}" p:driverClassName="com.mysql.jdbc.Driver"
+                  p:url="${cloud.database.url}"/>
         </property>
         <property name="hibernateProperties">
             <props>
@@ -21,24 +21,14 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
             </props>
         </property>
-    </bean>-->
+    </bean>
     <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
-        <property name="url" value="ldap://10.20.112.213:389"/>
-        <property name="base" value="cn=users,dc=datayestest,dc=com"/>
-        <property name="userDn" value="cn=administrator,cn=users,DC=datayestest,DC=com"/>
-        <property name="password" value="4rfv$RFV"/>
+        <property name="url" value="${cloud.ldap.url}"/>
+        <property name="base" value="${cloud.ldap.base}"/>
+        <property name="userDn" value="${cloud.ldap.userDn}"/>
+        <property name="password" value="${cloud.ldap.password}"/>
     </bean>
     <bean id="ldapTemplate" class="org.springframework.security.ldap.SpringSecurityLdapTemplate">
         <constructor-arg ref="contextSource"/>
-    </bean>
-    <bean id="adminOpenstackContext" class="com.datayes.cloud.openstack.OpenstackContext" p:identityServiceUrl="${openstack.identityServerUrl}"
-          p:username="${openstack.username}" p:password="${openstack.password}" p:token="${openstack.token}"/>
-    <bean id="scriptUtility" class="com.datayes.cloud.util.ScriptUtil">
-        <property name="scripts">
-            <map>
-                <entry key="ZIMBRA_SERVER" value="${cloud.scriptpath}/zimbra/ubuntu12.04/installzimbra-ubuntu12.04"/>
-
-            </map>
-        </property>
     </bean>
 </beans>

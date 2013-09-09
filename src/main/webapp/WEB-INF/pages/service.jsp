@@ -5,7 +5,7 @@
 <body>
 <%@include file="common/nav.jsp" %>
 <div class="container">
-    <div class="text-center">
+    <div class="text-center span10 center">
         <h3 class="demo-title">Service</h3>
         <div class="demo-content-wide">
             <table class="table table-striped table-hover">

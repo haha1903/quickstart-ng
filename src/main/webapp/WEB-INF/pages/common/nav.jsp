@@ -12,9 +12,9 @@
                         <li class="active"><a href="${contextPath}/service">Portal</a></li>
                         <li><a href="#fakelink">OA</a></li>
                         <li><a href="#fakelink">Workflow</a></li>
-                        <li><a href="#fakelink">About</a></li>
                         <li><a href="${contextPath}/signup">Sign Up</a></li>
-                        <li><a href="${contextPath}/login">Login</a></li>
+                        <li><a href="${contextPath}/service">Login</a></li>
+                        <li><a href="${contextPath}/consumer?logout">Logout</a></li>
                     </ul>
                     <form action="" class="navbar-search form-search pull-right">
                         <div class="input-append">

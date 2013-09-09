@@ -2,11 +2,9 @@
     margin: 0 auto;
     float: none;
 }
-
 #btn_reg {
     margin-right: 10px;
 }
-
 .datayes-logo:before {
     content: 'DataYes';
 }
@@ -51,7 +49,29 @@ input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
     border-color: #3498db;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+}
+.navbar .nav > li.active > a,
+.navbar .nav > li.active > a:hover,
+.navbar .nav > li.active > a:focus {
+    color: #3498db;
+}
+.navbar .nav > li > a:hover,
+.navbar .nav > li > a:focus {
+    color: #3498db;
+}
+.navbar.navbar-inverse .navbar-search.form-search .input-append .search-query:focus + .btn {
+    border-color: #3498db;
+}
+.form-search.focus .btn {
+    border-color: #3498db;
+    color: #3498db;
+}
+.form-search.focus input {
+    border-color: #3498db;
+}
+.navbar .navbar-search .search-query:focus {
+    border-color: #3498db;
+}
+.navbar .navbar-search.form-search .input-append .search-query:focus + .btn {
+    border-color: #3498db;
 }

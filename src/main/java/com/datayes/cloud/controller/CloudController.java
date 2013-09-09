@@ -36,12 +36,17 @@ public class CloudController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "index";
+        return "service";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup() {
-        return "index";
+        return "signup";
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public void signup(@RequestBody Tenant tenant) {
+        tenantService.create(tenant);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
