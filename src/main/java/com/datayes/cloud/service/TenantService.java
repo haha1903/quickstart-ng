@@ -3,11 +3,10 @@ package com.datayes.cloud.service;
 import com.datayes.cloud.dao.CloudDao;
 import com.datayes.cloud.model.Tenant;
 import com.datayes.cloud.model.User;
+import com.datayes.cloud.openstack.CloudManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
 
 /**
  * User: changhai
@@ -21,14 +20,18 @@ public class TenantService {
     private CloudDao cloudDao;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CloudManager cloudManager;
 
-    @Transactional
-    public void create(Tenant tenant) {
+    @Transactional(rollbackFor = Exception.class)
+    public void create(Tenant tenant) throws Exception {
         cloudDao.save(tenant);
         User admin = new User();
         admin.setName(tenant.getAdmin());
         admin.setPassword(tenant.getPassword());
         admin.setTenant(tenant);
+        cloudManager.createTenant(tenant.getName(), tenant.getName());
+        cloudManager.createZimbra(tenant.getName());
         userService.createUser(admin);
     }
 }

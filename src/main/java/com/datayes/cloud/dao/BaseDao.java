@@ -15,7 +15,6 @@ public abstract class BaseDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional
     public <T> void save(T t) {
         getSession().save(t);
     }

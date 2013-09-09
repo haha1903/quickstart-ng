@@ -17,7 +17,7 @@
         </init-param>
         <init-param>
             <param-name>consumerUrl</param-name>
-            <param-value>https://10.20.101.71:8444/cloud/consumer</param-value>
+            <param-value>https://10.20.102.136:8444/cloud/consumer</param-value>
         </init-param>
         <init-param>
             <param-name>ignore</param-name>

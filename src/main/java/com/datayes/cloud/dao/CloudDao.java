@@ -2,8 +2,11 @@ package com.datayes.cloud.dao;
 
 import com.datayes.cloud.model.User;
 import org.hibernate.Query;
+import org.hibernate.criterion.Example;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * User: changhai
@@ -20,5 +23,13 @@ public class CloudDao extends BaseDao {
                 .setString("password", user
                         .getPassword());
         return query.list().size() > 0;
+    }
+
+    public <T> List<T> findAll(Class<T> type) {
+        return getSession().createCriteria(type).list();
+    }
+
+    public <T> List<T> get(T example) {
+        return getSession().createCriteria(example.getClass()).add(Example.create(example)).list();
     }
 }

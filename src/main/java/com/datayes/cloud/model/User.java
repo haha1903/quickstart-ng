@@ -1,6 +1,9 @@
 package com.datayes.cloud.model;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * User: changhai
@@ -17,11 +20,15 @@ public class User {
     private long id;
     @Column
     private String name;
+    private transient String password;
     @Column
-    private String password;
+    private String dept;
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "cloud_user_service", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "service_id")})
+    private List<CloudService> services;
 
     public long getId() {
         return id;
@@ -47,6 +54,14 @@ public class User {
         this.password = password;
     }
 
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
     public Tenant getTenant() {
         return tenant;
     }
@@ -55,14 +70,23 @@ public class User {
         this.tenant = tenant;
     }
 
+    public List<CloudService> getServices() {
+        return services;
+    }
+
+    public void setServices(List<CloudService> services) {
+        this.services = services;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", dept='" + dept + '\'' +
                 ", tenant=" + tenant +
+                ", services=" + services +
                 '}';
     }
-
 }

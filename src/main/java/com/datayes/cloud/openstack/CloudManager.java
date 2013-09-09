@@ -83,4 +83,8 @@ public class CloudManager {
         return computeManager.bindFloatingIp(server);
     }
 
+    public Server createZimbra(String tenantName) throws Exception {
+        return createServer(tenantName, 10, ServerInitUtil.ServerFlavor.medium, ServerInitUtil.ServerType.ZIMBRA_SERVER);
+    }
+
 }

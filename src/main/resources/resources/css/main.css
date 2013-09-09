@@ -1,6 +1,7 @@
 .center {
     margin: 0 auto;
     float: none;
+    clear: both;
 }
 #btn_reg {
     margin-right: 10px;
