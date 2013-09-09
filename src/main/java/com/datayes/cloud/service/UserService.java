@@ -1,8 +1,14 @@
 package com.datayes.cloud.service;
 
 import com.datayes.cloud.dao.CloudDao;
-import com.datayes.cloud.model.CloudService;
-import com.datayes.cloud.model.User;
+import com.datayes.cloud.model.*;
+import com.datayes.cloud.openstack.OpenstackContext;
+import com.datayes.cloud.openstack.access.Flavor;
+import com.datayes.cloud.openstack.access.Server;
+import com.datayes.cloud.openstack.access.Volume;
+import com.datayes.cloud.openstack.access.VolumeAttachment;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.SimpleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.ldap.SpringSecurityLdapTemplate;
 import org.springframework.stereotype.Service;
@@ -10,8 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.naming.directory.*;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: changhai
@@ -24,6 +33,8 @@ import java.util.List;
 public class UserService {
     @Autowired
     private CloudDao cloudDao;
+    @Autowired
+    private OpenstackContextFactory openstackContextFactory;
     @Autowired
     private SpringSecurityLdapTemplate ldapTemplate;
 
@@ -100,5 +111,55 @@ public class UserService {
 
     public List<CloudService> getService(CloudService service) {
         return cloudDao.get(service);
+    }
+
+    public User getUser(long id) {
+        return cloudDao.get(User.class, id);
+    }
+
+    public void addServer(CloudServer server) {
+        cloudDao.save(server);
+    }
+
+    public List<CloudServer> getServers(Tenant tenant, String type) {
+        CloudServer example = new CloudServer();
+        example.setType(type);
+        example.setTenant(tenant);
+        return cloudDao.get(example);
+    }
+
+    public List<Server> getServers(String tenantName) throws IOException {
+        OpenstackContext ctx = openstackContextFactory.createContext("datayes_staging");
+        List<Server> servers = ctx
+                .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(Server.class)));
+        List<Volume> volumes = ctx
+                .get(ctx.getVolumeUrl() + "/volumes/detail", "volumes", CollectionType.construct(List.class, SimpleType.construct(Volume.class)));
+        Map<String, Flavor> flavors = new HashMap<String, Flavor>();
+        for (Server server : servers) {
+            String flavorId = server.getFlavor().getId();
+            Flavor flavor;
+            if (flavors.containsKey(flavorId)) {
+                flavor = flavors.get(flavorId);
+            } else {
+                flavor = ctx.get(ctx.getComputeUrl() + "/flavors/" + flavorId, "flavor", Flavor.class);
+                flavors.put(flavorId, flavor);
+            }
+            Volume volume = getVolume(server, volumes);
+            server.setVcpu(flavor.getVcpus());
+            server.setRam(flavor.getRam());
+            server.setDisk(flavor.getDisk() + (volume == null ? 0 : volume.getSize()));
+        }
+        return servers;
+    }
+
+    private Volume getVolume(Server server, List<Volume> volumes) {
+        for (Volume volume : volumes) {
+            List<VolumeAttachment> attachments = volume.getAttachments();
+            for (VolumeAttachment attachment : attachments) {
+                if (server.getId().equals(attachment.getServerId()))
+                    return volume;
+            }
+        }
+        return null;
     }
 }

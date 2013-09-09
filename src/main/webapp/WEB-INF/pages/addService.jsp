@@ -10,6 +10,9 @@
             <input class="span4" name="name" type="text" placeholder="服务名称"/>
         </div>
         <div class="row">
+            <input class="span4" name="description" type="text" placeholder="服务描述"/>
+        </div>
+        <div class="row">
             <button id="btn_addService" class="btn btn-info span2 center">添加服务</button>
         </div>
     </div>

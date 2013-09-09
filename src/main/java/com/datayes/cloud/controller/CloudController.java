@@ -2,9 +2,9 @@ package com.datayes.cloud.controller;
 
 import com.datayes.cloud.exception.CloudException;
 import com.datayes.cloud.exception.LoginException;
-import com.datayes.cloud.model.CloudService;
-import com.datayes.cloud.model.Tenant;
-import com.datayes.cloud.model.User;
+import com.datayes.cloud.model.*;
+import com.datayes.cloud.openstack.access.Server;
+import com.datayes.cloud.service.OpenstackContextFactory;
 import com.datayes.cloud.service.TenantService;
 import com.datayes.cloud.service.UserService;
 import com.datayes.paas.sso.SsoContext;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,28 +56,32 @@ public class CloudController {
     public String users(Map model) {
         List<User> users = userService.getAll();
         model.put("users", users);
+        List<CloudService> services = userService.getServices();
+        model.put("services", services);
         return "users";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void addUser(@RequestBody User user) {
-        User exampl = new User();
-        exampl.setName(SsoContext.getUser().getName());
-        User currentUser = userService.getUser(exampl);
+        User currentUser = getCurrentUser();
         user.setTenant(currentUser.getTenant());
         userService.createUser(user);
     }
 
+    private User getCurrentUser() {
+        User exampl = new User();
+        exampl.setName(SsoContext.getUser().getName());
+        return userService.getUser(exampl);
+    }
+
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public void addUserService(long id, @RequestBody CloudService service) throws CloudException {
-        User exampl = new User();
-        exampl.setId(id);
-        User user = userService.getUser(exampl);
+        User user = userService.getUser(id);
         List<CloudService> cloudServices = userService.getService(service);
         if (cloudServices.isEmpty())
             throw new CloudException("service not found: " + service);
         CloudService newService = cloudServices.get(0);
-        if (newService.isEnabled()) {
+        if (service.isEnabled()) {
             user.addService(newService);
         } else {
             user.removeService(newService);
@@ -86,9 +91,7 @@ public class CloudController {
 
     @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
     public String userinfo(long id, Map model) {
-        User example = new User();
-        example.setId(id);
-        User user = userService.getUser(example);
+        User user = userService.getUser(id);
         model.put("user", user);
         List<CloudService> enabledServices = user.getServices();
         List<CloudService> services = userService.getServices();
@@ -111,7 +114,8 @@ public class CloudController {
     }
 
     @RequestMapping(value = "/service", method = RequestMethod.GET)
-    public String service() {
+    public String service(Map model) {
+        model.put("services", userService.getServices());
         return "service";
     }
 
@@ -120,9 +124,21 @@ public class CloudController {
         return "addService";
     }
 
+    @RequestMapping(value = "/addServer", method = RequestMethod.GET)
+    public String addServer() {
+        return "addServer";
+    }
+
     @RequestMapping(value = "/service", method = RequestMethod.POST)
-    public void service(CloudService service) {
+    public void service(@RequestBody CloudService service) {
         userService.addService(service);
+    }
+
+    @RequestMapping(value = "/server", method = RequestMethod.POST)
+    public void server(@RequestBody CloudServer server) {
+        User user = getCurrentUser();
+        server.setTenant(user.getTenant());
+        userService.addServer(server);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -136,6 +152,14 @@ public class CloudController {
     @RequestMapping(value = "/tenant", method = RequestMethod.POST)
     public void createTenant(Map model, @RequestBody Tenant tenant) throws Exception {
         tenantService.create(tenant);
+    }
+
+    @RequestMapping(value = "/monitor", method = RequestMethod.GET)
+    public String monitor(Map model) throws IOException {
+        User user = getCurrentUser();
+        List<Server> servers = userService.getServers("datayes_staging");
+        model.put("servers", servers);
+        return "monitor";
     }
 
     @ExceptionHandler(CloudException.class)

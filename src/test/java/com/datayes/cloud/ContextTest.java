@@ -1,11 +1,15 @@
 package com.datayes.cloud;
 
 import com.datayes.cloud.model.Tenant;
+import com.datayes.cloud.model.User;
+import com.datayes.cloud.service.OpenstackContextFactory;
 import com.mysql.jdbc.Driver;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,8 +21,10 @@ import org.springframework.security.ldap.SpringSecurityLdapTemplate;
 
 import javax.naming.NameClassPair;
 import javax.naming.directory.*;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * User: changhai
@@ -29,16 +35,7 @@ import java.util.List;
 public class ContextTest {
     @Test
     public void testBeans() throws Exception {
-        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
-        dataSource.setDriverClassName(Driver.class.getName());
-        dataSource.setUrl("jdbc:mysql://localhost/haha");
-        localSessionFactoryBean.setDataSource(dataSource);
-        localSessionFactoryBean.setPackagesToScan("com.datayes.cloud.model");
-        localSessionFactoryBean.afterPropertiesSet();
-        SessionFactory sessionFactory = localSessionFactoryBean.getObject();
+        SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         Tenant tenant = new Tenant();
         tenant.setName("name");
@@ -50,14 +47,46 @@ public class ContextTest {
     }
 
     @Test
+    public void testSearchByExample() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        Session session = sessionFactory.openSession();
+        User example = new User();
+        example.setName("ssotest");
+        Criteria criteria = session.createCriteria(User.class).add(Example.create(example));
+        List<User> list = criteria.list();
+        for (User user : list) {
+            System.out.println(user);
+        }
+    }
+
+    private SessionFactory getSessionFactory() throws IOException {
+        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
+        dataSource.setDriverClassName(Driver.class.getName());
+        dataSource.setUrl("jdbc:mysql://localhost/haha");
+        localSessionFactoryBean.setDataSource(dataSource);
+        localSessionFactoryBean.setPackagesToScan("com.datayes.cloud.model");
+        Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty("hibernate.show_sql", "true");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        localSessionFactoryBean.setHibernateProperties(hibernateProperties);
+        localSessionFactoryBean.afterPropertiesSet();
+        return localSessionFactoryBean.getObject();
+    }
+
+    @Test
     public void testContext() throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("context/cloud-beans.xml");
         System.out.println(context);
-        SpringSecurityLdapTemplate ldapTemplate = context.getBean(SpringSecurityLdapTemplate.class);
+        OpenstackContextFactory factory = context.getBean(OpenstackContextFactory.class);
+        System.out.println(factory);
+        /*SpringSecurityLdapTemplate ldapTemplate = context.getBean(SpringSecurityLdapTemplate.class);
         List list = ldapTemplate.list("cn=users,dc=datayestest,dc=com");
         for (Object o : list) {
             System.out.println(o);
-        }
+        }*/
     }
 
     @Test

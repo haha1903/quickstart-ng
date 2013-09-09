@@ -1,6 +1,7 @@
 package com.datayes.cloud.openstack.access;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * User: changhai
@@ -13,7 +14,9 @@ public class VolumeAttachment {
     private String id;
     private String device;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("server_id")
     private String serverId;
+    @JsonProperty("volume_id")
     private String volumeId;
 
     public VolumeAttachment() {

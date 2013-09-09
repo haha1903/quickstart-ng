@@ -5,8 +5,10 @@ src/main/java/com/datayes/cloud/dao/BaseDao.java -text
 src/main/java/com/datayes/cloud/dao/CloudDao.java -text
 src/main/java/com/datayes/cloud/exception/CloudException.java -text
 src/main/java/com/datayes/cloud/exception/LoginException.java -text
+src/main/java/com/datayes/cloud/model/CloudServer.java -text
 src/main/java/com/datayes/cloud/model/CloudService.java -text
 src/main/java/com/datayes/cloud/model/Tenant.java -text
+src/main/java/com/datayes/cloud/model/Usage.java -text
 src/main/java/com/datayes/cloud/model/User.java -text
 src/main/java/com/datayes/cloud/openstack/CloudManager.java -text
 src/main/java/com/datayes/cloud/openstack/ComputeManager.java -text
@@ -37,6 +39,7 @@ src/main/java/com/datayes/cloud/openstack/access/Token.java -text
 src/main/java/com/datayes/cloud/openstack/access/User.java -text
 src/main/java/com/datayes/cloud/openstack/access/Volume.java -text
 src/main/java/com/datayes/cloud/openstack/access/VolumeAttachment.java -text
+src/main/java/com/datayes/cloud/service/OpenstackContextFactory.java -text
 src/main/java/com/datayes/cloud/service/TenantService.java -text
 src/main/java/com/datayes/cloud/service/UserService.java -text
 src/main/java/com/datayes/cloud/util/DeleteUtil.java -text
@@ -50,6 +53,7 @@ src/main/resources/context/init-cloud.sql -text
 src/main/resources/ldap.properties -text
 src/main/resources/logback.xml -text
 src/main/resources/resources/css/main.css -text
+src/main/resources/resources/js/addServer.js -text
 src/main/resources/resources/js/addService.js -text
 src/main/resources/resources/js/addUser.js -text
 src/main/resources/resources/js/cloud.js -text
@@ -435,6 +439,7 @@ src/main/resources/serverscript/zabbix/ubuntu12.04/install_zabbix_agent_ubuntu12
 src/main/resources/serverscript/zimbra/ubuntu12.04/installzimbra-ubuntu12.04 -text
 src/main/resources/serverscript/zimbra/ubuntu12.04/installzimbra-ubuntu12.04-passwd -text
 src/main/resources/serverscript/zimbra/ubuntu12.04/passwd.sh -text
+src/main/webapp/WEB-INF/pages/addServer.jsp -text
 src/main/webapp/WEB-INF/pages/addService.jsp -text
 src/main/webapp/WEB-INF/pages/addUser.jsp -text
 src/main/webapp/WEB-INF/pages/common/foot.jsp -text
@@ -443,6 +448,7 @@ src/main/webapp/WEB-INF/pages/common/nav.jsp -text
 src/main/webapp/WEB-INF/pages/common/userLeft.jsp -text
 src/main/webapp/WEB-INF/pages/index.jsp -text
 src/main/webapp/WEB-INF/pages/login.jsp -text
+src/main/webapp/WEB-INF/pages/monitor.jsp -text
 src/main/webapp/WEB-INF/pages/service.jsp -text
 src/main/webapp/WEB-INF/pages/signup.jsp -text
 src/main/webapp/WEB-INF/pages/userinfo.jsp -text

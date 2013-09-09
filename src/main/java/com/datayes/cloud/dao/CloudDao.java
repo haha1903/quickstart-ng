@@ -36,4 +36,8 @@ public class CloudDao extends BaseDao {
     public <T> void update(T user) {
         getSession().update(user);
     }
+
+    public <T> T get(Class<T> type, long id) {
+        return (T) getSession().get(type, id);
+    }
 }

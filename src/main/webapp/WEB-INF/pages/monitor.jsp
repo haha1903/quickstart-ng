@@ -5,19 +5,22 @@
 <body>
 <div class="container span10 center">
     <%@include file="common/nav.jsp" %>
-    <div class="text-center center">
-        <h3 class="demo-title">Service</h3>
-
+    <div class="text-center">
+        <h3 class="demo-title">IT基础架构</h3>
         <div class="demo-content-wide">
             <table class="table table-striped table-hover">
                 <tr>
                     <th>服务名称</th>
-                    <th>服务描述</th>
+                    <th>CPU</th>
+                    <th>内存（MB）</th>
+                    <th>磁盘（GB）</th>
                 </tr>
-                <c:forEach var="service" items="${services}">
+                <c:forEach var="server" items="${servers}">
                     <tr>
-                        <td>${service.name}</td>
-                        <td>${service.description}</td>
+                        <td>${server.name}</td>
+                        <td>${server.vcpu}</td>
+                        <td>${server.ram}</td>
+                        <td>${server.disk}</td>
                     </tr>
                 </c:forEach>
             </table>

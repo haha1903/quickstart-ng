@@ -3,6 +3,8 @@ package com.datayes.cloud.openstack.access;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * User: changhai
  * Date: 13-8-13
@@ -23,6 +25,7 @@ public class Volume {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("availability_zone")
     private String availabilityZone;
+    private List<VolumeAttachment> attachments;
 
     public Volume() {
     }
@@ -88,6 +91,14 @@ public class Volume {
         this.availabilityZone = availabilityZone;
     }
 
+    public List<VolumeAttachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<VolumeAttachment> attachments) {
+        this.attachments = attachments;
+    }
+
     @Override
     public String toString() {
         return "Volume{" +
@@ -98,6 +109,7 @@ public class Volume {
                 ", size=" + size +
                 ", volumeType='" + volumeType + '\'' +
                 ", availabilityZone='" + availabilityZone + '\'' +
+                ", attachments=" + attachments +
                 '}';
     }
 }

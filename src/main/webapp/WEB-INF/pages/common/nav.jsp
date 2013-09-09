@@ -9,9 +9,10 @@
             <div id="nav-collapse-01" class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="${contextPath}/service">Portal</a></li>
-                    <li><a href="${contextPath}/signup">Sign Up</a></li>
+                    <%--<li><a href="${contextPath}/signup">Sign Up</a></li>--%>
+                    <li><a href="${contextPath}/monitor">监控</a></li>
                     <li><a href="${contextPath}/users">用户管理</a></li>
-                    <li><a href="${contextPath}/service">Login</a></li>
+                    <%--<li><a href="${contextPath}/service">Login</a></li>--%>
                     <li><a href="${contextPath}/consumer?logout">Logout</a></li>
                 </ul>
                 <form action="" class="navbar-search form-search pull-right">

@@ -1,5 +1,8 @@
 package com.datayes.cloud.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class User {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "cloud_user_service", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "service_id")})
     private List<CloudService> services;
 
@@ -75,6 +79,7 @@ public class User {
     public void setServices(List<CloudService> services) {
         this.services = services;
     }
+
     public void addService(CloudService service) {
         services.add(service);
     }
@@ -82,6 +87,30 @@ public class User {
     public void removeService(CloudService service) {
         services.remove(service);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        if (id != user.id) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
+
     @Override
     public String toString() {
         return "User{" +

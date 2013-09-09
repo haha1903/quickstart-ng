@@ -1,5 +1,6 @@
 package com.datayes.cloud.openstack.access;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -22,6 +23,14 @@ public class Server {
     private List<BlockDeviceMapping> blockDeviceMappings = new ArrayList<BlockDeviceMapping>();
     private List<ServerAddress> novanetwork = new ArrayList<ServerAddress>();
     private List<Link> links  = new ArrayList<Link>();
+    private Flavor flavor;
+    private Image image;
+    @JsonIgnore
+    private int vcpu;
+    @JsonIgnore
+    private int ram;
+    @JsonIgnore
+    private int disk;
 
     public Server() {
     }
@@ -106,6 +115,46 @@ public class Server {
         this.links = links;
     }
 
+    public Flavor getFlavor() {
+        return flavor;
+    }
+
+    public void setFlavor(Flavor flavor) {
+        this.flavor = flavor;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public int getVcpu() {
+        return vcpu;
+    }
+
+    public void setVcpu(int vcpu) {
+        this.vcpu = vcpu;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getDisk() {
+        return disk;
+    }
+
+    public void setDisk(int disk) {
+        this.disk = disk;
+    }
+
     @Override
     public String toString() {
         return "Server{" +
@@ -114,7 +163,15 @@ public class Server {
                 ", status='" + status + '\'' +
                 ", imageRef='" + imageRef + '\'' +
                 ", flavorRef='" + flavorRef + '\'' +
+                ", user_data='" + user_data + '\'' +
                 ", blockDeviceMappings=" + blockDeviceMappings +
+                ", novanetwork=" + novanetwork +
+                ", links=" + links +
+                ", flavor=" + flavor +
+                ", image=" + image +
+                ", vcpu=" + vcpu +
+                ", ram=" + ram +
+                ", disk=" + disk +
                 '}';
     }
 }
