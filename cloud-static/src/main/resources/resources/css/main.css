@@ -1,0 +1,10 @@
+#nav {
+    margin-bottom: 20px;
+}
+.service-refresh,.user-refresh {
+    cursor: pointer;
+}
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #e9e9e9;
+}

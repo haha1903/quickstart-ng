@@ -1,0 +1,8 @@
+[
+{"id": 1, "name": "交易系统", "type": "trading"},
+{"id": 2, "name": "组合管理", "type": "trading"},
+{"id": 3, "name": "行情数据服务", "type": "trading"},
+{"id": 4, "name": "电子邮件", "type": "office"},
+{"id": 5, "name": "社交办公", "type": "office"},
+{"id": 6, "name": "其它", "type": "other"}
+]
