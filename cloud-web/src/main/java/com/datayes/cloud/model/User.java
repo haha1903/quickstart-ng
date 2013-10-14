@@ -1,11 +1,6 @@
 package com.datayes.cloud.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * User: changhai
@@ -14,25 +9,17 @@ import java.util.List;
  * DataYes
  */
 @Entity
-@Table(name = "cloud_user", uniqueConstraints = {@UniqueConstraint(name = "uk_name_tenant_id", columnNames = {"name", "tenant_id"})})
+@Table(name = "cloud_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
     private String name;
     private transient String password;
-    @Column
     private String dept;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tenant_id")
-    @ForeignKey(name = "none")
-    private Tenant tenant;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "cloud_user_service", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))
-    @ForeignKey(name = "none", inverseName = "none")
-    private List<CloudService> services;
+    @Column(name = "tenant_id")
+    private long tenantId;
+    private boolean admin;
 
     public long getId() {
         return id;
@@ -66,44 +53,30 @@ public class User {
         this.dept = dept;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenantId(long tenantId) {
+        this.tenantId = tenantId;
     }
 
-    public List<CloudService> getServices() {
-        return services;
+    public boolean isAdmin() {
+        return admin;
     }
 
-    public void setServices(List<CloudService> services) {
-        this.services = services;
-    }
-
-    public void addService(CloudService service) {
-        services.add(service);
-    }
-
-    public void removeService(CloudService service) {
-        services.remove(service);
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         User user = (User) o;
 
-        if (id != user.id) {
-            return false;
-        }
+        if (id != user.id) return false;
 
         return true;
     }
@@ -120,9 +93,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", dept='" + dept + '\'' +
-                ", tenant=" + tenant +
-                ", services=" + services +
+                ", tenantId=" + tenantId +
                 '}';
     }
-
 }

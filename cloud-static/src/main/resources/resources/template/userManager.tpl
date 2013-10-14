@@ -1,8 +1,8 @@
 <div id="userManager">
     <h1>用户管理</h1>
-
     <div class="panel panel-default">
-        <div class="panel-heading">用户管理<span class="glyphicon glyphicon-refresh user-refresh pull-right"/></div>
+        <div class="panel-heading">用户管理<span class="glyphicon glyphicon-refresh user-refresh pull-right"/>
+            <span class="glyphicon glyphicon-plus user-add pull-right"/></div>
         <table class="table-striped table user">
             <tbody>
             <tr>
@@ -14,6 +14,7 @@
                 <th>组合管理</th>
                 <th>交易系统</th>
                 <th>行情数据服务</th>
+                <th></th>
             </tr>
             </tbody>
         </table>

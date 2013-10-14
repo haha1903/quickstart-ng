@@ -30,8 +30,8 @@ public class TenantService {
         admin.setName(tenant.getAdmin());
         admin.setPassword(tenant.getPassword());
         admin.setTenant(tenant);
-        cloudManager.createTenant(tenant.getName(), tenant.getName());
-        cloudManager.createZimbra(tenant.getName());
+        cloudManager.createTenant(tenant.getDomain(), tenant.getDomain());
+        cloudManager.createZimbra(tenant.getDomain());
         userService.createUser(admin);
     }
 }

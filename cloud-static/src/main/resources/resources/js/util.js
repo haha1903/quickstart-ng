@@ -32,12 +32,12 @@ function template(name) {
 $.views.helpers({s: function(url) {
     return staticPath + url;
 }});
-var debug = true;
+var debug = false;
 if (debug) {
     var xhr = sinon.useFakeXMLHttpRequest();
     xhr.useFilters = true;
     xhr.addFilter(function (method, url, async, username, password) {
-        return /\.(js|css|tpl)$/i.test(url);
+        return method != 'GET' || /\.(js|css|tpl)$/i.test(url);
     });
     xhr.onCreate = function (fxhr) {
         fxhr.onSend = function () {

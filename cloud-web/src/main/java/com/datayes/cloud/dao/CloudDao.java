@@ -15,9 +15,9 @@ import java.util.List;
  * DataYes
  */
 @Repository
+@Transactional
 public class CloudDao extends BaseDao {
 
-    @Transactional
     public boolean checkUser(User user) {
         Query query = getSession().createQuery("from User u where u.name = :name and u.password = :password").setString("name", user.getName())
                 .setString("password", user
@@ -39,5 +39,9 @@ public class CloudDao extends BaseDao {
 
     public <T> T get(Class<T> type, long id) {
         return (T) getSession().get(type, id);
+    }
+
+    public <T> void delete(Class<T> type, long id) {
+        getSession().delete(get(type, id));
     }
 }

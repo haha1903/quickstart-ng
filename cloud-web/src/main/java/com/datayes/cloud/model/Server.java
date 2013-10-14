@@ -1,7 +1,5 @@
 package com.datayes.cloud.model;
 
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.*;
 
 /**
@@ -12,22 +10,18 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "cloud_server")
-public class CloudServer {
+public class Server {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
     private String name;
     @Column(length = 2000)
     private String description;
-    @Column
+    @Column(name = "server_id")
     private String serverId;
-    @Column
     private String type;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tenant_id")
-    @ForeignKey(name = "none")
-    private Tenant tenant;
+    @Column(name = "tenant_id")
+    private long tenantId;
 
     public long getId() {
         return id;
@@ -61,12 +55,12 @@ public class CloudServer {
         this.type = type;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenantId(long tenantId) {
+        this.tenantId = tenantId;
     }
 
     public String getServerId() {
@@ -79,13 +73,13 @@ public class CloudServer {
 
     @Override
     public String toString() {
-        return "CloudServer{" +
+        return "Server{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", serverId='" + serverId + '\'' +
                 ", type='" + type + '\'' +
-                ", tenant=" + tenant +
+                ", tenantId=" + tenantId +
                 '}';
     }
 
@@ -98,7 +92,7 @@ public class CloudServer {
             return false;
         }
 
-        CloudServer that = (CloudServer) o;
+        Server that = (Server) o;
 
         if (id != that.id) {
             return false;

@@ -2,9 +2,9 @@ package com.datayes.cloud.controller;
 
 import com.datayes.cloud.exception.CloudException;
 import com.datayes.cloud.exception.LoginException;
-import com.datayes.cloud.model.*;
-import com.datayes.cloud.openstack.access.Server;
-import com.datayes.cloud.service.OpenstackContextFactory;
+import com.datayes.cloud.model.Service;
+import com.datayes.cloud.model.Tenant;
+import com.datayes.cloud.model.User;
 import com.datayes.cloud.service.TenantService;
 import com.datayes.cloud.service.UserService;
 import com.datayes.paas.sso.SsoContext;
@@ -56,51 +56,15 @@ public class CloudController {
     public String users(Map model) {
         List<User> users = userService.getAll();
         model.put("users", users);
-        List<CloudService> services = userService.getServices();
+        List<Service> services = userService.getServices();
         model.put("services", services);
         return "users";
-    }
-
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public void addUser(@RequestBody User user) {
-        User currentUser = getCurrentUser();
-        user.setTenant(currentUser.getTenant());
-        userService.createUser(user);
     }
 
     private User getCurrentUser() {
         User exampl = new User();
         exampl.setName(SsoContext.getUser().getName());
         return userService.getUser(exampl);
-    }
-
-    @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public void addUserService(long id, @RequestBody CloudService service) throws CloudException {
-        User user = userService.getUser(id);
-        List<CloudService> cloudServices = userService.getService(service);
-        if (cloudServices.isEmpty())
-            throw new CloudException("service not found: " + service);
-        CloudService newService = cloudServices.get(0);
-        if (service.isEnabled()) {
-            user.addService(newService);
-        } else {
-            user.removeService(newService);
-        }
-        userService.update(user);
-    }
-
-    @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
-    public String userinfo(long id, Map model) {
-        User user = userService.getUser(id);
-        model.put("user", user);
-        List<CloudService> enabledServices = user.getServices();
-        List<CloudService> services = userService.getServices();
-        for (CloudService service : services) {
-            if (enabledServices.contains(service))
-                service.setEnabled(true);
-        }
-        model.put("services", services);
-        return "userinfo";
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
@@ -130,15 +94,8 @@ public class CloudController {
     }
 
     @RequestMapping(value = "/service", method = RequestMethod.POST)
-    public void service(@RequestBody CloudService service) {
+    public void service(@RequestBody Service service) {
         userService.addService(service);
-    }
-
-    @RequestMapping(value = "/server", method = RequestMethod.POST)
-    public void server(@RequestBody CloudServer server) {
-        User user = getCurrentUser();
-        server.setTenant(user.getTenant());
-        userService.addServer(server);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -157,7 +114,7 @@ public class CloudController {
     @RequestMapping(value = "/monitor", method = RequestMethod.GET)
     public String monitor(Map model) throws IOException {
         User user = getCurrentUser();
-        List<Server> servers = userService.getServers("datayes_staging");
+        List<com.datayes.cloud.openstack.access.Server> servers = userService.getServers("datayes_staging");
         model.put("servers", servers);
         return "monitor";
     }

@@ -1,10 +1,6 @@
 package com.datayes.cloud.model;
 
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User: changhai
@@ -19,11 +15,9 @@ public class Tenant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(unique = true, updatable = false, nullable = false)
-    private String name;
-    @Column(nullable = false)
-    private String admin;
-    @Column
-    private String address;
+    private String domain;
+    @Column(name = "ad_url")
+    private String adUrl;
     @Column(name = "ad_user")
     private String adUser;
     @Column(name = "ad_password")
@@ -40,20 +34,12 @@ public class Tenant {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public String getPassword() {
@@ -64,12 +50,12 @@ public class Tenant {
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAdUrl() {
+        return adUrl;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdUrl(String adUrl) {
+        this.adUrl = adUrl;
     }
 
     public String getAdUser() {
@@ -92,9 +78,8 @@ public class Tenant {
     public String toString() {
         return "Tenant{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", admin='" + admin + '\'' +
-                ", address='" + address + '\'' +
+                ", domain='" + domain + '\'' +
+                ", adUrl='" + adUrl + '\'' +
                 ", adUser='" + adUser + '\'' +
                 ", adPassword='" + adPassword + '\'' +
                 ", enabled=" + enabled +

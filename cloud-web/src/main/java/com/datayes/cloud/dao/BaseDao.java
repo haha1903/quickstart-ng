@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * DataYes
  */
 @Repository
+@Transactional
 public abstract class BaseDao {
     @Autowired
     private SessionFactory sessionFactory;

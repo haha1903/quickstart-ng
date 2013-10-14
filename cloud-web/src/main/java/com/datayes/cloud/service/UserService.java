@@ -1,13 +1,12 @@
 package com.datayes.cloud.service;
 
 import com.datayes.cloud.dao.CloudDao;
-import com.datayes.cloud.model.CloudServer;
-import com.datayes.cloud.model.CloudService;
+import com.datayes.cloud.model.Server;
+import com.datayes.cloud.model.Service;
 import com.datayes.cloud.model.Tenant;
 import com.datayes.cloud.model.User;
 import com.datayes.cloud.openstack.OpenstackContext;
 import com.datayes.cloud.openstack.access.Flavor;
-import com.datayes.cloud.openstack.access.Server;
 import com.datayes.cloud.openstack.access.Volume;
 import com.datayes.cloud.openstack.access.VolumeAttachment;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -16,7 +15,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.ldap.SpringSecurityLdapTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
@@ -40,7 +38,7 @@ import java.util.Map;
  * Time: 下午12:42
  * DataYes
  */
-@Service
+@org.springframework.stereotype.Service
 @Transactional
 public class UserService {
     @Autowired
@@ -86,7 +84,7 @@ public class UserService {
 
     private SpringSecurityLdapTemplate getLdapTemplate(Tenant tenant) {
         try {
-            String address = tenant.getAddress();
+            String address = tenant.getAdUrl();
             LdapContextSource lcs = new LdapContextSource();
             lcs.setUrl(address);
             lcs.setUserDn("cn=" + tenant.getAdUser() + ",cn=users" + getDc(tenant));
@@ -100,7 +98,7 @@ public class UserService {
     }
 
     private String getDc(Tenant tenant) {
-        String domain = tenant.getName();
+        String domain = tenant.getDomain();
         String[] dcs = StringUtils.split(domain, '.');
         StringBuilder s = new StringBuilder();
         for (String dc : dcs) {
@@ -112,7 +110,7 @@ public class UserService {
     private Attributes getUserAttrs(User user) {
         try {
             String name = user.getName();
-            String tenantDomain = user.getTenant().getName();
+            String tenantDomain = user.getTenant().getDomain();
             Attributes attrs = new BasicAttributes(true);
             String email = name + "@" + tenantDomain;
             attrs.put(new BasicAttribute("userPrincipalName", email));
@@ -149,19 +147,19 @@ public class UserService {
         return users.isEmpty() ? null : users.get(0);
     }
 
-    public void addService(CloudService service) {
+    public void addService(Service service) {
         cloudDao.save(service);
     }
 
-    public List<CloudService> getServices() {
-        return cloudDao.findAll(CloudService.class);
+    public List<Service> getServices() {
+        return cloudDao.findAll(Service.class);
     }
 
     public void update(User user) {
         cloudDao.update(user);
     }
 
-    public List<CloudService> getService(CloudService service) {
+    public List<Service> getService(Service service) {
         return cloudDao.get(service);
     }
 
@@ -169,25 +167,25 @@ public class UserService {
         return cloudDao.get(User.class, id);
     }
 
-    public void addServer(CloudServer server) {
+    public void addServer(Server server) {
         cloudDao.save(server);
     }
 
-    public List<CloudServer> getServers(Tenant tenant, String type) {
-        CloudServer example = new CloudServer();
+    public List<Server> getServers(Tenant tenant, String type) {
+        Server example = new Server();
         example.setType(type);
         example.setTenant(tenant);
         return cloudDao.get(example);
     }
 
-    public List<Server> getServers(String tenantName) throws IOException {
+    public List<com.datayes.cloud.openstack.access.Server> getServers(String tenantName) throws IOException {
         OpenstackContext ctx = openstackContextFactory.createContext("datayes_staging");
-        List<Server> servers = ctx
-                .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(Server.class)));
+        List<com.datayes.cloud.openstack.access.Server> servers = ctx
+                .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(com.datayes.cloud.openstack.access.Server.class)));
         List<Volume> volumes = ctx
                 .get(ctx.getVolumeUrl() + "/volumes/detail", "volumes", CollectionType.construct(List.class, SimpleType.construct(Volume.class)));
         Map<String, Flavor> flavors = new HashMap<String, Flavor>();
-        for (Server server : servers) {
+        for (com.datayes.cloud.openstack.access.Server server : servers) {
             String flavorId = server.getFlavor().getId();
             Flavor flavor;
             if (flavors.containsKey(flavorId)) {
@@ -208,7 +206,7 @@ public class UserService {
         System.out.println(512 / 1024.0);
     }
 
-    private Volume getVolume(Server server, List<Volume> volumes) {
+    private Volume getVolume(com.datayes.cloud.openstack.access.Server server, List<Volume> volumes) {
         for (Volume volume : volumes) {
             List<VolumeAttachment> attachments = volume.getAttachments();
             for (VolumeAttachment attachment : attachments) {

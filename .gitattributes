@@ -43,7 +43,9 @@ cloud-static/src/main/resources/resources/lib/jquery/jsrender.js -text
 cloud-static/src/main/resources/resources/lib/requirejs/require.js -text
 cloud-static/src/main/resources/resources/lib/sinon/sinon-1.7.3.js -text
 cloud-static/src/main/resources/resources/loader.js -text
+cloud-static/src/main/resources/resources/template/addUser.tpl -text
 cloud-static/src/main/resources/resources/template/admin.tpl -text
+cloud-static/src/main/resources/resources/template/delUser.tpl -text
 cloud-static/src/main/resources/resources/template/help.tpl -text
 cloud-static/src/main/resources/resources/template/index.tpl -text
 cloud-static/src/main/resources/resources/template/nav.tpl -text
@@ -56,12 +58,13 @@ cloud-static/src/main/resources/resources/template/user.tpl -text
 cloud-static/src/main/resources/resources/template/userManager.tpl -text
 cloud-web/pom.xml -text
 cloud-web/src/main/java/com/datayes/cloud/controller/CloudController.java -text
+cloud-web/src/main/java/com/datayes/cloud/controller/UserController.java -text
 cloud-web/src/main/java/com/datayes/cloud/dao/BaseDao.java -text
 cloud-web/src/main/java/com/datayes/cloud/dao/CloudDao.java -text
 cloud-web/src/main/java/com/datayes/cloud/exception/CloudException.java -text
 cloud-web/src/main/java/com/datayes/cloud/exception/LoginException.java -text
-cloud-web/src/main/java/com/datayes/cloud/model/CloudServer.java -text
-cloud-web/src/main/java/com/datayes/cloud/model/CloudService.java -text
+cloud-web/src/main/java/com/datayes/cloud/model/Server.java -text
+cloud-web/src/main/java/com/datayes/cloud/model/Service.java -text
 cloud-web/src/main/java/com/datayes/cloud/model/Tenant.java -text
 cloud-web/src/main/java/com/datayes/cloud/model/TenantService.java -text
 cloud-web/src/main/java/com/datayes/cloud/model/Usage.java -text

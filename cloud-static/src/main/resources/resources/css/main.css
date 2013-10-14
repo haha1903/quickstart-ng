@@ -1,9 +1,15 @@
 #nav {
     margin-bottom: 20px;
 }
-.service-refresh,.user-refresh {
+
+.service-refresh, .user-refresh, .user-add, .user-del {
     cursor: pointer;
 }
+
+.user-add {
+    margin-right: 5px;
+}
+
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
     background-color: #e9e9e9;

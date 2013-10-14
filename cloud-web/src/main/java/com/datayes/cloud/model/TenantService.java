@@ -23,7 +23,7 @@ public class TenantService {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
     @ForeignKey(name = "none")
-    private CloudService service;
+    private Service service;
     private boolean enable;
 
     public long getId() {
@@ -42,11 +42,11 @@ public class TenantService {
         this.tenant = tenant;
     }
 
-    public CloudService getService() {
+    public Service getService() {
         return service;
     }
 
-    public void setService(CloudService service) {
+    public void setService(Service service) {
         this.service = service;
     }
 

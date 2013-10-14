@@ -1,10 +1,6 @@
 package com.datayes.cloud.model;
 
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User: changhai
@@ -14,15 +10,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "cloud_service")
-public class CloudService {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
     private String name;
     @Column(length = 2000)
     private String description;
-    private transient boolean enabled;
 
     public long getId() {
         return id;
@@ -48,22 +42,13 @@ public class CloudService {
         this.description = description;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
 
     @Override
     public String toString() {
-        return "CloudService{" +
+        return "Service{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", enabled=" + enabled +
                 '}';
     }
 
@@ -76,7 +61,7 @@ public class CloudService {
             return false;
         }
 
-        CloudService that = (CloudService) o;
+        Service that = (Service) o;
 
         if (id != that.id) {
             return false;
