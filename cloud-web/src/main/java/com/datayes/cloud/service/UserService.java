@@ -72,7 +72,7 @@ public class UserService {
 
     public void createUser(User user) {
         cloudDao.save(user);
-        Tenant tenant = user.getTenant();
+        Tenant tenant = null;
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
         String name = user.getName();
         String dc = getDc(tenant);
@@ -110,7 +110,7 @@ public class UserService {
     private Attributes getUserAttrs(User user) {
         try {
             String name = user.getName();
-            String tenantDomain = user.getTenant().getDomain();
+            String tenantDomain = "datayes";
             Attributes attrs = new BasicAttributes(true);
             String email = name + "@" + tenantDomain;
             attrs.put(new BasicAttribute("userPrincipalName", email));
@@ -174,7 +174,6 @@ public class UserService {
     public List<Server> getServers(Tenant tenant, String type) {
         Server example = new Server();
         example.setType(type);
-        example.setTenant(tenant);
         return cloudDao.get(example);
     }
 
@@ -200,10 +199,6 @@ public class UserService {
             server.setDisk(flavor.getDisk() + (volume == null ? 0 : volume.getSize()));
         }
         return servers;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(512 / 1024.0);
     }
 
     private Volume getVolume(com.datayes.cloud.openstack.access.Server server, List<Volume> volumes) {

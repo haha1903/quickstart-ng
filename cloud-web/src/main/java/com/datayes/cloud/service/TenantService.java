@@ -27,9 +27,7 @@ public class TenantService {
     public void create(Tenant tenant) throws Exception {
         cloudDao.save(tenant);
         User admin = new User();
-        admin.setName(tenant.getAdmin());
         admin.setPassword(tenant.getPassword());
-        admin.setTenant(tenant);
         cloudManager.createTenant(tenant.getDomain(), tenant.getDomain());
         cloudManager.createZimbra(tenant.getDomain());
         userService.createUser(admin);
