@@ -22,7 +22,7 @@ public class CommonUtil {
     }
 
     public static String getRandomIP() {
-        return String.format("{}:{}:{}:{}", random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        return String.format("%d.%d.%d.%d", random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(256));
         
     }
 }
