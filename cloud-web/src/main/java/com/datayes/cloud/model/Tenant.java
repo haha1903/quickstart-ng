@@ -16,22 +16,23 @@ public class Tenant {
     private long id;
     @Column(unique = true, updatable = false, nullable = false)
     private String domain;
-    @Column(name = "ad_url")
-    private String adUrl;
     @Column(name = "ad_user")
     private String adUser;
-    @Column(name = "ad_password")
-    private String adPassword;
-    private transient boolean enabled;
-
-    private transient String password;
-
+    @Column(name = "ad_url")
+    private String adUrl;
+    @Column(name = "init_password", nullable = false)
+    private String initPassword;
+    @Column(nullable = false)
+    private String company;
+    @Column(nullable = false)
+    private String email;
+    @Column
+    private String phone;
+    @Column
+    private String status;
+    
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getDomain() {
@@ -42,22 +43,6 @@ public class Tenant {
         this.domain = domain;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAdUrl() {
-        return adUrl;
-    }
-
-    public void setAdUrl(String adUrl) {
-        this.adUrl = adUrl;
-    }
-
     public String getAdUser() {
         return adUser;
     }
@@ -66,24 +51,82 @@ public class Tenant {
         this.adUser = adUser;
     }
 
-    public String getAdPassword() {
-        return adPassword;
+    public String getInitPassword() {
+        return initPassword;
     }
 
-    public void setAdPassword(String adPassword) {
-        this.adPassword = adPassword;
+    public void setInitPassword(String initPassword) {
+        this.initPassword = initPassword;
     }
+    
+    public String getAdUrl() {
+        return adUrl;
+    }
+
+    public void setAdUrl(String adUrl) {
+        this.adUrl = adUrl;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status){
+        this.status = status;
+    }
+
 
     @Override
     public String toString() {
         return "Tenant{" +
                 "id=" + id +
                 ", domain='" + domain + '\'' +
-                ", adUrl='" + adUrl + '\'' +
                 ", adUser='" + adUser + '\'' +
-                ", adPassword='" + adPassword + '\'' +
-                ", enabled=" + enabled +
-                ", password='" + password + '\'' +
+                ", initPassword='" + initPassword + '\'' +
+                ", adUrl='" + adUrl + '\'' +
+                ", company='" + company + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +                
                 '}';
     }
+    
+    /*public enum TenantStatus{
+        Pending("PENDING"),Enabled("ENABLED"),Disabled("DISABLED"),Deleted("DELETED");
+        
+        private String status;
+        
+        TenantStatus(String status){
+            this.status = status;
+        }
+        
+        @Override
+        public String toString() {
+            return status;
+        }
+    }*/
 }

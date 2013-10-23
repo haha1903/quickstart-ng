@@ -6,4 +6,4 @@
 <td><input type="checkbox"{{if pms}} checked{{/if}}/></td>
 <td><input type="checkbox"{{if trading}} checked{{/if}}/></td>
 <td><input type="checkbox"{{if data}} checked{{/if}}/></td>
-<td><span class="glyphicon glyphicon-remove user-del"/></td>
+<td><span class="glyphicon glyphicon-remove user-del action-icon"/></td>

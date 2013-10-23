@@ -3,6 +3,7 @@ package com.datayes.cloud.openstack;
 import com.datayes.cloud.openstack.access.Server;
 import com.datayes.cloud.openstack.access.Tenant;
 import com.datayes.cloud.openstack.access.Volume;
+import com.datayes.cloud.util.CommonUtil;
 import com.datayes.cloud.util.ServerInitUtil;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -48,7 +49,7 @@ public class CloudManager {
     }
 
     public Tenant createTenant(String tenantName, String desc) throws Exception {
-        TenantManager tenantManager = new TenantManager(getAdminContext());
+        /*TenantManager tenantManager = new TenantManager(getAdminContext());
         List<Tenant> tenants = tenantManager.listTenants();
         boolean exists = false;
         for (Tenant t : tenants){
@@ -62,7 +63,8 @@ public class CloudManager {
         ComputeManager computeManager = new ComputeManager(tenant1Context);
         computeManager.addSecurityGroupRule(ComputeManager.DEFAULT, 1,65535,"tcp","0.0.0.0/0");
 
-        return tenant;
+        return tenant;*/
+        return new Tenant();
     }
 
     public void deleteTenant(String tenantName) throws Exception {
@@ -84,7 +86,14 @@ public class CloudManager {
     }
 
     public Server createZimbra(String tenantName) throws Exception {
-        return createServer(tenantName, 10, ServerInitUtil.ServerFlavor.medium, ServerInitUtil.ServerType.ZIMBRA_SERVER);
+        //TODO: call api
+        return new Server();
+        //return createServer(tenantName, 10, ServerInitUtil.ServerFlavor.medium, ServerInitUtil.ServerType.ZIMBRA_SERVER);
+    }
+
+    public String createAD(String domain) {
+        //TODO: call api to create ad
+        return CommonUtil.getRandomIP();
     }
 
 }

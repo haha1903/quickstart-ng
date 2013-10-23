@@ -37,7 +37,7 @@ public class ContextTest {
         Session session = sessionFactory.openSession();
         Tenant tenant = new Tenant();
         tenant.setDomain("name");
-        tenant.setPassword("password");
+        tenant.setInitPassword("password");
         session.save(tenant);
         session.flush();
         session.close();

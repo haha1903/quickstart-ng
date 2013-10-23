@@ -4,8 +4,8 @@
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
     <context:property-placeholder file-encoding="UTF-8" ignore-resource-not-found="true" location="classpath*:context/cloud-*.properties"/>
-    <bean id="initDs" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" p:driverClass="com.mysql.jdbc.Driver" p:username="root"
-          p:password="" p:url="${cloud.database.base}"/>
+    <bean id="initDs" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" p:driverClass="com.mysql.jdbc.Driver" p:username="${cloud.database.username}"
+          p:password="${cloud.database.password}" p:url="${cloud.database.base}"/>
     <jdbc:initialize-database data-source="initDs">
         <jdbc:script location="classpath:context/init-cloud.sql"/>
     </jdbc:initialize-database>

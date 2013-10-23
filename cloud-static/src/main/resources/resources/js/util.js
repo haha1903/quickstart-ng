@@ -59,3 +59,9 @@ if (debug) {
         }
     };
 }
+
+var BUTTON_OK=16;
+var BUTTON_YES=8;
+var BUTTON_NO=4;
+var BUTTON_ABORT=2;
+var BUTTON_CANCEL=1;

@@ -71,7 +71,7 @@ public class UserService {
     }
 
     public void createUser(User user) {
-        cloudDao.save(user);
+        /*cloudDao.save(user);
         Tenant tenant = null;
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
         String name = user.getName();
@@ -79,16 +79,18 @@ public class UserService {
         ldapTemplate.bind("cn=" + name + ",cn=users" + dc, null, getUserAttrs(user));
         BasicAttribute attr = new BasicAttribute("member", "cn=" + name + ",cn=users" + dc);
         ModificationItem[] members = {new ModificationItem(DirContext.ADD_ATTRIBUTE, attr)};
-        ldapTemplate.modifyAttributes("cn=administrators,cn=builtin" + dc, members);
+        ldapTemplate.modifyAttributes("cn=administrators,cn=builtin" + dc, members);*/
+        cloudDao.save(user);
+        //TODO: use api
     }
 
     private SpringSecurityLdapTemplate getLdapTemplate(Tenant tenant) {
         try {
-            String address = tenant.getAdUrl();
+            String address = cloudDao.getAdUrl(tenant.getId());//tenant.getAdUrl();
             LdapContextSource lcs = new LdapContextSource();
             lcs.setUrl(address);
             lcs.setUserDn("cn=" + tenant.getAdUser() + ",cn=users" + getDc(tenant));
-            lcs.setPassword(tenant.getAdPassword());
+            lcs.setPassword(tenant.getInitPassword());
             lcs.afterPropertiesSet();
             SpringSecurityLdapTemplate template = new SpringSecurityLdapTemplate(lcs);
             return template;

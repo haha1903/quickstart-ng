@@ -33,8 +33,8 @@ public class CloudDao extends BaseDao {
         return getSession().createCriteria(example.getClass()).add(Example.create(example)).list();
     }
 
-    public <T> void update(T user) {
-        getSession().update(user);
+    public <T> void update(T type) {
+        getSession().update(type);
     }
 
     public <T> T get(Class<T> type, long id) {
@@ -43,5 +43,10 @@ public class CloudDao extends BaseDao {
 
     public <T> void delete(Class<T> type, long id) {
         getSession().delete(get(type, id));
+    }
+
+    public String getAdUrl(long tenantId) {
+        // TODO Auto-generated method stub
+        return "";
     }
 }

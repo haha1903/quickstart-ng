@@ -77,7 +77,7 @@ var UsersView = Backbone.View.extend({
             var input = $(this);
             user.set(input.attr('name'), input.val());
         });
-        user.set('tenant', {id: 1, admin: 'admin'});
+        user.set('tenantId', 1);
         this.collection.create(user, {success: function() {
             modal.modal('hide');
         }, error: function() {

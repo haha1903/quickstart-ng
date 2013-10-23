@@ -1,8 +1,8 @@
 <div id="userManager">
     <h1>用户管理</h1>
     <div class="panel panel-default">
-        <div class="panel-heading">用户管理<span class="glyphicon glyphicon-refresh user-refresh pull-right"/>
-            <span class="glyphicon glyphicon-plus user-add pull-right"/></div>
+        <div class="panel-heading">用户管理<span class="glyphicon glyphicon-refresh user-refresh pull-right action-icon"/>
+            <span class="glyphicon glyphicon-plus user-add pull-right action-icon"/></div>
         <table class="table-striped table user">
             <tbody>
             <tr>

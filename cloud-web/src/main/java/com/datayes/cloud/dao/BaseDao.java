@@ -1,5 +1,7 @@
 package com.datayes.cloud.dao;
 
+import java.io.Serializable;
+
 import com.datayes.cloud.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,8 +19,8 @@ public abstract class BaseDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public <T> void save(T t) {
-        getSession().save(t);
+    public <T> Serializable save(T t) {
+        return getSession().save(t);
     }
 
     protected Session getSession() {

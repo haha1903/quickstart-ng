@@ -105,12 +105,6 @@ public class CloudController {
         model.put("message", "success");
     }
 
-
-    @RequestMapping(value = "/tenant", method = RequestMethod.POST)
-    public void createTenant(Map model, @RequestBody Tenant tenant) throws Exception {
-        tenantService.create(tenant);
-    }
-
     @RequestMapping(value = "/monitor", method = RequestMethod.GET)
     public String monitor(Map model) throws IOException {
         User user = getCurrentUser();

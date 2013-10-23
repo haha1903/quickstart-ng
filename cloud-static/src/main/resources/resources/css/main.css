@@ -2,11 +2,11 @@
     margin-bottom: 20px;
 }
 
-.service-refresh, .user-refresh, .user-add, .user-del {
+.action-icon {
     cursor: pointer;
 }
 
-.user-add {
+.user-add, .tenant-add {
     margin-right: 5px;
 }
 

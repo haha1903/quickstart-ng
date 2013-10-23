@@ -22,7 +22,10 @@ requirejs.config({
         service: 'js/service',
         user: 'js/user',
         resource: 'js/resource',
-        app: 'js/app'
+        app: 'js/app',
+        tenant: 'js/tenant',
+        register: 'js/register'
+        	
     },
     shim: {
         backbone: ['underscore', 'jquery'],
@@ -31,9 +34,11 @@ requirejs.config({
         service: ['backbone'],
         user: ['backbone'],
         resource: ['backbone'],
+        tenant: ['backbone'],
         app: ['service', 'user', 'resource'],
         index: ['bootstrap', 'sinon', 'util', 'app'],
-        admin: ['bootstrap', 'sinon', 'util']
+        admin: ['bootstrap', 'sinon', 'util', 'tenant'],
+    	register: ['backbone', 'bootstrap', 'sinon', 'util']
     }
 });
 function loadCss(url) {
