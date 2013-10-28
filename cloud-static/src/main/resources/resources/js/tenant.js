@@ -60,7 +60,7 @@ var TenantView = Backbone.View.extend({
         var self = this;
         var modal = admin.showModal('confirmDialog', {
         	title: '启用租户',
-        	message: '确定要启用租户"'+this.model.get('company')+'"吗？请确保<br/><ul>虚拟机</ul><ul>AD</ul><ul>邮箱</ul>已经配置完成。',
+        	message: '确定要启用租户"'+this.model.get('company')+'"吗？请确保<br/><ul><li>虚拟机</li><li>AD</li><li>邮箱</li></ul>已经配置完成。',
         	button: (BUTTON_OK | BUTTON_CANCEL)
         }).on('shown.bs.modal', function() {
             $(this).find('.btn-confirm').bind('click', function() {
@@ -131,8 +131,35 @@ var TenantManagerView = Backbone.View.extend({
             $(this).find('.tenant-save').bind('click', function() {
                 self.saveTenant(modal);
             });
+            self.setValidation(modal);
         });
-    },
+    },   
+	setValidation: function(modal){
+    	modal.find("form").validate({
+    		rules : {
+    		    company : {required : true,
+    		    	       minlength : 2,
+    		    	       maxlength : 255
+    		    	       },
+    		    domain : {required : true,
+    		    	      domain : true,
+    		    	      minlength : 3,
+    		    	      maxlength : 255,
+    		    	      remote : "/tenant/checkDomain/"
+    		    	      },
+    		    adUser : {required : true,
+    		    	      minlength : 2,
+    		    	      maxlength : 32},
+    		    initPassword : {required : true,
+        		    	      minlength : 8,
+        		    	      maxlength : 32},
+    		    email : {required : true,
+    		    	     email : true},
+    		    phone : {phone : true}
+    		}
+    		    					
+    	});
+    },   
     saveTenant: function(modal) {
         var tenant = new Tenant();
         modal.find('input').each(function() {

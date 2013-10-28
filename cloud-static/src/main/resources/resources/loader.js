@@ -15,21 +15,24 @@ requirejs.config({
         cc: 'compressed/cc-1.0.3.min',
         jsrender: 'lib/jquery/jsrender',
         bootstrap: 'lib/bootstrap/js/bootstrap',
+        validate: 'lib/jquery/jquery.validate',
+        validatePlus: 'lib/jquery/additional-methods',
         util: 'js/util',
         index: 'js/index',
         admin: 'js/admin',
         sinon: 'lib/sinon/sinon-1.7.3',
         service: 'js/service',
+        messages: 'js/localization/messages_zh',
         user: 'js/user',
         resource: 'js/resource',
         app: 'js/app',
         tenant: 'js/tenant',
-        register: 'js/register'
-        	
+        register: 'js/register'       	
     },
     shim: {
         backbone: ['underscore', 'jquery'],
-        util: ['jquery', 'jsrender'],
+        //validate: ['validatePlus', 'jquery', 'jqueryform','jqueryjax'],
+        util: ['jquery', 'jsrender', 'validate', 'validatePlus', 'messages'],
         bootstrap: ['jquery'],
         service: ['backbone'],
         user: ['backbone'],

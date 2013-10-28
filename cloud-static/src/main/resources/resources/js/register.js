@@ -40,13 +40,45 @@ var RegisterView = Backbone.View.extend({
     initialize: function() {
     	this.$el.html(this.template.render());
     	this.topView = new TopView();
-        //this.model.bind('change', this.render, this);
-        //this.model.bind('destroy', this.remove, this);
     },
     render: function () {
         this.topView.render();
+        
+        this.setValidation();
+    },
+    setValidation: function(){
+
+    	$("form").validate({
+    		rules : {
+    		    company : {required : true,
+    		    	       minlength : 2,
+    		    	       maxlength : 255
+    		    	       },
+    		    domain : {required : true,
+    		    	      domain : true,
+    		    	      minlength : 3,
+    		    	      maxlength : 255,
+    		    	      remote : "/tenant/checkDomain/"
+    		    	      },
+    		    adUser : {required : true,
+    		    	      minlength : 2,
+    		    	      maxlength : 32},
+    		    email : {required : true,
+    		    	     email : true},
+    		    phone : {phone : true}
+    		}
+    		    					
+    	});
     },
     saveTenant: function() {
+    	
+    	if (!$("form").valid()) {
+    		var alert=$(".alert");
+    		for (var i=1;i<2;i++){
+    		 alert.fadeOut().fadeIn();
+    		 }
+    		return;  
+    	}
     	var tenant = new Tenant();
         $('#tenentContainer').find('input').each(function() {
             var input = $(this);

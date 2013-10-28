@@ -26,12 +26,20 @@
                             <input class="form-control" id="adUser" name="adUser" type="text" placeholder="请输入管理员用户名" value="{{:adUser}}"/>
                         </div>
                     </div>
+                    {{if id}}
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="adUrl">AD服务器地址</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="adUrl" name="adUrl" type="text" placeholder="请输入AD服务器地址" value="{{:adUrl}}"/>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="initPassword">密码</label>
                         <div class="col-md-6">
                             <input class="form-control" type="text" id="initPassword" name="initPassword" type="text" placeholder="请输入密码" value="{{:initPassword}}"/>
                         </div>
                     </div>
+                    {{/if}}
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="email">电子邮箱</label>
                         <div class="col-md-6">

@@ -13,6 +13,7 @@ cloud-static/src/main/resources/resources/img/cpu.png -text
 cloud-static/src/main/resources/resources/js/admin.js -text
 cloud-static/src/main/resources/resources/js/app.js -text
 cloud-static/src/main/resources/resources/js/index.js -text
+cloud-static/src/main/resources/resources/js/localization/messages_zh.js -text
 cloud-static/src/main/resources/resources/js/register.js -text
 cloud-static/src/main/resources/resources/js/resource.js -text
 cloud-static/src/main/resources/resources/js/service.js -text
@@ -41,7 +42,9 @@ cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflin
 cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.woff -text
 cloud-static/src/main/resources/resources/lib/bootstrap/js/bootstrap.js -text
 cloud-static/src/main/resources/resources/lib/bootstrap/js/bootstrap.min.js -text
+cloud-static/src/main/resources/resources/lib/jquery/additional-methods.js -text
 cloud-static/src/main/resources/resources/lib/jquery/jquery-2.0.3.js -text
+cloud-static/src/main/resources/resources/lib/jquery/jquery.validate.js -text
 cloud-static/src/main/resources/resources/lib/jquery/jsrender.js -text
 cloud-static/src/main/resources/resources/lib/requirejs/require.js -text
 cloud-static/src/main/resources/resources/lib/sinon/sinon-1.7.3.js -text

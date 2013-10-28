@@ -60,6 +60,37 @@ if (debug) {
     };
 }
 
+jQuery.validator.setDefaults({
+	  errorClass: "has-error",
+	  errorContainer : ".alert",
+	  errorLabelContainer: "#alert_ul",
+	  errorElement: "li",
+	  highlight: function(element, errorClass, validClass) {
+		  $(element).parent().parent().addClass(errorClass).removeClass(validClass);
+		  
+	  },
+	  unhighlight: function(element, errorClass, validClass) {
+	    $(element).parent().parent().removeClass(errorClass).addClass(validClass);
+	    
+	  },
+	  showErrors: function(errorMap, errorList) {
+		  for ( i = 0; errorList[i]; i++ ) {
+			 var error = errorList[i];
+			 error.message =  $("label[for="+ error.element.name+"]").text()+" : "+error.message ;
+		  };
+		  
+		  this.defaultShowErrors();
+	  }
+	});
+
+jQuery.validator.addMethod("domain", function(value, element, param) {
+	return this.optional(element) || /^(([\w-_\d]+\.)+)+(com|cn|net|org)$/gi.test(value);
+}, jQuery.validator.messages.domain);
+
+jQuery.validator.addMethod("phone", function(value, element, param) {
+	return this.optional(element) || /^(\(\d+\))?(\d+\s*-?\s*)*\d+$/g.test(value);
+}, jQuery.validator.messages.phone);
+
 var BUTTON_OK=16;
 var BUTTON_YES=8;
 var BUTTON_NO=4;
