@@ -42,14 +42,9 @@ public class CloudController {
         return "index";
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String signup() {
-        return "signup";
-    }
-
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public void signup(@RequestBody Tenant tenant) throws Exception {
-        tenantService.create(tenant);
+        return "register";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -63,10 +58,11 @@ public class CloudController {
 
     private User getCurrentUser() {
         User exampl = new User();
-        exampl.setName(SsoContext.getUser().getName());
+        exampl.setName("isAdacount");
+        //exampl.setName(SsoContext.getUser().getName());
         return userService.getUser(exampl);
     }
-
+    
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public String addUser() {
         return "addUser";
