@@ -25,4 +25,8 @@ public class CommonUtil {
         return String.format("%d.%d.%d.%d", random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(256));
         
     }
+
+    public static long getRandom() {
+        return random.nextLong();
+    }
 }

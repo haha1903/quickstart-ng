@@ -1,5 +1,7 @@
 package com.datayes.cloud.model;
 
+import java.util.HashMap;
+
 import javax.persistence.*;
 
 /**
@@ -9,18 +11,23 @@ import javax.persistence.*;
  * DataYes
  */
 @Entity
-@Table(name = "cloud_user")
+@Table(name = "cloud_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "tenant_id"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(nullable = false)
     private String name;
     private transient String password;
-    private String dept;
-    @Column(name = "tenant_id")
+    private transient String dept;
+    @Column(name = "tenant_id", nullable = false)
     private long tenantId;
+    private transient String givenName;
+    private transient String surname;
     private boolean admin;
-
+    //private transient HashMap<String,Boolean> permissionMap;
+    //private String permission;
+    
     public long getId() {
         return id;
     }
@@ -81,6 +88,24 @@ public class User {
         return true;
     }
 
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    
+
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
@@ -94,6 +119,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", dept='" + dept + '\'' +
                 ", tenantId=" + tenantId +
-                '}';
+                ", givenName='"+givenName +
+                "', surname='"+surname+
+                "'}";
     }
 }

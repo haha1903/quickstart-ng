@@ -46,14 +46,14 @@ public class TenantService {
         admin.setPassword(pwd);
         admin.setName(tenant.getAdUser());
         admin.setTenantId(tenant.getId());
-        userService.createUser(admin);
+        //TODO:userService.createUser(tenant,admin);
+        //Manually add ad admin
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void delete(long id) throws Exception {
         Tenant tenant = cloudDao.get(Tenant.class, id);
         cloudManager.deleteTenant(tenant.getDomain());
-        
         cloudDao.delete(Tenant.class,id);                
     }
     

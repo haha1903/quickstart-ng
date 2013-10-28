@@ -47,7 +47,8 @@ public class TenantController {
         return tenant;
     }
     
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable long id, @RequestBody Tenant tenant) throws Exception {
         tenantService.update(tenant);
     }
@@ -55,5 +56,11 @@ public class TenantController {
     @RequestMapping(method = RequestMethod.PUT)
     public void update(@RequestBody Tenant tenant) throws Exception {
         tenantService.update(tenant);
+    }
+    
+    @RequestMapping(value="/checkDomain", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean checkDomain(@RequestBody String domain){
+        return cloudDao.checkDomain(domain);
     }
 }
