@@ -18,14 +18,14 @@
 </td>
 <td>
     {{if status=="PENDING"}}
-        <span class="glyphicon glyphicon-wrench tenant-edit action-icon"/>
+        <span data-toggle="tooltip" title="编辑" class="glyphicon glyphicon-wrench tenant-edit action-icon"/>
     {{/if}}
     {{if status=="PENDING" || status=="DISABLED"}}
-        <span class="glyphicon glyphicon-ok tenant-enable action-icon"/>
+        <span data-toggle="tooltip" title="启用" class="glyphicon glyphicon-ok tenant-enable action-icon"/>
     {{else status=="ENABLED"}}
-        <span class="glyphicon glyphicon-lock tenant-disable action-icon"/>
+        <span data-toggle="tooltip" title="停用" class="glyphicon glyphicon-lock tenant-disable action-icon"/>
     {{/if}}
     {{if status!="DELETED"}}
-        <span class="glyphicon glyphicon-remove tenant-del action-icon"/>
+        <span data-toggle="tooltip" title="删除" class="glyphicon glyphicon-remove tenant-del action-icon"/>
     {{/if}}
 </td>

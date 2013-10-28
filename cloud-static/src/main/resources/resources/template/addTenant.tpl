@@ -3,7 +3,9 @@
     <div id="tenentContainer" class="container">
     <br>
     <h1>租户注册</h1>
-
+    <div class="alert alert-danger" style="display: none;">
+        <ul id="alert_ul"></ul>
+    </div>
     <form role="form" class="form-horizontal">
             <div class="form-group">
                 <label class="col-md-4 control-label" for="company">公司名</label>

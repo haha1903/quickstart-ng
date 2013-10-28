@@ -2,3 +2,7 @@
 *.iml
 target
 .DS_Store
+!cloud-static/src/main/resources/resources/js/localization/*.class
+!cloud-static/src/main/resources/resources/js/localization/*.iml
+!cloud-static/src/main/resources/resources/js/localization/target
+!cloud-static/src/main/resources/resources/js/localization/.DS_Store

@@ -9,7 +9,8 @@ var UserView = Backbone.View.extend({
     tagName: 'tr',
     template: template('user'),
     events: {
-        'click .user-del': 'deleteUser'
+        'click .user-del': 'deleteUser',
+        'click .user-edit': 'editUser'        
     },
     initialize: function() {
         this.model.bind('change', this.render, this);
@@ -21,15 +22,37 @@ var UserView = Backbone.View.extend({
     },
     deleteUser: function() {
         var self = this;
-        var modal = app.showModal('delUser', {name: this.model.get('name')}).on('shown.bs.modal', function() {
-            $(this).find('.user-del').bind('click', function() {
+        var modal = app.showModal('confirmDialog', {
+        	title: '删除用户',
+        	message: '确定要删除"'+this.model.get('name')+'"吗？',
+        	button: (BUTTON_OK | BUTTON_CANCEL)}).on('shown.bs.modal', function() {
+            $(this).find('.btn-confirm').bind('click', function() {
                 self.model.destroy({success: function() {
                     modal.modal('hide');
                 }, error: function() {
-                    alert('delUserFail');
+                    alert('删除用户失败。');
                 }, wait: true});
             })
         });
+    },
+    editUser: function() {
+        var self = this;
+        var modal = app.showModal('addUser',this.model.toJSON()).on('shown.bs.modal', function() {
+            $(this).find('.user-save').bind('click', function() {
+                self.saveUser(modal,self.model);
+            });
+        });
+    },
+    saveUser: function(modal,user) {
+        modal.find('input').each(function() {
+            var input = $(this);
+            user.set(input.attr('name'), input.val());
+        });
+        user.save(null, {success: function() {
+            modal.modal('hide');
+        }, error: function() {
+            alert('save user failure');
+        }, wait: true});
     },
     remove: function() {
         $(this.el).remove();
@@ -41,7 +64,8 @@ var UsersView = Backbone.View.extend({
     collection: new Users(),
     events: {
         'click .user-refresh': 'refresh',
-        'click .user-add': 'addUserModal'
+        'click .user-add': 'addUserModal',
+        'click .permission-save': 'savePermission'
     },
     initialize: function () {
         this.collection.bind('add', this.add, this);
@@ -65,12 +89,16 @@ var UsersView = Backbone.View.extend({
     },
     addUserModal: function() {
         var self = this;
-        var modal = app.showModal('addUser').on('shown.bs.modal', function() {
+        var modal = app.showModal('addUser',{}).on('shown.bs.modal', function() {
             $(this).find('.user-save').bind('click', function() {
                 self.saveUser(modal);
             });
         });
     },
+    savePermission: function(){
+    	
+    },
+    
     saveUser: function(modal) {
         var user = new User();
         modal.find('input').each(function() {
