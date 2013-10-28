@@ -9,7 +9,7 @@ cloud-static/src/main/resources/resources/css/register.css -text
 cloud-static/src/main/resources/resources/debug/resource -text
 cloud-static/src/main/resources/resources/debug/service -text
 cloud-static/src/main/resources/resources/debug/user -text
-cloud-static/src/main/resources/resources/img/cpu.png -text svneol=unset#unset
+cloud-static/src/main/resources/resources/img/cpu.png -text
 cloud-static/src/main/resources/resources/js/admin.js -text
 cloud-static/src/main/resources/resources/js/app.js -text
 cloud-static/src/main/resources/resources/js/index.js -text
@@ -21,11 +21,11 @@ cloud-static/src/main/resources/resources/js/user.js -text
 cloud-static/src/main/resources/resources/js/util.js -text
 cloud-static/src/main/resources/resources/lib/assets/css/docs.css -text
 cloud-static/src/main/resources/resources/lib/assets/css/pygments-manni.css -text
-cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-114-precomposed.png -text svneol=unset#unset
-cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-144-precomposed.png -text svneol=unset#unset
-cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-57-precomposed.png -text svneol=unset#unset
-cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-72-precomposed.png -text svneol=unset#unset
-cloud-static/src/main/resources/resources/lib/assets/ico/favicon.png -text svneol=unset#unset
+cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-114-precomposed.png -text
+cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-144-precomposed.png -text
+cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-57-precomposed.png -text
+cloud-static/src/main/resources/resources/lib/assets/ico/apple-touch-icon-72-precomposed.png -text
+cloud-static/src/main/resources/resources/lib/assets/ico/favicon.png -text
 cloud-static/src/main/resources/resources/lib/assets/js/html5shiv.js -text
 cloud-static/src/main/resources/resources/lib/assets/js/respond.min.js -text
 cloud-static/src/main/resources/resources/lib/backbone/backbone.js -text
@@ -35,10 +35,10 @@ cloud-static/src/main/resources/resources/lib/bootstrap/css/bootstrap-theme.css 
 cloud-static/src/main/resources/resources/lib/bootstrap/css/bootstrap-theme.min.css -text
 cloud-static/src/main/resources/resources/lib/bootstrap/css/bootstrap.css -text
 cloud-static/src/main/resources/resources/lib/bootstrap/css/bootstrap.min.css -text
-cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.eot -text svneol=unset#unset
+cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.eot -text
 cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.svg -text
-cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.ttf -text svneol=unset#unset
-cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.woff -text svneol=unset#unset
+cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.ttf -text
+cloud-static/src/main/resources/resources/lib/bootstrap/fonts/glyphicons-halflings-regular.woff -text
 cloud-static/src/main/resources/resources/lib/bootstrap/js/bootstrap.js -text
 cloud-static/src/main/resources/resources/lib/bootstrap/js/bootstrap.min.js -text
 cloud-static/src/main/resources/resources/lib/jquery/jquery-2.0.3.js -text
