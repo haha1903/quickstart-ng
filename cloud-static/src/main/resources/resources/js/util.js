@@ -1,5 +1,4 @@
 $(function () {
-    $.ajaxSetup({contentType: 'application/json', dataType: 'json'});
     jQuery.each([ "delete", "put" ], function (i, method) {
         jQuery[ method ] = function (url, data, callback, type) {
             if (jQuery.isFunction(data)) {
