@@ -58,7 +58,9 @@ var RegisterView = Backbone.View.extend({
     		    	      domain : true,
     		    	      minlength : 3,
     		    	      maxlength : 255,
-    		    	      remote : "/tenant/checkDomain/"
+    		    	      remote : {url:"/tenant/checkDomain/" ,
+    		    	    	        type:"post",
+    		    	    	        }
     		    	      },
     		    adUser : {required : true,
     		    	      minlength : 2,
