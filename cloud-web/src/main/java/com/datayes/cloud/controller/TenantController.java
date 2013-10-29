@@ -60,7 +60,7 @@ public class TenantController {
     
     @RequestMapping(value="/checkDomain", method = RequestMethod.POST)
     @ResponseBody
-    public boolean checkDomain(@RequestBody String domain){
+    public boolean checkDomain(String domain){
         return cloudDao.checkDomain(domain);
     }
 }
