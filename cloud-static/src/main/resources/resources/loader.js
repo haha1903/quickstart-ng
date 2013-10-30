@@ -33,17 +33,17 @@ requirejs.config({
     shim: {
         backbone: ['underscore', 'jquery'],
         //validate: ['validatePlus', 'jquery', 'jqueryform','jqueryjax'],
-        util: ['jquery', 'jsrender', 'validate', 'validatePlus', 'messages'],
+        util: ['jquery', 'backbone', 'sinon', 'jsrender', 'validate', 'validatePlus', 'messages'],
         bootstrap: ['jquery'],
-        service: ['backbone'],
-        user: ['backbone'],
-        resource: ['backbone'],
-        tenant: ['backbone'],
-        contact: ['backbone'],
+        service: ['util'],
+        user: ['util'],
+        resource: ['util'],
+        tenant: ['util'],
+        contact: ['util'],
         app: ['service', 'user', 'resource','contact'],
-        index: ['bootstrap', 'sinon', 'util', 'app'],
-        admin: ['bootstrap', 'sinon', 'util', 'tenant'],
-    	register: ['backbone', 'bootstrap', 'sinon', 'util']
+        index: ['bootstrap', 'util', 'app'],
+        admin: ['bootstrap', 'util', 'tenant'],
+    	register: ['bootstrap', 'util']
     }
 });
 function loadCss(url) {

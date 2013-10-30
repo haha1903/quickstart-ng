@@ -17,6 +17,19 @@ $(function () {
             });
         };
     });
+    var originalFetch = Backbone.Collection.prototype.fetch;
+    Backbone.Collection.prototype.fetch = function(options){
+        options = options ? _.clone(options) : {};
+        var originalError = options.error;
+        options.error = function(model, response, options){
+            if (originalError) {
+                originalError(model, response, options);
+            } else {
+                alert('fetch error: ' + response.statusText);
+            }
+        }
+        originalFetch.apply(this, [options]);
+    };
 });
 var staticPath = require.toUrl('');
 function template(name) {
@@ -52,9 +65,9 @@ if (debug) {
                 crossDomain: true,
                 dataType: 'text'
             }).done(function(data, status) {
-                    fxhr.responseText = data;
-                    done.apply(fxhr);
-                });
+                fxhr.responseText = data;
+                done.apply(fxhr);
+            });
             xhr.filters.pop();
         }
     };
