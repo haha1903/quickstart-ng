@@ -1,4 +1,4 @@
 <td>{{:id}}</td>
 <td>{{:cpu}}</td>
-<td>{{:ram}}</td>
+<td>{{:mem}}</td>
 <td>{{:disk}}</td>

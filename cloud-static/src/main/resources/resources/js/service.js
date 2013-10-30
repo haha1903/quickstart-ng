@@ -3,36 +3,23 @@ var Services = Backbone.Collection.extend({
     model: Service,
     url: '/service'
 })
-var ServiceView = Backbone.View.extend({
-    tagName: 'tr',
-    template: template('service'),
-    initialize: function () {
-        this.model.bind('change', this.render, this);
-        this.model.bind('destroy', this.remove, this);
-    },
-    render: function () {
-        $(this.el).html(this.template.render(this.model.toJSON()));
-        return this;
-    },
-    remove: function() {
-        alert('remove');
-    }
-});
+
 var ServicesView = Backbone.View.extend({
     el: '#content',
     template: template('serviceList'),
     collection: new Services(),
     events: {
-        'click .service-refresh': 'refresh'
+        //'click .service-refresh': 'refresh'
     },
     initialize: function () {
-        this.collection.bind('add', this.add, this);
-        this.collection.bind('fetch', this.addAll, this);
+        //this.collection.bind('add', this.add, this);
+        //this.collection.bind('fetch', this.addAll, this);
     },
     render: function () {
-        this.$el.html(this.template.render());
+        
         this.collection.reset();
         this.collection.fetch();
+        this.$el.html(this.template.render(this.collection.toJSON()));
         return this;
     },
     add: function (service) {

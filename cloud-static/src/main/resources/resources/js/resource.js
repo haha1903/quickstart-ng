@@ -23,7 +23,7 @@ var ResourcesView = Backbone.View.extend({
     template: template('resourceManager'),
     collection: new Resources(),
     events: {
-        'click .resource-refresh': 'refresh'
+       // 'click .resource-refresh': 'refresh'
     },
     initialize: function () {
         this.collection.bind('add', this.add, this);
@@ -37,7 +37,7 @@ var ResourcesView = Backbone.View.extend({
     },
     add: function (resource) {
         var resourceView = new ResourceView({model: resource});
-        $('.resource tbody').append(resourceView.render().el);
+        $('#resource tbody').append(resourceView.render().el);
     },
     addAll: function () {
         this.collection.each(this.add);

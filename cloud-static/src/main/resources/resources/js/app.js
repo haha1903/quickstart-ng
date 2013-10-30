@@ -1,7 +1,8 @@
 function active(view, e) {
-    view.$el.find('.active').removeClass('active');
-    $(e.target).parent().addClass('active');
+    view.$el.find('.cur').removeClass('cur');
+    $(e.target).addClass('cur');
 }
+
 var TopView = Backbone.View.extend({
     el: '#top',
     template: template('top'),
@@ -30,12 +31,14 @@ var NavView = Backbone.View.extend({
     events: {
         'click #service-list': 'serviceList',
         'click #user-manager': 'userManager',
-        'click #resource-manager': 'resourceManager'
+        'click #resource-manager': 'resourceManager',
+        'click #contact-us': 'contact'
     },
     initialize: function () {
         this.servicesView = new ServicesView();
         this.usersView = new UsersView();
         this.resourcesView = new ResourcesView();
+        this.contactView = new ContactView();
     },
     serviceList: function (e) {
         active(this, e);
@@ -55,6 +58,12 @@ var NavView = Backbone.View.extend({
         app.router.navigate('resources');
         return false;
     },
+    contact: function(e){
+    	active(this, e);
+    	this.contactView.render();
+    	app.router.navigate('contact');
+    	return false;
+    },
     render: function () {
         this.$el.html(this.template.render());
     },
@@ -68,6 +77,7 @@ var AppRouter = Backbone.Router.extend({
         'services': 'services',
         'users': 'users',
         'resources': 'resources',
+        'contact': 'contact',
         'help': 'help'
     },
     index: function () {
@@ -81,6 +91,9 @@ var AppRouter = Backbone.Router.extend({
     },
     resources: function () {
         $('#resource-manager').trigger('click');
+    },
+    contact: function () {
+        $('#contact-us').trigger('click');
     },
     help: function () {
         $('#help').trigger('click');

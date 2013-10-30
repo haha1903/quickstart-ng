@@ -1,4 +1,5 @@
 $(function () {
+    $.ajaxSetup({contentType: 'application/json', dataType: 'json'});
     jQuery.each([ "delete", "put" ], function (i, method) {
         jQuery[ method ] = function (url, data, callback, type) {
             if (jQuery.isFunction(data)) {
@@ -31,7 +32,7 @@ function template(name) {
 $.views.helpers({s: function(url) {
     return staticPath + url;
 }});
-var debug = false;
+var debug = true;
 if (debug) {
     var xhr = sinon.useFakeXMLHttpRequest();
     xhr.useFilters = true;
