@@ -9,8 +9,8 @@ var UserView = Backbone.View.extend({
     tagName: 'tr',
     template: template('user'),
     events: {
-        'click .user-del': 'deleteUser',
-        'click .user-edit': 'editUser'        
+        'click .delThis': 'deleteUser',
+        'click .editThis': 'editUser'        
     },
     initialize: function() {
         this.model.bind('change', this.render, this);
@@ -79,7 +79,7 @@ var UsersView = Backbone.View.extend({
     },
     add: function (user) {
         var userView = new UserView({model: user});
-        $('.user tbody').append(userView.render().el);
+        $('#user tbody').append(userView.render().el);
     },
     addAll: function () {
         this.collection.each(this.add);

@@ -1,22 +1,27 @@
-<div id="serviceList">
-    <h1>服务列表</h1>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">交易服务<span class="glyphicon glyphicon-refresh service-refresh pull-right action-icon"/></div>
-        <table class="table-striped table trading-service">
-            <tbody></tbody>
-        </table>
+    <div class="con_nTitle">服务列表</div>
+    <div class="con_nCon clearfix">
+                <div class="con_columns"><!-- each colum -->
+                    <dl class="colInPadding">
+                        <dt class="col_t">投资管理服务</dt>
+                        {{if type=="trading"}}
+                            <a class="col_l"><img src="{{:~s('img/src/business/cloud/icons-app/')}}{{if image}}{{:image}}{{else}}noneImg.gif{{/if}}" alt="">{{:name}}</a>
+                        {{/if}}
+                    </dl>
+                </div>
+                <div class="con_columns"><!-- each colum -->
+                    <dl class="colInPadding">
+                        <dt class="col_t">办公服务</dt>
+                        {{if type=="office"}}
+                            <a class="col_l"><img src="{{:~s('img/src/business/cloud/icons-app/')}}{{if image}}{{:image}}{{else}}noneImg.gif{{/if}}" alt="">{{:name}}</a>
+                        {{/if}}
+                    </dl>
+                </div>
+                <div class="con_columns"><!-- each colum -->
+                    <dl class="colInPadding">
+                        <dt class="col_t">其它服务</dt>
+                        {{if type=="other"}}
+                            <a class="col_l"><img src="{{:~s('img/src/business/cloud/icons-app/')}}{{if image}}{{:image}}{{else}}noneImg.gif{{/if}}" alt="">{{:name}}</a>
+                        {{/if}}
+                    </dl>
+                </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">办公服务<span class="glyphicon glyphicon-refresh service-refresh pull-right action-icon"/></div>
-        <table class="table-striped table office-service">
-            <tbody></tbody>
-        </table>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">其它<span class="glyphicon glyphicon-refresh service-refresh pull-right action-icon"/></div>
-        <table class="table-striped table other-service">
-            <tbody></tbody>
-        </table>
-    </div>
-</div>

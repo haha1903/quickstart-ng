@@ -27,7 +27,8 @@ requirejs.config({
         resource: 'js/resource',
         app: 'js/app',
         tenant: 'js/tenant',
-        register: 'js/register'       	
+        register: 'js/register' ,
+        contact: 'js/contact'
     },
     shim: {
         backbone: ['underscore', 'jquery'],
@@ -38,7 +39,8 @@ requirejs.config({
         user: ['backbone'],
         resource: ['backbone'],
         tenant: ['backbone'],
-        app: ['service', 'user', 'resource'],
+        contact: ['backbone'],
+        app: ['service', 'user', 'resource','contact'],
         index: ['bootstrap', 'sinon', 'util', 'app'],
         admin: ['bootstrap', 'sinon', 'util', 'tenant'],
     	register: ['backbone', 'bootstrap', 'sinon', 'util']
@@ -53,5 +55,5 @@ function loadCss(url) {
 }
 var module = location.search.slice(1);
 module = module || 'index';
-loadCss('css/' + module + '.css');
+loadCss('css/src/business/cloud/' + module + '.css');
 require([module]);

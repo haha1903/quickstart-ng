@@ -1,1 +1,1 @@
-<td>{{:name}}</td>
+<a class="col_l"><img src="{{:~s('img/src/business/cloud/icons-app/')}}{{if image}}{{:image}}{{else}}noneImg.gif{{/if}}" alt="">{{:name}}</a>
