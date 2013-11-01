@@ -1,43 +1,68 @@
-<div class="modal fade">
+<div class="modal fade" >
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{if id}}编辑{{else}}创建{{/if}}用户</h4>
+            <div class="cnmTitl"><!-- dia-head -->
+                <ul class="bdTab">
+                    <li class="bdtas">{{if id}}编辑{{else}}创建新{{/if}}用户</li>
+                </ul>
+                <ul class="diactr">
+                    <li class="clsx" data-dismiss="modal"></li>
+                </ul>
             </div>
-            <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="name">帐号</label>
+            <div class="diaDataCon cloudDia_1"><!-- dia-container -->
+                <div class="alert alert-danger" style="display:none;">
+                    <ul id="alert_ul"></ul>
+                </div>
+                <form action="">
+                <table class="tableSty_2" width="100%" border="0" cellspacing="0">
+                    <tr>
                         {{if id}}
-                       <p class="form-control-static" id="name" name="name">{{:name}}</p>
+                        <td class="odName">{{:name}}</td>
                         {{else}}
-                         <input type="text" class="form-control" id="name" name="name" placeholder="请输入用户账号">
-                        
-                        {{/if}}
-                    </div>
-                    <div class="form-group">
-                        <label for="password">密码</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" value="{{:password}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="surname">姓</label>
-                        <input type="text" class="form-control" id="surname" name="surname" placeholder="请输入用户姓" value="{{:surname}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="givenName">名</label>
-                        <input type="text" class="form-control" id="givenName" name="givenName" placeholder="请输入用户名" value="{{:givenName}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="dept">部门</label>
-                        <input type="text" class="form-control" id="dept" name="dept" placeholder="请输入部门" value="{{:dept}}">
-                    </div>
+                        <td>
+                                <label class="sr-only" for="name">用户名</label>
+                                <input type="text" class="abInputSty" id="name" name="name" placeholder="用户名">
+                        </td>
+                        {{/if}}                        
+                    </tr>
+                    <tr>
+                        <td>
+                                <label class="sr-only" for="surname">姓</label>
+                                <input type="text" id="surname" name="surname" class="abInputSty" placeholder="姓" value="{{:surname}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                                <label class="sr-only" for="givenName">名</label>
+                                <input type="text" id="givenName" name="givenName" class="abInputSty" placeholder="名" value="{{:givenName}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="sr-only" for="dept">部门</label><input type="text" id="dept" name="dept" class="abInputSty" placeholder="部门" value="{{:dept}}"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="sr-only" for="password">密码</label><input type="password" class="abInputSty" id="password" name="password" placeholder="密码"></td>
+                    </tr>
+                    <tr class="abFormTip">
+                        <td>
+                            <span class="pswstr"><i class="shypsw weak cur">弱</i></span
+                            ><span class="pswstr"><i class="shypsw middle">中</i></span
+                            ><span class="pswstr"><i class="shypsw vertnice">强</i></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="sr-only" for="passwordConfirm">确认密码</label><input type="password" class="abInputSty" id="passwordConfirm" name="passwordConfirm" placeholder="确认密码"></td>
+                    </tr>
+                </table>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary user-save">保存</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            
+            
+            <div class="cAncCtr"><!-- dia-control -->
+                <div class="btnWite cAncBtn" data-dismiss="modal">取消</div>
+                <div class="btnBlue cAncBtn"  id="user-save">确定</div>
             </div>
         </div>
+
     </div>
 </div>

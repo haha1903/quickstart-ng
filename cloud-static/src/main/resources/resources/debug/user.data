@@ -1,0 +1,8 @@
+[
+{"id": 1, "name": "andy_lau", "surname": "刘","givenName":"德华", "dept": "网络管理部", "email": true, "oa": true, "pms": true, "trading": true, "data": true},
+{"id": 2, "name": "carl_liu", "surname": "刘","givenName":"开","dept": "交易部", "email": true, "oa": true, "pms": true, "trading": true, "data": true},
+{"id": 3, "name": "mike_ye", "surname": "叶","givenName":"迈","dept": "交易部", "email": false, "oa": true, "pms": false, "trading": true, "data": true},
+{"id": 4, "name": "tom_xu", "surname": "徐","givenName":"堂","dept": "人事部", "email": true, "oa": false, "pms": true, "trading": false, "data": true},
+{"id": 5, "name": "vivian_lee", "surname": "李","givenName":"薇婉","dept": "人事部", "email": true, "oa": true, "pms": true, "trading": true, "data": true},
+{"id": 6, "name": "bill_wang", "surname": "王","givenName":"必尔","dept": "人事部", "email": false, "oa": true, "pms": true, "trading": true, "data": true}
+]

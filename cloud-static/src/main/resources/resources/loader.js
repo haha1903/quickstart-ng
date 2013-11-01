@@ -33,6 +33,8 @@ requirejs.config({
     shim: {
         backbone: ['underscore', 'jquery'],
         //validate: ['validatePlus', 'jquery', 'jqueryform','jqueryjax'],
+        messages: ['validate'],
+        validatePlus: ['validate'],
         util: ['jquery', 'backbone', 'sinon', 'jsrender', 'validate', 'validatePlus', 'messages'],
         bootstrap: ['jquery'],
         service: ['util'],
@@ -55,5 +57,5 @@ function loadCss(url) {
 }
 var module = location.search.slice(1);
 module = module || 'index';
-loadCss('css/src/business/cloud/' + module + '.css');
+loadCss('css/' + module + '.css');
 require([module]);

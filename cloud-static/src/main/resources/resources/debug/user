@@ -1,8 +1,0 @@
-[
-{"id": 1, "name": "andy_law", "dept": "网络管理部", "email": true, "oa": true, "pms": true, "trading": true, "data": true},
-{"id": 2, "name": "carl_liu", "dept": "交易部", "email": true, "oa": true, "pms": true, "trading": true, "data": true},
-{"id": 3, "name": "mike_ye", "dept": "交易部", "email": false, "oa": true, "pms": false, "trading": true, "data": true},
-{"id": 4, "name": "tom_xu", "dept": "人事部", "email": true, "oa": false, "pms": true, "trading": false, "data": true},
-{"id": 5, "name": "vivian_lee", "dept": "人事部", "email": true, "oa": true, "pms": true, "trading": true, "data": true},
-{"id": 6, "name": "bill_wang", "dept": "人事部", "email": false, "oa": true, "pms": true, "trading": true, "data": true}
-]

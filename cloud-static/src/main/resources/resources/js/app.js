@@ -7,13 +7,13 @@ var TopView = Backbone.View.extend({
     el: '#top',
     template: template('top'),
     events: {
-        'click #index': 'index',
-        'click #help': 'help'
+        //'click #index': 'index',
+        //'click #help': 'help'
     },
     initialize: function () {
     },
-    render: function () {
-        this.$el.append(this.template.render());
+    render: function (data) {
+        this.$el.append(this.template.render(data));
     },
     index: function (e) {
         active(this, e);
@@ -110,7 +110,11 @@ var AppView = Backbone.View.extend({
         this.router = new AppRouter();
     },
     render: function () {
-        this.topView.render();
+    	
+    	this.topView.render({name:"administrator@datayes.com"});
+    	$.get("/platform/notification", function(result){
+    	    $("#notification").html(result);
+    	  });
         this.navView.render();
     },
     showModal: function (name, data) {

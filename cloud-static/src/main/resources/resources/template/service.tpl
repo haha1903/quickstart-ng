@@ -1,1 +1,1 @@
-<a class="col_l"><img src="{{:~s('img/src/business/cloud/icons-app/')}}{{if image}}{{:image}}{{else}}noneImg.gif{{/if}}" alt="">{{:name}}</a>
+<a class="col_l"><img src="{{:~s('img/icons-app/')}}{{if app}}{{:app}}58.png{{else}}noneImg.gif{{/if}}" alt="">{{:name}}</a>

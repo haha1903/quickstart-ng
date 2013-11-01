@@ -1,24 +1,28 @@
-<div class="modal fade">
-    <div class="modal-dialog">
+<div class="modal fade" >
+    <div class="modal-dialog model-confirm">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{:title}}</h4>
+            <div class="cnmTitl nobg"><!-- dia-head -->
+                <ul class="bdTab">
+                    <li class="bdtas">{{:title}}</li>
+                </ul>
+                <ul class="diactr">
+                    <li class="clsx" data-dismiss="modal"></li>
+                </ul>
             </div>
-            <div class="modal-body">
-                {{:message}}
+            <div class="diaDataCon cloudDia_2">
+                <div class="cArelt">{{:message}}</div>                
             </div>
-            <div class="modal-footer">
+            <div class="cAncCtr">
+                <button type="button" class="btnWite cAncBtn" data-dismiss="modal">取消</button>
                 {{if (button & 16)}}
-                <button type="button" class="btn btn-default btn-confirm">确定</button>
+                <button type="button" class="btnBlue cAncBtn btn-confirm">确定</button>
                 {{/if}}
                 {{if (button & 8)}}
-                <button type="button" class="btn btn-default btn-yes">是</button>
+                <button type="button" class="btnBlue cAncBtn btn-yes">是</button>
                 {{/if}}
                 {{if (button & 4)}}
-                <button type="button" class="btn btn-default btn-no">否</button>
+                <button type="button" class="btnBlue cAncBtn btn-no">否</button>
                 {{/if}}
-                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
