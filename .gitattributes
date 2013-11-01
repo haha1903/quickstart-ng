@@ -11,6 +11,8 @@ cloud-static/src/main/resources/resources/debug/platform/notification.data -text
 cloud-static/src/main/resources/resources/debug/resource.data -text
 cloud-static/src/main/resources/resources/debug/service.data -text
 cloud-static/src/main/resources/resources/debug/user.data -text
+cloud-static/src/main/resources/resources/debug/user/checkUser.data -text
+cloud-static/src/main/resources/resources/debug/user/dept.data -text
 cloud-static/src/main/resources/resources/img/abTelSplitBg.gif -text
 cloud-static/src/main/resources/resources/img/bgimg.jpg -text
 cloud-static/src/main/resources/resources/img/cFromArea.png -text
