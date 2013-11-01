@@ -1,6 +1,7 @@
 package com.datayes.cloud.util;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Random;
 
 public class CommonUtil {
@@ -28,5 +29,12 @@ public class CommonUtil {
 
     public static long getRandom() {
         return random.nextLong();
+    }
+    
+    public static void countMap(Map<String,Integer> map, String key){
+        if (map.containsKey(key)){
+            map.put(key, map.get(key)+1);
+        }
+        else map.put(key, 1);
     }
 }

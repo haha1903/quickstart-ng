@@ -22,6 +22,8 @@ public class Tenant {
     private String adUrl;
     @Column(name = "init_password", nullable = false)
     private String initPassword;
+    @Column(name = "admin_password", nullable = false)
+    private String adminPassword;
     @Column(nullable = false)
     private String company;
     @Column(nullable = false)
@@ -61,6 +63,14 @@ public class Tenant {
 
     public void setInitPassword(String initPassword) {
         this.initPassword = initPassword;
+    }
+    
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
     }
     
     public String getAdUrl() {
