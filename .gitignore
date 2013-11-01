@@ -18,3 +18,7 @@ target
 !cloud-static/src/main/resources/resources/img/icons-app/*.iml
 !cloud-static/src/main/resources/resources/img/icons-app/target
 !cloud-static/src/main/resources/resources/img/icons-app/.DS_Store
+!cloud-static/src/main/resources/resources/debug/user/*.class
+!cloud-static/src/main/resources/resources/debug/user/*.iml
+!cloud-static/src/main/resources/resources/debug/user/target
+!cloud-static/src/main/resources/resources/debug/user/.DS_Store
