@@ -1,13 +1,10 @@
-<div class="con_nTitle"><div class="orangeBtn" id="addUser">添加用户</div>用户管理</div>
+<div class="con_nTitle"><div class="orangeBtn" id="user-add">添加用户</div>用户管理</div>
             <div class="con_nCon">
                 <div class="con_nConPadding_1 clearfix">
                     <div class="con_nLeft_1">
                         <div class="siderList">
-                            <div class="sideListTitle">全部用户({{:total}})</div>
+                            <div class="sideListTitle">全部用户(<span id="total"></span>)</div>
                             <div class="sideListCont">
-                                {{for department}}
-                                    <a href="#" class="sideLiks">{{:name}} ({{:number}})</a>
-                                {{/for}}
                             </div>
                         </div>
                     </div>

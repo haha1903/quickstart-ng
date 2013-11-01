@@ -42,9 +42,29 @@ function template(name) {
     }
     return $.templates[name];
 }
-$.views.helpers({s: function(url) {
-    return staticPath + url;
-}});
+ function convertMap( object ) {
+    var key, value,
+        fieldsArray = [];
+    for ( key in object ) {
+        if ( object.hasOwnProperty( key )) {
+            value = object[ key ];
+            // For each property/field add an object to the array, with key and value
+            fieldsArray.push({
+                key: key,
+                value: value
+            });
+        }
+    }
+    // Return the array, to be rendered using {{for ~fields(object)}}
+    return fieldsArray;
+ }
+$.views.helpers({
+	s: function(url) {
+		return staticPath + url;
+}
+});
+
+
 var debug = true;
 if (debug) {
     var xhr = sinon.useFakeXMLHttpRequest();
@@ -59,7 +79,7 @@ if (debug) {
             });
             var done = this.onload;
             $.ajax({
-                url: staticPath + 'debug' + fxhr.url,
+                url: staticPath + 'debug' + fxhr.url+".data",
                 async: fxhr.async,
                 method: fxhr.method,
                 crossDomain: true,
@@ -75,17 +95,19 @@ if (debug) {
 
 jQuery.validator.setDefaults({
 	  errorClass: "has-error",
-	  errorContainer : ".alert",
-	  errorLabelContainer: "#alert_ul",
-	  errorElement: "li",
+	  //errorContainer : ".alert",
+	  //errorLabelContainer: "#alert_ul",
+	  //errorElement: "li",
 	  highlight: function(element, errorClass, validClass) {
-		  $(element).parent().parent().addClass(errorClass).removeClass(validClass);
-		  
+		  $(element).parent().addClass(errorClass).removeClass(validClass);
 	  },
 	  unhighlight: function(element, errorClass, validClass) {
-	    $(element).parent().parent().removeClass(errorClass).addClass(validClass);
-	    
+	    $(element).parent().removeClass(errorClass).addClass(validClass);
 	  },
+	  errorPlacement: function(error, element) {
+		  $(error).addClass('control-label');
+		    error.appendTo( element.parent());
+	  }/*
 	  showErrors: function(errorMap, errorList) {
 		  for ( i = 0; errorList[i]; i++ ) {
 			 var error = errorList[i];
@@ -93,8 +115,8 @@ jQuery.validator.setDefaults({
 		  };
 		  
 		  this.defaultShowErrors();
-	  }
-	});
+	  }*/
+});
 
 jQuery.validator.addMethod("domain", function(value, element, param) {
 	return this.optional(element) || /^(([\w-_\d]+\.)+)+(com|cn|net|org)$/gi.test(value);
@@ -103,6 +125,10 @@ jQuery.validator.addMethod("domain", function(value, element, param) {
 jQuery.validator.addMethod("phone", function(value, element, param) {
 	return this.optional(element) || /^(\(\d+\))?(\d+\s*-?\s*)*\d+$/g.test(value);
 }, jQuery.validator.messages.phone);
+
+jQuery.validator.addMethod("account", function(value, element, param) {
+	return this.optional(element) || /^[\w\.]+$/gi.test(value);
+}, jQuery.validator.messages.account);
 
 var BUTTON_OK=16;
 var BUTTON_YES=8;

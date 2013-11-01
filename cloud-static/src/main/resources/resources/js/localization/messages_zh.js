@@ -22,6 +22,7 @@
 		max: $.validator.format("请输入一个最大为 {0} 的值"),
 		min: $.validator.format("请输入一个最小为 {0} 的值"),
 		domain: "请输入合法的域名",
-		phone: "请输入合法的电话号码"
+		phone: "请输入合法的电话号码",
+		account: "用户名只能为字母、数字、下划线及点(.)的组合"
 	});
 }(jQuery));

@@ -1,7 +1,7 @@
 [
-{"id": 1, "name": "交易系统", "type": "trading","app":"trade"},
-{"id": 2, "name": "组合管理", "type": "trading","app":"pmx"},
-{"id": 3, "name": "行情数据服务", "type": "trading","app":"data"},
+{"id": 1, "name": "交易系统", "type": "invest","app":"trade"},
+{"id": 2, "name": "组合管理", "type": "invest","app":"pms"},
+{"id": 3, "name": "行情数据服务", "type": "invest","app":"data"},
 {"id": 4, "name": "电子邮件", "type": "office","app":"email"},
 {"id": 5, "name": "社交办公", "type": "office","app":"oa"},
 {"id": 6, "name": "流程管理", "type": "office","app":"workflow"},
