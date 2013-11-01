@@ -54,6 +54,7 @@ public class UserService {
 
     private static final String USER_TYPE = "Data.User";
     private static final String USER_CLASS = "person";
+    private static final String ADMIN_ACCOUNT = "sso"; 
     
     @PostConstruct
     public void init() throws NoSuchAlgorithmException, KeyManagementException {
@@ -118,15 +119,15 @@ public class UserService {
 
     private SpringSecurityLdapTemplate getLdapTemplate(Tenant tenant) {
         try {
-            if (tenant.getAdUrl()==null || tenant.getAdUser()==null) return null;
+            if (tenant.getAdUrl()==null || tenant.getAdminPassword()==null) return null;
             String address = getAdUrl(tenant);//cloudDao.getAdUrl(tenant.getId());
             String base = getDc(tenant);
             LdapContextSource lcs = new LdapContextSource();
             
             lcs.setUrl(address);
             lcs.setBase(base);
-            lcs.setUserDn("cn=" + tenant.getAdUser() + ",cn=users," + base);
-            lcs.setPassword(tenant.getInitPassword());
+            lcs.setUserDn("cn=" + ADMIN_ACCOUNT + ",cn=users," + base);
+            lcs.setPassword(tenant.getAdminPassword());
             lcs.afterPropertiesSet();
             SpringSecurityLdapTemplate template = new SpringSecurityLdapTemplate(lcs);
             return template;

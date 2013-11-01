@@ -32,6 +32,8 @@ public class TenantService {
         
         String pwd = CommonUtil.generatePassword(12);
         tenant.setInitPassword(pwd);
+        pwd = CommonUtil.generatePassword(12);
+        tenant.setAdminPassword(pwd);
         Serializable s = cloudDao.save(tenant);
         System.out.println(s);
         
@@ -42,11 +44,11 @@ public class TenantService {
         tenant.setAdUrl(url);
         cloudDao.update(tenant);
                 
-        User admin = new User();
-        admin.setPassword(pwd);
-        admin.setName(tenant.getAdUser());
-        admin.setTenantId(tenant.getId());
-        //TODO:userService.createUser(tenant,admin);
+        User userAdmin = new User();
+        userAdmin.setPassword(tenant.getInitPassword());
+        userAdmin.setName(tenant.getAdUser());
+        userAdmin.setTenantId(tenant.getId());
+        userService.createUser(tenant,userAdmin);
         //Manually add ad admin
     }
 
