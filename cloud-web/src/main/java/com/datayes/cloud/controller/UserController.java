@@ -24,8 +24,6 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private CloudDao cloudDao;
-    @Autowired
     private UserService userService;
     
     private User getCurrentUser(){
@@ -79,22 +77,22 @@ public class UserController {
     
     @RequestMapping(method = RequestMethod.POST)
     public void create(@RequestBody User user) {
-        //cloudDao.save(user);
         userService.createUser(getCurrentTenant(),user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public User get(@PathVariable long id) {
-        return cloudDao.get(User.class, id);
+        return userService.getUser(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable long id) {
-        cloudDao.delete(User.class, id);
+        userService.delete(id);
     }
+    
     @RequestMapping(method = RequestMethod.PUT)
     public void update(User user) {
-        cloudDao.update(user);
+        userService.updateUser(user, getCurrentTenant());
     }
 }
