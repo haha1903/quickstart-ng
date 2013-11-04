@@ -1,12 +1,22 @@
 package com.datayes.cloud.service;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.datayes.cloud.dao.CloudDao;
 import com.datayes.cloud.model.Tenant;
 import com.datayes.cloud.model.User;
 import com.datayes.cloud.openstack.CloudManager;
+import com.datayes.cloud.openstack.OpenstackContext;
+import com.datayes.cloud.openstack.access.Flavor;
+import com.datayes.cloud.openstack.access.Volume;
+import com.datayes.cloud.openstack.access.VolumeAttachment;
 import com.datayes.cloud.util.CommonUtil;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.SimpleType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +36,8 @@ public class TenantService {
     private UserService userService;
     @Autowired
     private CloudManager cloudManager;
+    @Autowired
+    private OpenstackContextFactory openstackContextFactory;
 
     @Transactional(rollbackFor = Exception.class)
     public void create(Tenant tenant) throws Exception {
@@ -70,5 +82,38 @@ public class TenantService {
         
     }
 
-            
+    public List<com.datayes.cloud.openstack.access.Server> getServers(String tenantName) throws IOException {
+        OpenstackContext ctx = openstackContextFactory.createContext("datayes_staging");
+        List<com.datayes.cloud.openstack.access.Server> servers = ctx
+                .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(com.datayes.cloud.openstack.access.Server.class)));
+        List<Volume> volumes = ctx
+                .get(ctx.getVolumeUrl() + "/volumes/detail", "volumes", CollectionType.construct(List.class, SimpleType.construct(Volume.class)));
+        Map<String, Flavor> flavors = new HashMap<String, Flavor>();
+        for (com.datayes.cloud.openstack.access.Server server : servers) {
+            String flavorId = server.getFlavor().getId();
+            Flavor flavor;
+            if (flavors.containsKey(flavorId)) {
+                flavor = flavors.get(flavorId);
+            } else {
+                flavor = ctx.get(ctx.getComputeUrl() + "/flavors/" + flavorId, "flavor", Flavor.class);
+                flavors.put(flavorId, flavor);
+            }
+            Volume volume = getVolume(server, volumes);
+            server.setVcpu(flavor.getVcpus());
+            server.setRam(flavor.getRam() / 1024.0);
+            server.setDisk(flavor.getDisk() + (volume == null ? 0 : volume.getSize()));
+        }
+        return servers;
+    }
+
+    private Volume getVolume(com.datayes.cloud.openstack.access.Server server, List<Volume> volumes) {
+        for (Volume volume : volumes) {
+            List<VolumeAttachment> attachments = volume.getAttachments();
+            for (VolumeAttachment attachment : attachments) {
+                if (server.getId().equals(attachment.getServerId()))
+                    return volume;
+            }
+        }
+        return null;
+    }       
 }

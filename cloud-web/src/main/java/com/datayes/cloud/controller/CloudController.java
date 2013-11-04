@@ -104,7 +104,7 @@ public class CloudController {
     @RequestMapping(value = "/monitor", method = RequestMethod.GET)
     public String monitor(Map model) throws IOException {
         User user = getCurrentUser();
-        List<com.datayes.cloud.openstack.access.Server> servers = userService.getServers("datayes_staging");
+        List<com.datayes.cloud.openstack.access.Server> servers = tenantService.getServers("datayes_staging");
         model.put("servers", servers);
         return "monitor";
     }

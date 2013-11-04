@@ -34,6 +34,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,8 +50,7 @@ import java.util.Map;
 public class UserService {
     @Autowired
     private CloudDao cloudDao;
-    @Autowired
-    private OpenstackContextFactory openstackContextFactory;
+    
 
     private static final String USER_TYPE = "Data.User";
     private static final String USER_CLASS = "person";
@@ -93,23 +93,35 @@ public class UserService {
         String name = user.getName();
         String dc = getDc(tenant);
         ldapTemplate.bind("cn=" + name + ",cn=users", null, getUserAttrs(user,tenant));
-        BasicAttribute attr = new BasicAttribute("member", "cn=" + name + ",cn=users," + dc);
-        ModificationItem[] members = {new ModificationItem(DirContext.ADD_ATTRIBUTE, attr)};
-        ldapTemplate.modifyAttributes("cn=administrators,cn=builtin", members);
+        
+        if (user.isAdmin()){
+            BasicAttribute attr = new BasicAttribute("member", "cn=" + name + ",cn=users," + dc);
+            ModificationItem[] members = {new ModificationItem(DirContext.ADD_ATTRIBUTE, attr)};
+            ldapTemplate.modifyAttributes("cn=administrators,cn=builtin", members);
+        }
         
         user.setTenantId(tenant.getId());
         cloudDao.save(user);
     }
     
-    public void updateUser(Tenant tenant, User user){
+    public void updateUser(User user, Tenant tenant){
+        try{
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
-        ModificationItem[] mods = {
-                new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("sn", user.getSurname())),
-                new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("givenName", user.getGivenName())),
-                new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("department", user.getDept()))
-        };
+        List<ModificationItem> mods = new ArrayList<ModificationItem>();
+        mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("sn", user.getSurname())));
+        mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("givenName", user.getGivenName())));
+        mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("department", user.getDept())));
+        if (user.getPassword()!=null && !user.getPassword().isEmpty()){
+            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("unicodePwd", ("\"" + user.getPassword() + "\"").getBytes("UTF-16LE"))));
+        } 
+       
         String dc = getDc(tenant);
-        ldapTemplate.modifyAttributes("cn="+user.getName()+",cn=users", mods);
+        ldapTemplate.modifyAttributes("cn="+user.getName()+",cn=users", mods.toArray(new ModificationItem[0]));
+        
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     private SpringSecurityLdapTemplate getAdminLdapTemplate(){
@@ -200,16 +212,16 @@ public class UserService {
         return cloudDao.findAll(Service.class);
     }
 
-    public void update(User user) {
-        cloudDao.update(user);
-    }
-
     public List<Service> getService(Service service) {
         return cloudDao.get(service);
     }
 
     public User getUser(long id) {
         return cloudDao.get(User.class, id);
+    }
+    
+    public void delete(long id) {
+        cloudDao.delete(User.class, id);
     }
 
     public void addServer(Server server) {
@@ -222,40 +234,7 @@ public class UserService {
         return cloudDao.get(example);
     }
 
-    public List<com.datayes.cloud.openstack.access.Server> getServers(String tenantName) throws IOException {
-        OpenstackContext ctx = openstackContextFactory.createContext("datayes_staging");
-        List<com.datayes.cloud.openstack.access.Server> servers = ctx
-                .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(com.datayes.cloud.openstack.access.Server.class)));
-        List<Volume> volumes = ctx
-                .get(ctx.getVolumeUrl() + "/volumes/detail", "volumes", CollectionType.construct(List.class, SimpleType.construct(Volume.class)));
-        Map<String, Flavor> flavors = new HashMap<String, Flavor>();
-        for (com.datayes.cloud.openstack.access.Server server : servers) {
-            String flavorId = server.getFlavor().getId();
-            Flavor flavor;
-            if (flavors.containsKey(flavorId)) {
-                flavor = flavors.get(flavorId);
-            } else {
-                flavor = ctx.get(ctx.getComputeUrl() + "/flavors/" + flavorId, "flavor", Flavor.class);
-                flavors.put(flavorId, flavor);
-            }
-            Volume volume = getVolume(server, volumes);
-            server.setVcpu(flavor.getVcpus());
-            server.setRam(flavor.getRam() / 1024.0);
-            server.setDisk(flavor.getDisk() + (volume == null ? 0 : volume.getSize()));
-        }
-        return servers;
-    }
-
-    private Volume getVolume(com.datayes.cloud.openstack.access.Server server, List<Volume> volumes) {
-        for (Volume volume : volumes) {
-            List<VolumeAttachment> attachments = volume.getAttachments();
-            for (VolumeAttachment attachment : attachments) {
-                if (server.getId().equals(attachment.getServerId()))
-                    return volume;
-            }
-        }
-        return null;
-    }
+    
     
     private class UserAttributesMapper implements AttributesMapper {
 
