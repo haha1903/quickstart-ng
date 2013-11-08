@@ -22,6 +22,9 @@ public class Server {
     private String type;
     @Column(name = "tenant_id")
     private long tenantId;
+    private int cpu;
+    private int mem;
+    private long disk;
 
     public long getId() {
         return id;
@@ -70,6 +73,31 @@ public class Server {
     public void setServerId(String serverId) {
         this.serverId = serverId;
     }
+    
+    public int getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(int cpu) {
+        this.cpu = cpu;
+    }
+
+    public int getMem() {
+        return mem;
+    }
+
+    public void setMem(int mem) {
+        this.mem = mem;
+    }
+
+    public long getDisk() {
+        return disk;
+    }
+
+    public void setDisk(long disk) {
+        this.disk = disk;
+    }
+
 
     @Override
     public String toString() {
@@ -80,6 +108,9 @@ public class Server {
                 ", serverId='" + serverId + '\'' +
                 ", type='" + type + '\'' +
                 ", tenantId=" + tenantId +
+                ", cpu="+cpu +
+                ", mem="+mem +
+                ", disk="+disk +
                 '}';
     }
 

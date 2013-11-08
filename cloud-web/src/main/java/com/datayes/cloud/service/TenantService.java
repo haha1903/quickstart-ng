@@ -50,7 +50,7 @@ public class TenantService {
         System.out.println(s);
         
         cloudManager.createTenant(tenant.getDomain(), tenant.getDomain());
-        String url = cloudManager.createAD(tenant.getDomain());
+        String url = cloudManager.createAD(tenant.getDomain(),tenant.getAdminPassword());
         cloudManager.createZimbra(tenant.getDomain());
         
         tenant.setAdUrl(url);
@@ -82,7 +82,7 @@ public class TenantService {
         
     }
 
-    public List<com.datayes.cloud.openstack.access.Server> getServers(String tenantName) throws IOException {
+    public List<com.datayes.cloud.openstack.access.Server> getServers(Tenant tenant) throws IOException {
         OpenstackContext ctx = openstackContextFactory.createContext("datayes_staging");
         List<com.datayes.cloud.openstack.access.Server> servers = ctx
                 .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(com.datayes.cloud.openstack.access.Server.class)));

@@ -6,6 +6,7 @@ import com.datayes.cloud.model.User;
 import com.datayes.cloud.service.TenantService;
 import com.datayes.cloud.service.UserService;
 import com.datayes.cloud.util.CommonUtil;
+import com.datayes.cloud.util.ContextUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,38 +26,19 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CloudController cloudController;
     
-    private User getCurrentUser(){
-        //TODO: currently hard code tenantId here
-        User user = new User();
-        //u.setTenantId(10);
-        return user;
-    }
-    
-    private Tenant getCurrentTenant() {
-        //TODO: currently hard code tenantId here
-        //long tenantId = getCurrentUser().getTenantId();
-        //return cloudDao.get(Tenant, tenantId);
-        Tenant tenant = new Tenant();
-        tenant.setId(10);
-        tenant.setAdUrl("10.20.112.213");
-        tenant.setAdUser("isAdacount");
-        tenant.setCompany("datayestest");
-        tenant.setDomain("datayestest.com");
-        tenant.setInitPassword("datayes@123");
-        return tenant;
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<User> list() {
-        return userService.getUsers(getCurrentTenant());//cloudDao.findAll(User.class);
+        return userService.getUsers(cloudController.getCurrentTenant());//cloudDao.findAll(User.class);
     }
     
     @RequestMapping(value = "/dept",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Integer> getDept() {
-        List<User> list = userService.getUsers(getCurrentTenant());//cloudDao.findAll(User.class);
+        List<User> list = userService.getUsers(cloudController.getCurrentTenant());//cloudDao.findAll(User.class);
         Map<String, Integer> map= new LinkedHashMap<String, Integer>();
         int other = 0;
         for(User user:list){
@@ -77,7 +59,7 @@ public class UserController {
     
     @RequestMapping(method = RequestMethod.POST)
     public void create(@RequestBody User user) {
-        userService.createUser(getCurrentTenant(),user);
+        userService.createUser(cloudController.getCurrentTenant(),user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -93,6 +75,6 @@ public class UserController {
     
     @RequestMapping(method = RequestMethod.PUT)
     public void update(User user) {
-        userService.updateUser(user, getCurrentTenant());
+        userService.updateUser(cloudController.getCurrentTenant(),user);
     }
 }

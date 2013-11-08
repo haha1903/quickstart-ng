@@ -15,6 +15,8 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private String type;
+    private String app;
     @Column(length = 2000)
     private String description;
 
@@ -33,6 +35,22 @@ public class Service {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getApp() {
+        return app;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
+    }
 
     public String getDescription() {
         return description;
@@ -48,7 +66,9 @@ public class Service {
         return "Service{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", type='" + type +
+                "',app='" + app +
+                "', description='" + description + '\'' +
                 '}';
     }
 

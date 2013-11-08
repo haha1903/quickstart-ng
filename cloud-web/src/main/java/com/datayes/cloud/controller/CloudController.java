@@ -2,11 +2,13 @@ package com.datayes.cloud.controller;
 
 import com.datayes.cloud.exception.CloudException;
 import com.datayes.cloud.exception.LoginException;
+import com.datayes.cloud.model.Server;
 import com.datayes.cloud.model.Service;
 import com.datayes.cloud.model.Tenant;
 import com.datayes.cloud.model.User;
 import com.datayes.cloud.service.TenantService;
 import com.datayes.cloud.service.UserService;
+import com.datayes.cloud.util.ContextUtil;
 import com.datayes.paas.sso.SsoContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,8 @@ public class CloudController {
     private TenantService tenantService;
     @Autowired
     private UserService userService;
-
+    
+   
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
         return "redirect:index";
@@ -46,6 +49,11 @@ public class CloudController {
     public String signup() {
         return "register";
     }
+    
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "redirect:index?admin";
+    }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String users(Map model) {
@@ -55,14 +63,13 @@ public class CloudController {
         model.put("services", services);
         return "users";
     }
-
-    private User getCurrentUser() {
-        User exampl = new User();
-        exampl.setName("isAdacount");
-        //exampl.setName(SsoContext.getUser().getName());
-        return userService.getUser(exampl);
-    }
     
+    @RequestMapping(value = "/resource", method = RequestMethod.GET)
+    @ResponseBody
+    public List<com.datayes.cloud.openstack.access.Server> getResource() throws IOException {
+        return tenantService.getServers(getCurrentTenant());
+    }
+
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public String addUser() {
         return "addUser";
@@ -104,7 +111,8 @@ public class CloudController {
     @RequestMapping(value = "/monitor", method = RequestMethod.GET)
     public String monitor(Map model) throws IOException {
         User user = getCurrentUser();
-        List<com.datayes.cloud.openstack.access.Server> servers = tenantService.getServers("datayes_staging");
+        Tenant tenant = getCurrentTenant();
+        List<com.datayes.cloud.openstack.access.Server> servers = tenantService.getServers(tenant);
         model.put("servers", servers);
         return "monitor";
     }
@@ -116,5 +124,26 @@ public class CloudController {
         Map model = new HashMap();
         model.put("message", e.getMessage());
         return model;
+    }
+    
+    public User getCurrentUser(){
+        //TODO: currently hard code tenantId here
+        User user = new User();
+        //u.setTenantId(10);
+        return user;
+    }
+    
+    public Tenant getCurrentTenant() {
+        //TODO: currently hard code tenantId here
+        //long tenantId = getCurrentUser().getTenantId();
+        //return cloudDao.get(Tenant, tenantId);
+        Tenant tenant = new Tenant();
+        tenant.setId(10);
+        tenant.setAdUrl("10.20.112.213");
+        tenant.setAdUser("isAdacount");
+        tenant.setCompany("datayestest");
+        tenant.setDomain("datayestest.com");
+        tenant.setInitPassword("datayes@123");
+        return tenant;
     }
 }
