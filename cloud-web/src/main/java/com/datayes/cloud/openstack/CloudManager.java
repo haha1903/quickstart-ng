@@ -91,7 +91,7 @@ public class CloudManager {
         //return createServer(tenantName, 10, ServerInitUtil.ServerFlavor.medium, ServerInitUtil.ServerType.ZIMBRA_SERVER);
     }
 
-    public String createAD(String domain) {
+    public String createAD(String domain, String adminPassword) {
         //TODO: call api to create ad
         return CommonUtil.getRandomIP();
     }

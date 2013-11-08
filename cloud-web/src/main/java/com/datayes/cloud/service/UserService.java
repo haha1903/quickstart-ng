@@ -104,7 +104,7 @@ public class UserService {
         cloudDao.save(user);
     }
     
-    public void updateUser(User user, Tenant tenant){
+    public void updateUser(Tenant tenant, User user){
         try{
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
         List<ModificationItem> mods = new ArrayList<ModificationItem>();
