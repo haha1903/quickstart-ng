@@ -20,7 +20,7 @@
                         <configuration>
                             <ignorePackaging>true</ignorePackaging>
                             <warSourceDirectory>${basedir}/src/main/resources</warSourceDirectory>
-                            <port>8090</port>
+                            <port>8082</port>
                         </configuration>
                     </plugin>
                 </plugins>
