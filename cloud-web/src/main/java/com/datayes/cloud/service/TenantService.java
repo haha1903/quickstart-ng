@@ -36,6 +36,8 @@ public class TenantService {
     private UserService userService;
     @Autowired
     private CloudManager cloudManager;
+    @Autowired
+    private OpenstackContextFactory openstackContextFactory;
 
     @Transactional(rollbackFor = Exception.class)
     public void create(Tenant tenant) throws Exception {
@@ -78,5 +80,40 @@ public class TenantService {
     public void save(Tenant tenant) throws Exception {
         cloudDao.save(tenant);
         
+    }
+
+    public List<com.datayes.cloud.openstack.access.Server> getServers(Tenant tenant) throws IOException {
+        OpenstackContext ctx = openstackContextFactory.createContext("datayes_staging");
+        List<com.datayes.cloud.openstack.access.Server> servers = ctx
+                .get(ctx.getComputeUrl() + "/servers/detail", "servers", CollectionType.construct(List.class, SimpleType.construct(com.datayes.cloud.openstack.access.Server.class)));
+        List<Volume> volumes = ctx
+                .get(ctx.getVolumeUrl() + "/volumes/detail", "volumes", CollectionType.construct(List.class, SimpleType.construct(Volume.class)));
+        Map<String, Flavor> flavors = new HashMap<String, Flavor>();
+        for (com.datayes.cloud.openstack.access.Server server : servers) {
+            String flavorId = server.getFlavor().getId();
+            Flavor flavor;
+            if (flavors.containsKey(flavorId)) {
+                flavor = flavors.get(flavorId);
+            } else {
+                flavor = ctx.get(ctx.getComputeUrl() + "/flavors/" + flavorId, "flavor", Flavor.class);
+                flavors.put(flavorId, flavor);
+            }
+            Volume volume = getVolume(server, volumes);
+            server.setVcpu(flavor.getVcpus());
+            server.setRam(flavor.getRam() / 1024.0);
+            server.setDisk(flavor.getDisk() + (volume == null ? 0 : volume.getSize()));
+        }
+        return servers;
+    }
+
+    private Volume getVolume(com.datayes.cloud.openstack.access.Server server, List<Volume> volumes) {
+        for (Volume volume : volumes) {
+            List<VolumeAttachment> attachments = volume.getAttachments();
+            for (VolumeAttachment attachment : attachments) {
+                if (server.getId().equals(attachment.getServerId()))
+                    return volume;
+            }
+        }
+        return null;
     }
 }

@@ -32,7 +32,16 @@ public class UserService {
     @Autowired
     private CloudDao cloudDao;
 
-
+    private static final String USER_TYPE = "Data.User";
+    private static final String USER_CLASS = "person";
+    private static final String ADMIN_ACCOUNT = "sso"; 
+    
+    @PostConstruct
+    public void init() throws NoSuchAlgorithmException, KeyManagementException {
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        TrustManager tm = new X509TrustManager() {
+            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
     private static final String USER_TYPE = "Data.User";
     private static final String USER_CLASS = "person";
     private static final String ADMIN_ACCOUNT = "sso";
@@ -42,64 +51,64 @@ public class UserService {
     }
 
     public boolean check(User user) {
-        if (user.getTenantId() < 1) return false;
-
+        if (user.getTenantId()<1) return false;
+        
         Tenant tenant = cloudDao.get(Tenant.class, user.getTenantId());
         if (tenant == null) return false;
-
+        
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
         EqualsFilter filter = new EqualsFilter("cn", user.getName());
         return ldapTemplate.authenticate("CN=Users", filter.toString(), user.getPassword());
-
+        
     }
 
-    public void createUser(Tenant tenant, User user) {
+    public void createUser(Tenant tenant,User user) {
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
         String name = user.getName();
         String dc = getDc(tenant);
-        ldapTemplate.bind("cn=" + name + ",cn=users", null, getUserAttrs(user, tenant));
-
-        if (user.isAdmin()) {
+        ldapTemplate.bind("cn=" + name + ",cn=users", null, getUserAttrs(user,tenant));
+        
+        if (user.isAdmin()){
             BasicAttribute attr = new BasicAttribute("member", "cn=" + name + ",cn=users," + dc);
             ModificationItem[] members = {new ModificationItem(DirContext.ADD_ATTRIBUTE, attr)};
             ldapTemplate.modifyAttributes("cn=administrators,cn=builtin", members);
         }
-
         user.setTenantId(tenant.getId());
         cloudDao.save(user);
     }
-
-    public void updateUser(Tenant tenant, User user) {
-        try {
-            SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
-            List<ModificationItem> mods = new ArrayList<ModificationItem>();
-            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("sn", user.getSurname())));
-            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("givenName", user.getGivenName())));
-            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("department", user.getDept())));
-            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-                mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("unicodePwd", ("\"" + user.getPassword() + "\"").getBytes("UTF-16LE"))));
-            }
-
-            String dc = getDc(tenant);
-            ldapTemplate.modifyAttributes("cn=" + user.getName() + ",cn=users", mods.toArray(new ModificationItem[0]));
-
-        } catch (UnsupportedEncodingException e) {
+    
+    public void updateUser(Tenant tenant, User user){
+        try{
+        SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
+        List<ModificationItem> mods = new ArrayList<ModificationItem>();
+        mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("sn", user.getSurname())));
+        mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("givenName", user.getGivenName())));
+        mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("department", user.getDept())));
+        if (user.getPassword()!=null && !user.getPassword().isEmpty()){
+            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("unicodePwd", ("\"" + user.getPassword() + "\"").getBytes("UTF-16LE"))));
+        } 
+       
+        String dc = getDc(tenant);
+        ldapTemplate.modifyAttributes("cn="+user.getName()+",cn=users", mods.toArray(new ModificationItem[0]));
+        
+        }
+        catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
-
-    private SpringSecurityLdapTemplate getAdminLdapTemplate() {
+    
+    private SpringSecurityLdapTemplate getAdminLdapTemplate(){
         //TODO:
         return null;
     }
 
     private SpringSecurityLdapTemplate getLdapTemplate(Tenant tenant) {
         try {
-            if (tenant.getAdUrl() == null || tenant.getAdminPassword() == null) return null;
+            if (tenant.getAdUrl()==null || tenant.getAdminPassword()==null) return null;
             String address = getAdUrl(tenant);//cloudDao.getAdUrl(tenant.getId());
             String base = getDc(tenant);
             LdapContextSource lcs = new LdapContextSource();
-
+            
             lcs.setUrl(address);
             lcs.setBase(base);
             lcs.setUserDn("cn=" + ADMIN_ACCOUNT + ",cn=users," + base);
@@ -113,7 +122,7 @@ public class UserService {
     }
 
     private String getAdUrl(Tenant tenant) {
-        return "ldaps://" + tenant.getAdUrl() + ":636";
+        return "ldaps://"+tenant.getAdUrl()+":636";
     }
 
     private String getDc(Tenant tenant) {
@@ -121,7 +130,7 @@ public class UserService {
         String[] dcs = StringUtils.split(domain, '.');
         StringBuilder s = new StringBuilder();
         for (String dc : dcs) {
-            if (s.length() > 0) s.append(',');
+            if (s.length()>0) s.append(',');
             s.append("dc=").append(dc);
         }
         return s.toString();
@@ -141,7 +150,7 @@ public class UserService {
 //        attrs.put(new BasicAttribute("description", "desc"));
             attrs.put(new BasicAttribute("company", tenant.getCompany()));
             attrs.put(new BasicAttribute("department", user.getDept()));
-            attrs.put(new BasicAttribute("displayName", user.getSurname() + user.getGivenName()));
+            attrs.put(new BasicAttribute("displayName", user.getSurname()+user.getGivenName()));
             //Description is used for workflow and other app to identify human users;
             attrs.put(new BasicAttribute("description", USER_TYPE));
             attrs.put(new BasicAttribute("unicodePwd", ("\"" + user.getPassword() + "\"").getBytes("UTF-16LE")));
@@ -183,6 +192,10 @@ public class UserService {
     public User getUser(long id) {
         return cloudDao.get(User.class, id);
     }
+    
+    public void delete(long id) {
+        cloudDao.delete(User.class, id);
+    }
 
     public void delete(long id) {
         cloudDao.delete(User.class, id);
@@ -198,23 +211,22 @@ public class UserService {
         return cloudDao.get(example);
     }
 
-
     private class UserAttributesMapper implements AttributesMapper {
 
         public Object mapFromAttributes(Attributes attrs) throws NamingException {
             User user = new User();
             //user.setId(CommonUtil.getRandom());
-            user.setName((String) attrs.get("sAMAccountName").get());
-            if (attrs.get("givenName") != null) {
-                user.setGivenName((String) attrs.get("givenName").get());
+            user.setName((String)attrs.get("sAMAccountName").get());
+            if (attrs.get("givenName")!=null){
+                user.setGivenName((String)attrs.get("givenName").get());
             }
-            if (attrs.get("sn") != null) {
-                user.setSurname((String) attrs.get("sn").get());
+            if (attrs.get("sn")!=null){
+                user.setSurname((String)attrs.get("sn").get());
             }
-            if (attrs.get("department") != null) {
-                user.setDept((String) attrs.get("department").get());
+            if (attrs.get("department")!=null){
+                user.setDept((String)attrs.get("department").get());
             }
-
+            
             return user;
         }
 
@@ -223,20 +235,20 @@ public class UserService {
     public List<User> getUsers(Tenant tenant) {
         SpringSecurityLdapTemplate ldapTemplate = getLdapTemplate(tenant);
         EqualsFilter filter = new EqualsFilter("objectclass", USER_CLASS);
-        List<User> userList = ldapTemplate.search("CN=Users", filter.toString(), SearchControls.SUBTREE_SCOPE, new UserAttributesMapper());
-        for (User user : userList) {
+        List<User> userList = ldapTemplate.search("CN=Users", filter.toString(),SearchControls.SUBTREE_SCOPE, new UserAttributesMapper());
+        for (User user:userList){
             getIdAndPermission(user, tenant.getId());
         }
         return userList;
-
     }
 
     private void getIdAndPermission(User user, long tenantId) {
         User dbUser = cloudDao.findUserByName(user.getName(), tenantId);
-        if (dbUser == null) {
+        if (dbUser == null){
             user.setTenantId(tenantId);
             cloudDao.save(user);
-        } else {
+        }
+        else{
             user.setId(dbUser.getId());
             user.setTenantId(dbUser.getTenantId());
             //user.setPermission(dbUser.getPermission());
