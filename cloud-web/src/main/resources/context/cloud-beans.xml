@@ -29,8 +29,6 @@
             </props>
         </property>
     </bean>
-    <bean class="com.datayes.cloud.openstack.CloudManager" p:identityServiceUrl="${openstack.identityServerUrl}" p:userName="${openstack.username}"
-          p:password="${openstack.password}"/>
     <bean id="sso" class="com.datayes.paas.sso.AuthFilter" p:authUrl="${cloud.sso.authUrl}" p:consumerUrl="${cloud.sso.consumerUrl}"
           p:ignore="${cloud.sso.ignore}"/>
 </beans>
