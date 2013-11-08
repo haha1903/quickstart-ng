@@ -47,7 +47,7 @@ var UserView = Backbone.View.extend({
             $(this).find('.user-save').bind('click', function() {
                 self.saveUser(modal,self.model);
             });
-            
+            $(this).find('#password').bind('keyup', app.checkPassword);
             $(this).find('form').validate({
         		rules : {
         		    surname : {required : true,
@@ -55,8 +55,7 @@ var UserView = Backbone.View.extend({
         		    password : {required : true,
         		    	      minlength : 6,
         		    	      maxlength : 32},
-        		    passwordConfirm : {required : true,
-        		    			equalTo: "#password"}
+        		    passwordConfirm : {equalTo: "#password"}
         		},
             	messages: {
             		passwordConfirm:{equalTo: '两次输入的密码不一致！'}
@@ -129,34 +128,7 @@ var UsersView = Backbone.View.extend({
             $(this).find('#user-save').bind('click', function() {
                 self.saveUser(modal);
             });
-            $(this).find('#password').bind('keyup', function(){
-            	var ch1=ch2=ch3=0;
-            	var password = this.value;
-            	 for (var i=0;i<password.length;i++)
-            	   {
-            	      var inputType = password.charCodeAt(i);
-            	      if(inputType>=65&&inputType<=90||inputType>=97&&inputType<=122) //输入大写字母或小写字母
-            	      {
-            	         ch1 = 1;
-            	      }
-            	      else if(inputType>=48&&inputType<=57)  //输入为数字
-            	      {
-            	         ch2 = 1;
-            	      }
-            	      else  //输入为其他字符
-            	      {
-            	         ch3=1;
-            	      }
-            	   }
-            	 var strength = ch1+ch2+ch3;
-            	 var middle = modal.find('i.middle');
-            	 var vertnice = modal.find('i.vertnice');
-            	 middle.removeClass('cur');
-            	 vertnice.removeClass('cur');
-            	 if ((password.length>=8 && strength>=2)||(password.length>15)) middle.addClass('cur');
-            	 if (password.length>10 && strength==3) vertnice.addClass('cur');
-            	 
-            });
+            $(this).find('#password').bind('keyup', app.checkPassword);
             $(this).find('form').validate({
         		rules : {
         		    name : {required : true,
