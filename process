@@ -1,0 +1,8 @@
+sed -ig 's/quickstart/\$\{parentArtifactId\}/g' target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/config/init-quickstart.sql
+rm target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/config/init-quickstart.sqlg
+mv target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/config/init-quickstart.sql target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/config/init-__rootArtifactId__.sql
+mv target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/config/quickstart-config.properties target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/config/__rootArtifactId__-config.properties
+mv target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/context/quickstart-beans.xml target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/context/__rootArtifactId__-beans.xml
+mv target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/context/quickstart-web.xml target/generated-sources/archetype/src/main/resources/archetype-resources/__rootArtifactId__-web/src/main/resources/context/__rootArtifactId__-web.xml
+# replace last <fileSet encoding="UTF-8"> use <fileSet filtered="true" encoding="UTF-8">
+emacs target/generated-sources/archetype/src/main/resources/META-INF/maven/archetype-metadata.xml

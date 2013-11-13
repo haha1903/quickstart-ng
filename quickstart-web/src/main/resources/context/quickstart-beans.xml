@@ -7,7 +7,7 @@
     <bean id="initDs" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" p:driverClass="com.mysql.jdbc.Driver" p:username="${quickstart.database.username}"
           p:password="${quickstart.database.password}" p:url="${quickstart.database.base}"/>
     <jdbc:initialize-database data-source="initDs">
-        <jdbc:script location="classpath:context/init-quickstart.sql"/>
+        <jdbc:script location="classpath:config/init-quickstart.sql"/>
     </jdbc:initialize-database>
     <context:component-scan base-package="com.datayes">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
