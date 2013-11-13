@@ -1,6 +1,6 @@
-package com.datayes.cloud.controller;
+package com.datayes.controller;
 
-import com.datayes.cloud.exception.DatayesException;
+import com.datayes.exception.DatayesException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.datayes.cloud.exception;
+package com.datayes.exception;
 
 public class DatayesException extends Exception {
     public DatayesException() {

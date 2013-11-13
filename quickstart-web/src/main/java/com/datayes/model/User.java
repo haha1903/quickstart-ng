@@ -1,4 +1,4 @@
-package com.datayes.cloud.model;
+package com.datayes.model;
 
 import javax.persistence.*;
 

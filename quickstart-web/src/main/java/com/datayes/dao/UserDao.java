@@ -1,6 +1,6 @@
-package com.datayes.cloud.dao;
+package com.datayes.dao;
 
-import com.datayes.cloud.model.User;
+import com.datayes.model.User;
 import org.hibernate.Query;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;

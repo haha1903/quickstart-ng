@@ -1,4 +1,4 @@
-package com.datayes.cloud.dao;
+package com.datayes.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -1,4 +1,4 @@
-package com.datayes.cloud.util;
+package com.datayes.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
