@@ -1,7 +1,0 @@
-#!/bin/bash
-apt-get install -y zabbix-agent
-servername='eye01-dev.datayes.com'
-nodename=`uname -n`
-sed -e '/^[^#]*Server=/d' -e '/^[^#]*Hostname=/d' -e "s/^#.*Server=/Server=$servername/g" -e "s/^#.*Hostname=/Hostname=$nodename/g" /etc/zabbix/zabbix_agentd.conf >/tmp/zabbix_agentd.conf
-cp /tmp/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf
-/etc/init.d/zabbix-agent restart

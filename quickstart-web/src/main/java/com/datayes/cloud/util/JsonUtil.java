@@ -9,12 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-/**
- * User: changhai
- * Date: 13-8-9
- * Time: 下午5:39
- * DataYes
- */
 public class JsonUtil {
     private static final ObjectMapper mapper = new ObjectMapper();
 
