@@ -1,0 +1,25 @@
+@import "../lib/bootstrap/css/bootstrap.css";
+@import "cloud.css";
+
+*, *:before, *:after {
+-moz-box-sizing: content-box;
+box-sizing: content-box;
+}
+
+.modal-dialog {
+    width: 400px;
+}
+
+.model-confirm {
+	width: 300px;
+	margin-top: 15%;
+}
+
+.modal-content {
+	border-radius:0px;
+}
+
+label.control-label {
+    margin-bottom: 0px;
+}
+	
